@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df54e3f-dccc-476c-9cc2-beb201ab6164" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/DS_Proj2/.gitignore" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Main.java" afterPath="$PROJECT_DIR$/src/Client/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" afterPath="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/GsonServant.java" afterPath="$PROJECT_DIR$/src/Server/GsonServant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Server.java" afterPath="$PROJECT_DIR$/src/Server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/UserSysServant.java" afterPath="$PROJECT_DIR$/src/Server/UserSysServant.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,7 +24,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSysServant.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserSysServant.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="247">
@@ -89,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+            <state relative-caret-position="215">
+              <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -123,10 +116,10 @@
         <option value="$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java" />
         <option value="$PROJECT_DIR$/src/Server/UserSysServant.java" />
         <option value="$PROJECT_DIR$/src/Server/test.java" />
-        <option value="$PROJECT_DIR$/src/Client/Main.java" />
         <option value="$PROJECT_DIR$/src/Server/GsonServant.java" />
         <option value="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" />
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
+        <option value="$PROJECT_DIR$/src/Client/Main.java" />
       </list>
     </option>
   </component>
@@ -168,6 +161,12 @@
               <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
               <item name="DS_Proj2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS_Proj2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
@@ -333,12 +332,12 @@
       <updated>1507858079998</updated>
       <workItem from="1507859235649" duration="66000" />
       <workItem from="1507869459888" duration="729000" />
-      <workItem from="1507870253011" duration="3345000" />
+      <workItem from="1507870253011" duration="3989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4140000" />
+    <option name="totallyTimeSpent" value="4784000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -428,14 +427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -481,6 +472,14 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
