@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<?import javafx.scene.control.Button?>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab text="Sign In">
+      <content>
+        <SplitPane orientation="VERTICAL"  dividerPositions="0.6" opacity="0.99" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
+                    <children>
+                        <TextField layoutX="50.0" layoutY="60.0" prefWidth="200" text="Username" />
+                        <TextField layoutX="50.0" layoutY="120.0" prefWidth="200" text="Password" />
+                        <CheckBox layoutX="230.0" layoutY="125.0" mnemonicParsing="false" />
+
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+
+
+                </AnchorPane>
+            </items>
+        </SplitPane>
+      </content>
+    </Tab>
+    <Tab text="Sign Up">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="20.0" layoutY="35.0" text="Username">
+                     <font>
+                        <Font name="Helvetica" size="16.0" />
+                     </font></Label>
+                  <TextField layoutX="100.0" layoutY="32.5" />
+                   <Label layoutX="20.0" layoutY="75.0" text="Password">
+                       <font>
+                           <Font name="Helvetica" size="16.0" />
+                       </font>
+                   </Label>
+                   <TextField layoutX="100.0" layoutY="72.5" />
+                   <Label layoutX="20.0" layoutY="115.0" text="Confirmed">
+                       <font>
+                           <Font name="Helvetica" size="16.0" />
+                       </font>
+                   </Label>
+                   <TextField layoutX="100.0" layoutY="112.5" />
+                   <Label layoutX="20.0" layoutY="155.0" text="E-mail">
+                       <font>
+                           <Font name="Helvetica" size="16.0" />
+                       </font>
+                   </Label>
+                   <TextField layoutX="100.0" layoutY="152.5" />
+                   <Button layoutX="50.0" layoutY="250" prefWidth="75" text="Submit">
+                       <font>
+                           <Font name="Helvetica" size="16" />
+                       </font>
+                   </Button>
+                   <Button layoutX="175" layoutY="250" prefWidth="75" text="Cancel">
+                       <font>
+                           <Font name="Helvetica" size="16" />
+                       </font>
+                   </Button>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

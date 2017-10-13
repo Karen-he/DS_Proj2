@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
+    <right>
+
+
+
+    </right>
+   <center>
+       <Pane fx:id="newPane" style="-fx-background-color: gray">
+           <children>
+                   <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: white">
+                       <children>
+                           <Canvas fx:id="canvas" height="600" style="-fx-background-color: white" width="800" BorderPane.alignment="CENTER_RIGHT" />
+                           <Canvas fx:id="pathCanvas" height="600" style="-fx-background-color: white" width="800" BorderPane.alignment="CENTER_RIGHT" />
+                       </children>
+                   </Pane>
+           </children>
+       </Pane>
+   </center>
+   <top>
+      <VBox prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="70">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem fx:id="menuNew" mnemonicParsing="false" onAction="#onNew" text="New" />
+                        <MenuItem fx:id="menuOpen" mnemonicParsing="false" onAction="#onOpen" text="Open" />
+                        <MenuItem fx:id="menuSave" mnemonicParsing="false" onAction="#onSave" text="Save" />
+                        <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" onAction="#onSaveAs" text="Save as" />
+                        <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="40.0" prefWidth="330.0" style="-fx-background-color: lightgray">
+               <items>
+                  <HBox prefHeight="30.0" prefWidth="450.0" spacing="5.0">
+                     <children>
+                         <ColorPicker fx:id="colorPicker" prefWidth="50" />
+                        <Slider fx:id="slider" majorTickUnit="10" max="50" min="1" prefHeight="30.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" />
+                         <Label fx:id="sliderSize" prefHeight="30" prefWidth="50" text="1.0" />
+                     </children>
+                  </HBox>
+
+               </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <ToolBar orientation="VERTICAL" prefHeight="330.0" prefWidth="80.0" style="-fx-background-color: transparent" BorderPane.alignment="CENTER">
+        <items>
+            <ImageView visible="true" fx:id="imageView" fitHeight="60.0" fitWidth="60.0" >
+                
+            </ImageView>
+            <RadioButton fx:id="sketch"  onAction="#sketch" prefHeight="30.0" prefWidth="70.0" text="Sketch">
+                <font>
+                    <Font name="System Bold" size="13.0" />
+                </font>
+            </RadioButton>
+            <RadioButton fx:id="eraser"  onAction="#erase" prefHeight="30.0" prefWidth="70.0" text="Erase">
+                <font>
+                    <Font name="System Bold" size="13.0" />
+                </font>
+            </RadioButton>
+          <RadioButton fx:id="line"   onAction="#lineDraw" prefHeight="30.0" prefWidth="70.0" text="Line">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="circle"   onAction="#cirDraw" prefHeight="30.0" prefWidth="70.0" text="Circle">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rect"   onAction="#rectDraw" prefHeight="30.0" prefWidth="70.0" text="Rect">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="oval"   onAction="#ovalDraw" prefHeight="30.0" prefWidth="70.0" text="Oval">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="text"  onAction="#textInput" prefHeight="30.0" prefWidth="70.0" text="Text">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+
+            </RadioButton>
+        </items>
+      </ToolBar>
+   </left>
+   <right>
+      <BorderPane prefHeight="700.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+          <bottom>
+              <VBox spacing="10" BorderPane.alignment="CENTER">
+                  <children>
+                      <TextArea fx:id="input" prefHeight="90.0" prefWidth="200.0" />
+                      <Button mnemonicParsing="false" onAction="#send" text="Send" />
+                  </children>
+              </VBox>
+
+         </bottom>
+         <center>
+            <Pane prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextArea fx:id="textMessage" editable="false" prefHeight="600.0" prefWidth="200.0" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </right>
+</BorderPane>
