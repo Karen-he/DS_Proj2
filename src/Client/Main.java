@@ -39,7 +39,7 @@ public class Main extends Application {
             Thread thread1 = new Thread(client);
             thread1.start();
 
-            Thread thread2
+            //Thread thread2
 
             WBController.setServant(gsonServant);
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public interface ServerInterface extends Remote{
-    String sendGson(String keyword, String content) throws RemoteException;
+    String sendGson(ArrayList<String> keywords, ArrayList<String> contents) throws RemoteException;
     Hashtable receiveGson()throws RemoteException;
     String sendMessage(String userName, String chatContent) throws RemoteException;
     String receiveMessage() throws RemoteException;

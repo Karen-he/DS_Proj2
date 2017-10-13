@@ -1,5 +1,8 @@
 package Server;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.io.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -10,12 +13,13 @@ import java.util.Set;
 public class Server {
     private Hashtable<Integer, String> userPassword;
     private Hashtable<Integer, User> userData;
+    private int numUser;
 
-    /*
-    public Server(Hashtable<Integer, String> userPassword, Hashtable<Integer, User> userData) {
-        this.userPassword = userPassword;
-        this.userData = userData;
-    }*/
+    public Server() {
+        this.numUser = 0;
+        this.userData = new Hashtable<Integer, User>();
+        this.userPassword = new Hashtable<>();
+    }
 
     public static void main(String[] args){
         try {
@@ -39,12 +43,9 @@ public class Server {
             registry.bind("userSystem", userSysServant);
 
             System.out.println("ServerInterface ready");
-            Scanner keybord = new Scanner(System.in);
-
-            //user system thread
-
-
-
+            //gson
+            Gson gson = new Gson();
+            JsonObject jsonObject = new JsonObject();
             //keep listening
             boolean run = true;
             Hashtable commands;
@@ -52,11 +53,23 @@ public class Server {
                 //receive commands
                 commands = gsonServant.receiveGson();
                 Set keywords = commands.keySet();
-                for(Object i: keywords){
-                    String command = commands.get(i).toString();
-                    if(i.equals("userName")){
-
+                if(keywords.contains("registerUser")){
+                    User newUser = gson.fromJson(jsonObject.get("registerUser").getAsString(), User.class);
+                    String password = commands.get("password").toString();
+                    mainserver.addInUser(newUser.getUsername(), password);
+                }
+                if(keywords.contains("checkPassword")){
+                    String username = commands.get("checkPassword").toString();
+                    Set<Integer> userIDs = mainserver.userData.keySet();
+                    String actualPassword = "";
+                    String password = commands.get("password").toString();
+                    for(Integer i: userIDs){
+                        if(mainserver.userData.get(i).equals(username)){
+                            actualPassword = mainserver.userPassword.get(i);
+                        }
                     }
+                    boolean validPassword = actualPassword.equals(password);
+                    userSysServant.sendBack(validPassword);
                 }
                 //receive from WB
                 String[] whiteboard = gsonServant.receivePaints();
@@ -68,15 +81,6 @@ public class Server {
                     System.out.println("the string array received in server: "+ whiteboard[0]
                             + " ### " + whiteboard[1]);
                 }
-                /*
-                String temp = keybord.nextLine();
-                System.out.println("input from keyboard: "+temp);
-                if(temp.equals("exit")){
-                    run = false;
-                }else{
-                    String output = gsonServant.sendGson(temp);
-                    System.out.println("output: "+output);
-                }*/
             }
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
@@ -97,12 +101,12 @@ public class Server {
                 String[] info = user.split(",");
                 int userID = Integer.parseInt(info[0]);
                 String username = info[1];
-                String email = info[2];
-                boolean managerTag = Boolean.parseBoolean(info[3]);
-                User currentUser = new User(username, userID, email, managerTag);
+                boolean managerTag = Boolean.parseBoolean(info[2]);
+                User currentUser = new User(username, userID, managerTag);
                 userData.put(userID, currentUser);
             } else{ break; }
         }
+        numUser = userData.size();
     }
 
     private void readInPassword(String filename, Hashtable userPassword) throws IOException{
@@ -137,5 +141,14 @@ public class Server {
         }
         outputp.flush();
         outputp.close();
+    }
+
+    //add user in the server
+    private void addInUser(String username, String password){
+        User currentUser = new User(username);
+        currentUser.setUserID(this.numUser);
+        this.userData.put(currentUser.getUserID(), currentUser);
+        this.userPassword.put(currentUser.getUserID(), password);
+        this.numUser++;
     }
 }

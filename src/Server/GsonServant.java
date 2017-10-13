@@ -25,8 +25,16 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
     @Override
-    public String sendGson(String keyword, String content) throws RemoteException{
-        jsonObject.addProperty(keyword, content);
+    public String sendGson(ArrayList<String> keywords, ArrayList<String> contents) throws RemoteException{
+        int k = keywords.size();
+        int c = contents.size();
+        if(k == c){
+            for(int i = 0; i < k;i++){
+                jsonObject.addProperty(keywords.get(i), contents.get(i));
+            }
+        }else{
+            System.out.println("num of keywords does not match contents");
+        }
         jsonpack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant"+jsonpack);
         //i++;
