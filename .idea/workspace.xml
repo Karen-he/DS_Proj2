@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="befe439d-8939-4824-91ef-51d35ef7e1e0" name="Default" comment="" />
+=======
     <list default="true" id="5df54e3f-dccc-476c-9cc2-beb201ab6164" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Main.java" afterPath="$PROJECT_DIR$/src/Client/Main.java" />
@@ -12,6 +15,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/User.java" afterPath="$PROJECT_DIR$/src/Server/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/UserSysServant.java" afterPath="$PROJECT_DIR$/src/Server/UserSysServant.java" />
     </list>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,10 +25,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="42" column="45" lean-forward="true" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="455">
               <caret line="71" column="59" lean-forward="false" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
               <folding>
@@ -44,21 +57,47 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
               <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+=======
+            <state relative-caret-position="207">
+              <caret line="56" column="41" lean-forward="false" selection-start-line="56" selection-start-column="41" selection-end-line="56" selection-end-column="41" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="ChatServant.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/ChatServant.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-213">
               <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
+=======
+<<<<<<< HEAD
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2010">
+              <caret line="145" column="24" lean-forward="true" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
+              <folding />
+=======
+      <file leaf-file-name="UserSysServant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/User.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -75,10 +114,36 @@
             <state relative-caret-position="152">
               <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="53" />
               <folding />
+=======
+<<<<<<< HEAD
+      <file leaf-file-name="GsonServant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+=======
+      <file leaf-file-name="UserSysInterface.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding />
+=======
       <file leaf-file-name="ServerInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -97,15 +162,32 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="UserSysServant.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
               <caret line="26" column="12" lean-forward="true" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+=======
+<<<<<<< HEAD
+      <file leaf-file-name="ClientServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ClientServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+=======
+      <file leaf-file-name="GsonServant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,8 +195,20 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="UserSysInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java">
+=======
+<<<<<<< HEAD
+      <file leaf-file-name="ServerInterface.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+=======
+      <file leaf-file-name="test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/test.java">
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="95">
               <caret line="6" column="10" lean-forward="false" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
@@ -126,8 +220,14 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="260">
               <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+=======
+            <state relative-caret-position="215">
+              <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
               <folding />
             </state>
           </provider>
@@ -138,19 +238,28 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
+=======
         <option value="Interface" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
         <option value="Class" />
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="FindInProjectRecents">
     <findStrings>
       <find>toString</find>
     </findStrings>
   </component>
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -159,6 +268,21 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/src/RMIInterfaces/ClientServer.java" />
+        <option value="$PROJECT_DIR$/src/Server/p2pServer.java" />
+        <option value="$PROJECT_DIR$/src/Client/Peer.java" />
+        <option value="$PROJECT_DIR$/src/Server/GsonServant.java" />
+        <option value="$PROJECT_DIR$/src/Client/Main.java" />
+        <option value="$PROJECT_DIR$/src/Server/Server.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1170" />
+    <option name="height" value="877" />
+=======
         <option value="$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java" />
         <option value="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" />
         <option value="$PROJECT_DIR$/src/Server/GsonServant.java" />
@@ -182,6 +306,7 @@
     <option name="y" value="26" />
     <option name="width" value="1280" />
     <option name="height" value="796" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -215,6 +340,15 @@
               <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
               <item name="DS_Proj2" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
+              <item name="ChatBox" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DS_Proj2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
               <item name="Client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -229,14 +363,34 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
             </path>
+<<<<<<< HEAD
+=======
             <path>
               <item name="DS_Proj2" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+=======
+      <pane id="PackagesPane" />
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
       <pane id="Scratches" />
       <pane id="AndroidView" />
       <pane id="Scope" />
@@ -247,6 +401,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunDashboard">
@@ -261,7 +416,49 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="Client.Main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="DS_Proj2" />
+      <envs />
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="Server.Server" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="DS_Proj2" />
+      <envs />
+    </configuration>
+=======
   <component name="RunManager" selected="Application.test">
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -343,6 +540,16 @@
       <properties />
       <listeners />
     </configuration>
+<<<<<<< HEAD
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Application.Server" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Server" />
+=======
     <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -365,6 +572,7 @@
     <recent_temporary>
       <list size="1">
         <item index="0" class="java.lang.String" itemvalue="Application.test" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
       </list>
     </recent_temporary>
   </component>
@@ -373,6 +581,15 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
+      <changelist id="befe439d-8939-4824-91ef-51d35ef7e1e0" name="Default" comment="" />
+      <created>1507858245757</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1507858245757</updated>
+      <workItem from="1507858247129" duration="83000" />
+      <workItem from="1507859644286" duration="5300000" />
+=======
       <changelist id="5df54e3f-dccc-476c-9cc2-beb201ab6164" name="Default" comment="" />
       <created>1507858079998</created>
       <option name="number" value="Default" />
@@ -381,12 +598,41 @@
       <workItem from="1507859235649" duration="66000" />
       <workItem from="1507869459888" duration="729000" />
       <workItem from="1507870253011" duration="3989000" />
+<<<<<<< HEAD
       <workItem from="1507885460831" duration="9347000" />
+=======
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="14131000" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="5383000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1170" height="877" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24777976" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24955595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24955595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+    <option name="totallyTimeSpent" value="4784000" />
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -411,11 +657,19 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+=======
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -424,16 +678,34 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
+<<<<<<< HEAD
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Server/p2pServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+=======
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
@@ -448,6 +720,30 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/test.java">
+=======
+        <state relative-caret-position="570">
+          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/Client/Peer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="27" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/rt.jar!/javax/net/ServerSocketFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
@@ -478,6 +774,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+<<<<<<< HEAD
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#readInUsers#0;class#Server#0" expanded="false" />
@@ -493,26 +790,58 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="615" column="22" lean-forward="false" selection-start-line="615" selection-start-column="22" selection-end-line="615" selection-end-column="22" />
+=======
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="10" column="74" lean-forward="false" selection-start-line="10" selection-start-column="74" selection-end-line="10" selection-end-column="74" />
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="42" column="45" lean-forward="true" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="56" column="41" lean-forward="false" selection-start-line="56" selection-start-column="41" selection-end-line="56" selection-end-column="41" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Server/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
           <caret line="49" column="20" lean-forward="true" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Server/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -522,6 +851,40 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ClientServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/Server/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java">
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
@@ -541,6 +904,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="152">
           <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="53" />
           <folding />
@@ -551,13 +915,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="26" column="12" lean-forward="true" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+=======
+        <state relative-caret-position="0">
+          <caret line="0" column="22" lean-forward="false" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2010">
+          <caret line="145" column="24" lean-forward="true" selection-start-line="145" selection-start-column="24" selection-end-line="145" selection-end-column="24" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
           <caret line="71" column="59" lean-forward="false" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
@@ -582,8 +961,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/ChatServant.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-213">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+=======
+        <state relative-caret-position="215">
+          <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
           <folding />
         </state>
       </provider>

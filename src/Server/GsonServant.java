@@ -88,7 +88,8 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             whiteboard[1] = attribute;
             System.out.println("the string array is " + whiteboard[0]
                     + " ### " + whiteboard[1]);
-        }
+        } else{ whiteboard = null;}
+
         return whiteboard;
     }
     public String sendError(String errorType) throws RemoteException{
