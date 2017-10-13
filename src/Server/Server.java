@@ -1,6 +1,12 @@
 package Server;
 
+import javax.net.ServerSocketFactory;
 import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.rmi.AccessException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Hashtable;
@@ -10,6 +16,8 @@ import java.util.Set;
 public class Server {
     private Hashtable<Integer, String> userPassword;
     private Hashtable<Integer, User> userData;
+    private static int port = 3000;
+    private static int counter = 0;
 
     /*
     public Server(Hashtable<Integer, String> userPassword, Hashtable<Integer, User> userData) {
@@ -19,6 +27,7 @@ public class Server {
 
     public static void main(String[] args){
         try {
+
             Server mainserver = new Server();
             //read in users
             mainserver.readInUsers("users.txt", mainserver.userData);
@@ -37,19 +46,24 @@ public class Server {
             registry.bind("Chatbox", chatServant);
 
             System.out.println("ServerInterface ready");
-            Scanner keybord = new Scanner(System.in);
-            //keep listening
-            boolean run = true;
-            while(run){
-                String[] whiteboard = gsonServant.receivePaints();
-                String wb0 = whiteboard[0];
-                String wb1 = whiteboard[1];
-                if(wb0.equals("")||wb1.equals("")){
-                    System.out.println("empty jsonPack");
-                }else{
-                    System.out.println("the string array received in server: "+ whiteboard[0]
-                            + " ### " + whiteboard[1]);
-                }
+            System.out.println("Waiting for client connection..");
+
+
+
+                Scanner keybord = new Scanner(System.in);
+                //keep listening
+                boolean run = true;
+                while (run) {
+                    if (gsonServant.receivePaints() != null){
+                    String[] whiteboard = gsonServant.receivePaints();
+                    String wb0 = whiteboard[0];
+                    String wb1 = whiteboard[1];
+                    if (wb0.equals("") || wb1.equals("")) {
+                        System.out.println("empty jsonPack");
+                    } else {
+                        System.out.println("the string array received in server: " + whiteboard[0]
+                                + " ### " + whiteboard[1]);
+                    }
                 /*
                 String temp = keybord.nextLine();
                 System.out.println("input from keyboard: "+temp);
@@ -59,17 +73,29 @@ public class Server {
                     String output = gsonServant.sendGson(temp);
                     System.out.println("output: "+output);
                 }*/
-            }
-            //The server will continue running as long as there are remote objects exported into
-            //the RMI runtime, to remove remote objects from the
-            //RMI runtime so that they can no longer accept RMI calls you can use:
-            // UnicastRemoteObject.unexportObject(remoteMath, false);
-            //write out users
-            mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
+                }
+                }
+                //The server will continue running as long as there are remote objects exported into
+                //the RMI runtime, to remove remote objects from the
+                //RMI runtime so that they can no longer accept RMI calls you can use:
+                // UnicastRemoteObject.unexportObject(remoteMath, false);
+                //write out users
+                mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
+        } catch (AlreadyBoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (AccessException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void readInUsers (String filename, Hashtable userData) throws IOException{
         BufferedReader input = new BufferedReader(new FileReader(filename));
