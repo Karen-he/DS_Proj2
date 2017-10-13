@@ -39,13 +39,16 @@ public class Server {
             //is done automatically when the object is initialized.
             GsonServant gsonServant = new GsonServant();
             ChatServant chatServant = new ChatServant();
+            UserSysServant userSysServant = new UserSysServant();
 
             //Publish the remote object's stub in the registry under the name "Compute"
             Registry registry = LocateRegistry.createRegistry(2020);
             registry.bind("Gson", gsonServant);
             registry.bind("Chatbox", chatServant);
+            registry.bind("userSystem", userSysServant);
 
             System.out.println("ServerInterface ready");
+<<<<<<< HEAD
             System.out.println("Waiting for client connection..");
 
 
@@ -64,6 +67,37 @@ public class Server {
                         System.out.println("the string array received in server: " + whiteboard[0]
                                 + " ### " + whiteboard[1]);
                     }
+=======
+            Scanner keybord = new Scanner(System.in);
+
+            //user system thread
+
+
+
+            //keep listening
+            boolean run = true;
+            Hashtable commands;
+            while(run){
+                //receive commands
+                commands = gsonServant.receiveGson();
+                Set keywords = commands.keySet();
+                for(Object i: keywords){
+                    String command = commands.get(i).toString();
+                    if(i.equals("userName")){
+
+                    }
+                }
+                //receive from WB
+                String[] whiteboard = gsonServant.receivePaints();
+                String wb0 = whiteboard[0];
+                String wb1 = whiteboard[1];
+                if(wb0.equals("")||wb1.equals("")){
+                    System.out.println("empty jsonPack");
+                }else{
+                    System.out.println("the string array received in server: "+ whiteboard[0]
+                            + " ### " + whiteboard[1]);
+                }
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
                 /*
                 String temp = keybord.nextLine();
                 System.out.println("input from keyboard: "+temp);

@@ -7,10 +7,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class GsonServant extends UnicastRemoteObject implements ServerInterface {
     private Gson gson = new Gson();
@@ -34,19 +35,22 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
     @Override
-    public String receiveGson() throws RemoteException{
+    public Hashtable receiveGson() throws RemoteException{
         boolean empty = jsonpack.isEmpty();
-        String command = "";
+        Hashtable commands = new Hashtable();
         if(empty == false){
             System.out.println(jsonpack);
             JsonElement jsonElement = new JsonParser().parse(jsonpack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("keyboard").getAsString();
+            Set<String> keywords = jsonObject.keySet();
+            for(String i : keywords){
+                commands.put(i,jsonObject.get(i).getAsString());
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
         }
-        return command;
+        return commands;
 
     }
 
