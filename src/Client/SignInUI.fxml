@@ -8,10 +8,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.SignInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.SignInController">
    <children>
-      <Button  onAction="#singUp" contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Sign Up">
+      <Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#singUp" style="-fx-background-color: transparent;" text="Sign Up">
          <font>
             <Font name="Chalkboard Bold" size="17.0" />
          </font>
@@ -30,15 +29,15 @@
       <Line endX="100.0" layoutX="235.0" layoutY="165.0" startX="-100.0" />
       <ImageView fx:id="userPhoto" fitHeight="35.0" fitWidth="35.0" layoutX="85.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/user.png" />
+            <Image url="@../user.png" />
          </image>
       </ImageView>
       <ImageView fx:id="passwordPhoto" fitHeight="40.0" fitWidth="40.0" layoutX="83.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/password.png" />
+            <Image url="@../password.png" />
          </image>
       </ImageView>
-      <Button  onAction="#signIn" layoutX="256.0" layoutY="196.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">
+      <Button layoutX="256.0" layoutY="196.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">
          <font>
             <Font name="Chalkboard SE Regular" size="18.0" />
          </font>
