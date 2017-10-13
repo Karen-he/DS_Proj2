@@ -35,11 +35,13 @@ public class Main extends Application {
 /***
  * Thread
  */
-        Runnable client = new ChatClient("Username", chatServant, gsonServant);
-        Thread thread1 = new Thread(client);
-        thread1.start();
+            Runnable client = new ChatClient("Username", chatServant, gsonServant);
+            Thread thread1 = new Thread(client);
+            thread1.start();
 
-        WBController.setServant(gsonServant);
+            Thread thread2
+
+            WBController.setServant(gsonServant);
 
             window = primaryStage;
             window.setTitle("WhiteBoard");
