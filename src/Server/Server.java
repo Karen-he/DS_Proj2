@@ -58,17 +58,14 @@ public class Server {
             registry.bind("userSystem", userSysServant);
 
             System.out.println("ServerInterface ready");
-<<<<<<< HEAD
+
             System.out.println("Waiting for client connection..");
 
 
-=======
-<<<<<<< HEAD
             //gson
             Gson gson = new Gson();
             JsonObject jsonObject = new JsonObject();
-=======
-<<<<<<< HEAD
+
             System.out.println("Waiting for client connection..");
 
 
@@ -87,15 +84,13 @@ public class Server {
                         System.out.println("the string array received in server: " + whiteboard[0]
                                 + " ### " + whiteboard[1]);
                     }
-=======
+
             Scanner keybord = new Scanner(System.in);
 
             //user system thread
 
 
-
->>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
->>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
+                        
             //keep listening
             boolean run = true;
             Hashtable commands;
