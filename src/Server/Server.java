@@ -1,12 +1,12 @@
 package Server;
 
-<<<<<<< HEAD
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-=======
+
 import javax.net.ServerSocketFactory;
->>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,12 +22,12 @@ import java.util.Set;
 public class Server {
     private Hashtable<Integer, String> userPassword;
     private Hashtable<Integer, User> userData;
-<<<<<<< HEAD
+
     private int numUser;
-=======
+
     private static int port = 3000;
     private static int counter = 0;
->>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
+
 
     public Server() {
         this.numUser = 0;
