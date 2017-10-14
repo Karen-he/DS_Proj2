@@ -40,17 +40,11 @@ public class Main extends Application {
         Thread thread1 = new Thread(client);
         thread1.start();
 
-            // username get from the name after logging in
-        /***
-         * Thread
-         */
-
-<<<<<<< HEAD
-=======
-            //Thread thread2
->>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
+// username get from the name after logging in
 
         WBController.setServant(gsonServant);
+        Thread thread2 = new Thread((Runnable) WBController);
+        thread2.start();
 
         window = primaryStage;
         window.setTitle("WhiteBoard");
