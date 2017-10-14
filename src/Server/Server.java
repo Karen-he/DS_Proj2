@@ -85,7 +85,6 @@ public class Server {
                     }
                 }
             }
-            Scanner keybord = new Scanner(System.in);
 
             //user system thread
             //keep listening
@@ -125,10 +124,7 @@ public class Server {
                             System.out.println("the string array received in server: " + whiteboard[0]
                                     + " ### " + whiteboard[1]);
                         }
-
                     }
-
-
                 }
             }
             //The server will continue running as long as there are remote objects exported into
