@@ -150,33 +150,8 @@ public class Server {
                     String output = gsonServant.sendGson(temp);
                     System.out.println("output: "+output);
                 }*/
-            //The server will continue running as long as there are remote objects exported into
-            //the RMI runtime, to remove remote objects from the
-            //RMI runtime so that they can no longer accept RMI calls you can use:
-            // UnicastRemoteObject.unexportObject(remoteMath, false);
-            //write out users
-            mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
 
 
-            } catch(RemoteException e){
-                e.printStackTrace();
-            } catch(AlreadyBoundException e){
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-=======
-                }
-                }
-                //The server will continue running as long as there are remote objects exported into
-                //the RMI runtime, to remove remote objects from the
-                //RMI runtime so that they can no longer accept RMI calls you can use:
-                // UnicastRemoteObject.unexportObject(remoteMath, false);
-                //write out users
                 mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
         } catch (AlreadyBoundException e) {
             e.printStackTrace();
@@ -188,11 +163,10 @@ public class Server {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
->>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
         } catch (Exception e) {
             e.printStackTrace();
         }
->>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
+
     }
 
     private void readInUsers(String filename, Hashtable userData) throws IOException {
