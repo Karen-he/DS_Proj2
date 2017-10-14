@@ -90,7 +90,7 @@ public class Server {
             //user system thread
 
 
-                        
+
             //keep listening
             boolean run = true;
             Hashtable commands;
@@ -98,12 +98,9 @@ public class Server {
                 //receive commands
                 commands = gsonServant.receiveGson();
                 Set keywords = commands.keySet();
-<<<<<<< HEAD
                 for (Object i : keywords) {
                     String command = commands.get(i).toString();
                     if (i.equals("userName")) {
-
-=======
                 if(keywords.contains("registerUser")){
                     User newUser = gson.fromJson(jsonObject.get("registerUser").getAsString(), User.class);
                     String password = commands.get("password").toString();
@@ -118,7 +115,6 @@ public class Server {
                         if(mainserver.userData.get(i).equals(username)){
                             actualPassword = mainserver.userPassword.get(i);
                         }
->>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
                     }
                     boolean validPassword = actualPassword.equals(password);
                     userSysServant.sendBack(validPassword);
@@ -133,11 +129,10 @@ public class Server {
                     System.out.println("the string array received in server: " + whiteboard[0]
                             + " ### " + whiteboard[1]);
                 }
-<<<<<<< HEAD
+
             }
 
-=======
-<<<<<<< HEAD
+
             }
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
@@ -145,9 +140,7 @@ public class Server {
             // UnicastRemoteObject.unexportObject(remoteMath, false);
             //write out users
             mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
-=======
->>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
->>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
+
                 /*
                 String temp = keybord.nextLine();
                 System.out.println("input from keyboard: "+temp);
@@ -157,7 +150,6 @@ public class Server {
                     String output = gsonServant.sendGson(temp);
                     System.out.println("output: "+output);
                 }*/
-<<<<<<< HEAD
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
             //RMI runtime so that they can no longer accept RMI calls you can use:
