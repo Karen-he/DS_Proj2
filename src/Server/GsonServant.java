@@ -130,8 +130,12 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
     public ArrayList receiveClientList() throws RemoteException{
-        JsonElement jsonElement = new JsonParser().parse(jsonpack);
-        ArrayList<ChatClient> clientArrayList = gson.fromJson(jsonElement, ArrayList.class);
+        boolean empty = jsonpack.isEmpty();
+        ArrayList<ChatClient> clientArrayList = null;
+        if(empty == false){
+            JsonElement jsonElement = new JsonParser().parse(jsonpack);
+            clientArrayList = gson.fromJson(jsonElement, ArrayList.class);
+        }
         return clientArrayList;
     }
 }

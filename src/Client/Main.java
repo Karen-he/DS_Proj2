@@ -43,8 +43,7 @@ public class Main extends Application {
 // username get from the name after logging in
 
         WBController.setServant(gsonServant);
-        Thread thread2 = new Thread((Runnable) WBController);
-        thread2.start();
+        WBController.run();
 
         window = primaryStage;
         window.setTitle("WhiteBoard");
