@@ -25,7 +25,7 @@ public class Server {
         this.userData = userData;
     }*/
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
 
             Server mainserver = new Server();
@@ -48,42 +48,19 @@ public class Server {
             registry.bind("userSystem", userSysServant);
 
             System.out.println("ServerInterface ready");
-<<<<<<< HEAD
             System.out.println("Waiting for client connection..");
-
-
-
-                Scanner keybord = new Scanner(System.in);
-                //keep listening
-                boolean run = true;
-                while (run) {
-                    if (gsonServant.receivePaints() != null){
-                    String[] whiteboard = gsonServant.receivePaints();
-                    String wb0 = whiteboard[0];
-                    String wb1 = whiteboard[1];
-                    if (wb0.equals("") || wb1.equals("")) {
-                        System.out.println("empty jsonPack");
-                    } else {
-                        System.out.println("the string array received in server: " + whiteboard[0]
-                                + " ### " + whiteboard[1]);
-                    }
-=======
-            Scanner keybord = new Scanner(System.in);
-
-            //user system thread
-
 
 
             //keep listening
             boolean run = true;
             Hashtable commands;
-            while(run){
+            while (run) {
                 //receive commands
                 commands = gsonServant.receiveGson();
                 Set keywords = commands.keySet();
-                for(Object i: keywords){
+                for (Object i : keywords) {
                     String command = commands.get(i).toString();
-                    if(i.equals("userName")){
+                    if (i.equals("userName")) {
 
                     }
                 }
@@ -91,13 +68,14 @@ public class Server {
                 String[] whiteboard = gsonServant.receivePaints();
                 String wb0 = whiteboard[0];
                 String wb1 = whiteboard[1];
-                if(wb0.equals("")||wb1.equals("")){
+                if (wb0.equals("") || wb1.equals("")) {
                     System.out.println("empty jsonPack");
-                }else{
-                    System.out.println("the string array received in server: "+ whiteboard[0]
+                } else {
+                    System.out.println("the string array received in server: " + whiteboard[0]
                             + " ### " + whiteboard[1]);
                 }
->>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+            }
+
                 /*
                 String temp = keybord.nextLine();
                 System.out.println("input from keyboard: "+temp);
@@ -107,35 +85,32 @@ public class Server {
                     String output = gsonServant.sendGson(temp);
                     System.out.println("output: "+output);
                 }*/
-                }
-                }
-                //The server will continue running as long as there are remote objects exported into
-                //the RMI runtime, to remove remote objects from the
-                //RMI runtime so that they can no longer accept RMI calls you can use:
-                // UnicastRemoteObject.unexportObject(remoteMath, false);
-                //write out users
-                mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
-        } catch (AlreadyBoundException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (AccessException e) {
-            e.printStackTrace();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            //The server will continue running as long as there are remote objects exported into
+            //the RMI runtime, to remove remote objects from the
+            //RMI runtime so that they can no longer accept RMI calls you can use:
+            // UnicastRemoteObject.unexportObject(remoteMath, false);
+            //write out users
+            mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
+
+
+            } catch(RemoteException e){
+                e.printStackTrace();
+            } catch(AlreadyBoundException e){
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
-
-    private void readInUsers (String filename, Hashtable userData) throws IOException{
+    private void readInUsers(String filename, Hashtable userData) throws IOException {
         BufferedReader input = new BufferedReader(new FileReader(filename));
-        while(true){
+        while (true) {
             String user = input.readLine();
-            if(user!=null){
+            if (user != null) {
                 String[] info = user.split(",");
                 int userID = Integer.parseInt(info[0]);
                 String username = info[1];
@@ -143,7 +118,9 @@ public class Server {
                 boolean managerTag = Boolean.parseBoolean(info[3]);
                 User currentUser = new User(username, userID, email, managerTag);
                 userData.put(userID, currentUser);
-            } else{ break; }
+            } else {
+                break;
+            }
         }
     }
 

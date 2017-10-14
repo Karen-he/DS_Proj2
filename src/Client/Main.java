@@ -36,23 +36,17 @@ public class Main extends Application {
 
         // username get from the name after logging in
 
-<<<<<<< HEAD
         Runnable client = new ChatClient("Username", chatServant, gsonServant);
         Thread thread1 = new Thread(client);
         thread1.start();
-=======
+
             // username get from the name after logging in
-/***
- * Thread
- */
-            Runnable client = new ChatClient("Username", chatServant, gsonServant);
-            Thread thread1 = new Thread(client);
-            thread1.start();
->>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+        /***
+         * Thread
+         */
 
-            Thread thread2
 
-            WBController.setServant(gsonServant);
+        WBController.setServant(gsonServant);
 
         window = primaryStage;
         window.setTitle("WhiteBoard");

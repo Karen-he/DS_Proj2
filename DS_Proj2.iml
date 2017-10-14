@@ -7,17 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< HEAD
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../OneDrive - The University of Melbourne/Semester 2/Distributed System/DS Assignment 1/Provided Package/gson-2.3.1.jar!/" />
-=======
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/gson/gson/target/gson-2.8.3-SNAPSHOT.jar!/" />
->>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+          <root url="jar://$USER_HOME$/Desktop/DS Group Project/gson-2.8.3-SNAPSHOT.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
