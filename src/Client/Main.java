@@ -45,6 +45,10 @@ public class Main extends Application {
          * Thread
          */
 
+<<<<<<< HEAD
+=======
+            //Thread thread2
+>>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
 
         WBController.setServant(gsonServant);
 

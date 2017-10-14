@@ -1,6 +1,12 @@
 package Server;
 
+<<<<<<< HEAD
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+=======
 import javax.net.ServerSocketFactory;
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,14 +22,18 @@ import java.util.Set;
 public class Server {
     private Hashtable<Integer, String> userPassword;
     private Hashtable<Integer, User> userData;
+<<<<<<< HEAD
+    private int numUser;
+=======
     private static int port = 3000;
     private static int counter = 0;
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
 
-    /*
-    public Server(Hashtable<Integer, String> userPassword, Hashtable<Integer, User> userData) {
-        this.userPassword = userPassword;
-        this.userData = userData;
-    }*/
+    public Server() {
+        this.numUser = 0;
+        this.userData = new Hashtable<Integer, User>();
+        this.userPassword = new Hashtable<>();
+    }
 
     public static void main(String[] args) {
         try {
@@ -48,9 +58,44 @@ public class Server {
             registry.bind("userSystem", userSysServant);
 
             System.out.println("ServerInterface ready");
+<<<<<<< HEAD
             System.out.println("Waiting for client connection..");
 
 
+=======
+<<<<<<< HEAD
+            //gson
+            Gson gson = new Gson();
+            JsonObject jsonObject = new JsonObject();
+=======
+<<<<<<< HEAD
+            System.out.println("Waiting for client connection..");
+
+
+
+                Scanner keybord = new Scanner(System.in);
+                //keep listening
+                boolean run = true;
+                while (run) {
+                    if (gsonServant.receivePaints() != null){
+                    String[] whiteboard = gsonServant.receivePaints();
+                    String wb0 = whiteboard[0];
+                    String wb1 = whiteboard[1];
+                    if (wb0.equals("") || wb1.equals("")) {
+                        System.out.println("empty jsonPack");
+                    } else {
+                        System.out.println("the string array received in server: " + whiteboard[0]
+                                + " ### " + whiteboard[1]);
+                    }
+=======
+            Scanner keybord = new Scanner(System.in);
+
+            //user system thread
+
+
+
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
+>>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
             //keep listening
             boolean run = true;
             Hashtable commands;
@@ -58,11 +103,30 @@ public class Server {
                 //receive commands
                 commands = gsonServant.receiveGson();
                 Set keywords = commands.keySet();
+<<<<<<< HEAD
                 for (Object i : keywords) {
                     String command = commands.get(i).toString();
                     if (i.equals("userName")) {
 
+=======
+                if(keywords.contains("registerUser")){
+                    User newUser = gson.fromJson(jsonObject.get("registerUser").getAsString(), User.class);
+                    String password = commands.get("password").toString();
+                    mainserver.addInUser(newUser.getUsername(), password);
+                }
+                if(keywords.contains("checkPassword")){
+                    String username = commands.get("checkPassword").toString();
+                    Set<Integer> userIDs = mainserver.userData.keySet();
+                    String actualPassword = "";
+                    String password = commands.get("password").toString();
+                    for(Integer i: userIDs){
+                        if(mainserver.userData.get(i).equals(username)){
+                            actualPassword = mainserver.userPassword.get(i);
+                        }
+>>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
                     }
+                    boolean validPassword = actualPassword.equals(password);
+                    userSysServant.sendBack(validPassword);
                 }
                 //receive from WB
                 String[] whiteboard = gsonServant.receivePaints();
@@ -74,8 +138,21 @@ public class Server {
                     System.out.println("the string array received in server: " + whiteboard[0]
                             + " ### " + whiteboard[1]);
                 }
+<<<<<<< HEAD
             }
 
+=======
+<<<<<<< HEAD
+            }
+            //The server will continue running as long as there are remote objects exported into
+            //the RMI runtime, to remove remote objects from the
+            //RMI runtime so that they can no longer accept RMI calls you can use:
+            // UnicastRemoteObject.unexportObject(remoteMath, false);
+            //write out users
+            mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
+=======
+>>>>>>> 57bae358a2e7e18ff32421ec9a17a6ab9d55364c
+>>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
                 /*
                 String temp = keybord.nextLine();
                 System.out.println("input from keyboard: "+temp);
@@ -85,6 +162,7 @@ public class Server {
                     String output = gsonServant.sendGson(temp);
                     System.out.println("output: "+output);
                 }*/
+<<<<<<< HEAD
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
             //RMI runtime so that they can no longer accept RMI calls you can use:
@@ -104,6 +182,30 @@ public class Server {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+=======
+                }
+                }
+                //The server will continue running as long as there are remote objects exported into
+                //the RMI runtime, to remove remote objects from the
+                //RMI runtime so that they can no longer accept RMI calls you can use:
+                // UnicastRemoteObject.unexportObject(remoteMath, false);
+                //write out users
+                mainserver.saveUsers(mainserver.userData, mainserver.userPassword, "users.txt", "password.txt");
+        } catch (AlreadyBoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (AccessException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+>>>>>>> 1da46aa7a2ed0242d17305b020e5ae11a78b3d51
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> 8aff10fd39e34ac52d04a38b7e6952b2661b1453
     }
 
     private void readInUsers(String filename, Hashtable userData) throws IOException {
@@ -114,14 +216,14 @@ public class Server {
                 String[] info = user.split(",");
                 int userID = Integer.parseInt(info[0]);
                 String username = info[1];
-                String email = info[2];
-                boolean managerTag = Boolean.parseBoolean(info[3]);
-                User currentUser = new User(username, userID, email, managerTag);
+                boolean managerTag = Boolean.parseBoolean(info[2]);
+                User currentUser = new User(username, userID, managerTag);
                 userData.put(userID, currentUser);
             } else {
                 break;
             }
         }
+        numUser = userData.size();
     }
 
     private void readInPassword(String filename, Hashtable userPassword) throws IOException{
@@ -156,5 +258,14 @@ public class Server {
         }
         outputp.flush();
         outputp.close();
+    }
+
+    //add user in the server
+    private void addInUser(String username, String password){
+        User currentUser = new User(username);
+        currentUser.setUserID(this.numUser);
+        this.userData.put(currentUser.getUserID(), currentUser);
+        this.userPassword.put(currentUser.getUserID(), password);
+        this.numUser++;
     }
 }

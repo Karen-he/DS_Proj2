@@ -613,12 +613,14 @@ public class WBController {
 
 
     private void jsonSendUserData(String userName, String password){
+        //test userSys
+        /*
         try{
             gsonServant.sendGson("username", userName);
             gsonServant.sendGson("passward", password);
         }catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void autoPaint(String keyword, PaintAttribute attribute){
