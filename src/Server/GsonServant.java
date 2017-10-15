@@ -102,7 +102,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
 
-    public String sendMessage(String userName, String chatContent) throws RemoteException{
+    public synchronized String sendMessage(String userName, String chatContent) throws RemoteException{
         jsonObject.addProperty("Username", userName);
         jsonObject.addProperty("Content", chatContent);
 //        System.out.println(userName + ": " + chatContent);

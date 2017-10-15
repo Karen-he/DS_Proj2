@@ -774,7 +774,7 @@ public class WBController {
 
     }
 
-    public void send() throws IOException {
+    public synchronized void send() throws IOException {
         String allMessages = ("userName: ");
         String message = input.getText();
         setMessage(message);

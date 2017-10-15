@@ -76,7 +76,7 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable{
                     System.out.println("byebyebye");
                     for (int i = 0; i < chatClientArrayList.size(); i++) {
 
-                        System.out.println("进入chatClient的list打印啦");
+//                        System.out.println("进入chatClient的list打印啦");
 
                         ChatClient tempClient = chatClientArrayList.get(i);
                         String messagePrint = tempClient.getMessage();
