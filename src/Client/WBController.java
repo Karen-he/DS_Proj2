@@ -787,24 +787,24 @@ public class WBController {
 
 
     // add listener please, don't need to use run()
-    public void run() {
-
-        try {
-            ArrayList<ChatClient> chatClientArrayList = gsonServant.receiveClientList();
-            System.out.println("hihihi");
-            if (chatClientArrayList != null){
-            for (int i = 0 ; i < chatClientArrayList.size(); i++){
-                String messagePrint = chatClientArrayList.get(i).getMessage();
-                setText(messagePrint);
-                System.out.println(messagePrint);
-                }
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void run() {
+//
+//        try {
+//            ArrayList<ChatClient> chatClientArrayList = gsonServant.receiveClientList();
+//            System.out.println("hihihi");
+//            if (chatClientArrayList != null){
+//            for (int i = 0 ; i < chatClientArrayList.size(); i++){
+//                String messagePrint = chatClientArrayList.get(i).getMessage();
+//                setText(messagePrint);
+//                System.out.println(messagePrint);
+//                }
+//            }
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     //print to GUI chat room
     public void setText(String msgPrint) throws IOException{

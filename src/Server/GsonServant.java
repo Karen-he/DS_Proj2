@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -18,10 +20,11 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     //private int i;
     //private int j;
     private JsonObject jsonObject = new JsonObject();
-    private String jsonpack;
+    private String jsonPack;
+//    private String chatPack;
 
     public GsonServant() throws RemoteException{
-        jsonpack = "";
+        jsonPack = "";
     }
 
     @Override
@@ -35,20 +38,20 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }else{
             System.out.println("num of keywords does not match contents");
         }
-        jsonpack = gson.toJson(jsonObject);
-        System.out.println("the jsonpack in servant"+jsonpack);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonPack in servant"+ jsonPack);
         //i++;
         //System.out.println("the number of command: "+i);
-        return jsonpack;
+        return jsonPack;
     }
 
     @Override
     public Hashtable receiveGson() throws RemoteException{
-        boolean empty = jsonpack.isEmpty();
+        boolean empty = jsonPack.isEmpty();
         Hashtable commands = new Hashtable();
         if(empty == false){
-            System.out.println(jsonpack);
-            JsonElement jsonElement = new JsonParser().parse(jsonpack);
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             Set<String> keywords = jsonObject.keySet();
             for(String i : keywords){
@@ -67,18 +70,18 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         String sendpaints = gson.toJson(paint);
         System.out.println("sendpaints in servant: "+ sendpaints);
         jsonObject.addProperty("paintAttribute", sendpaints);
-        jsonpack = gson.toJson(jsonObject);
-        System.out.println("the jsonpack in servant"+jsonpack);
-        return jsonpack;
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonPack in servant"+ jsonPack);
+        return jsonPack;
     }
 
     public String[] receivePaints() throws RemoteException{
-        boolean empty = jsonpack.isEmpty();
+        boolean empty = jsonPack.isEmpty();
         String[] whiteboard = new String[2];
         whiteboard[0]="";
         whiteboard[1]="";
         if(empty==false){
-            JsonElement jsonElement = new JsonParser().parse(jsonpack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             String shape = jsonObject.get("Shape").getAsString();
             System.out.println("shape is "+shape);
@@ -94,47 +97,42 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
     public String sendError(String errorType) throws RemoteException{
         jsonObject.addProperty("Exception", errorType);
-        jsonpack = gson.toJson(jsonObject);
+        jsonPack = gson.toJson(jsonObject);
         System.out.println("Error catch initiated: " + errorType);
-        return jsonpack;
+        return jsonPack;
     }
 
     public String sendMessage(String userName, String chatContent) throws RemoteException{
         jsonObject.addProperty("Username", userName);
-        jsonObject.addProperty("InputText", chatContent);
-        System.out.println(userName + ": " + chatContent);
-        jsonpack = gson.toJson(jsonObject);
-        return jsonpack;
+        jsonObject.addProperty("Content", chatContent);
+//        System.out.println(userName + ": " + chatContent);
+        jsonPack= gson.toJson(jsonObject);
+        return jsonPack;
     }
 
     public String receiveMessage() throws RemoteException {
-        boolean empty = jsonpack.isEmpty();
-        String msgPrint = null;
+        boolean empty = jsonPack.isEmpty();
+        String msgPrint = "";
         if(empty == false) {
-            JsonElement jsonElement = new JsonParser().parse(jsonpack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             //unpack json to find username and content
             //retrieve userName
-            String userName = jsonObject.get("UserName").getAsString();
+//            String userName = jsonObject.get("UserName").getAsString();
             msgPrint = jsonObject.get("Content").getAsString();
-            return msgPrint;
         }
-        else{
-            return msgPrint;
-        }
+        return msgPrint;
     }
     public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{
-        JsonElement jsonElement = gson.toJsonTree(chatClientList);
-        jsonpack = gson.toJson(jsonElement);
-        return jsonpack;
+        jsonPack = gson.toJson(chatClientList);
+        return jsonPack;
     }
 
     public ArrayList receiveClientList() throws RemoteException{
-        boolean empty = jsonpack.isEmpty();
+        boolean empty = jsonPack.isEmpty();
         ArrayList<ChatClient> clientArrayList = null;
         if(empty == false){
-            JsonElement jsonElement = new JsonParser().parse(jsonpack);
-            clientArrayList = gson.fromJson(jsonElement, ArrayList.class);
+            clientArrayList = gson.fromJson(jsonPack, new TypeToken<ArrayList<ChatClient>>(){}.getType());
         }
         return clientArrayList;
     }

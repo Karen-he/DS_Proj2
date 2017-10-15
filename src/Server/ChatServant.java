@@ -27,11 +27,11 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
 
     //all chatClients in the list retrieveMsg
     public void shareMsg(String userName, String msgPrint) throws RemoteException {
-        String messageToAll = "";
+        String messageToAll;
         for (int i = 0; i < chatClients.size(); i++) {
             System.out.println(chatClients.size());
 
-            if (this.chatClients.get(i).getUserName() == userName) {
+            if (this.chatClients.get(i).getUserName().equals(userName)) {
                 messageToAll = msgPrint;
                 this.chatClients.get(i).setMessage(messageToAll);
                 System.out.println(messageToAll);
