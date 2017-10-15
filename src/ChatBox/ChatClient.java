@@ -68,7 +68,6 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable{
         }
 
         try {
-//            ArrayList<ChatClient> chatClientArrayList = gsonServant.receiveClientList();
             ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
             System.out.println("hihihi");
             if (chatClientArrayList != null){
