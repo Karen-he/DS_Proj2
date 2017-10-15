@@ -39,21 +39,19 @@ public class Main extends Application {
 
 
 
-        new Thread (new Runnable() {
-            public void run(){
-                while(true)
-                try {
-                    if (gsonServant.receivePaints() != null){
-                        System.out.println("hihi 我可以画画啦");
-                        String [] drawCommand = gsonServant.receivePaints();
-                        String shapeOption = drawCommand[0];
-                        String attributeGson = drawCommand[1];
-                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                        WBController.autoPaint(shapeOption,attributeRec);
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
+        new Thread (() -> {
+            while(true)
+            try {
+                if (gsonServant.receivePaints() != null){
+                    System.out.println("hihi 我可以画画啦");
+                    String [] drawCommand = gsonServant.receivePaints();
+                    String shapeOption = drawCommand[0];
+                    String attributeGson = drawCommand[1];
+                    PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                    WBController.autoPaint(shapeOption,attributeRec);
                 }
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         }).start();
 
