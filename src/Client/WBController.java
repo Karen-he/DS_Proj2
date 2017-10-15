@@ -623,7 +623,7 @@ public class WBController {
         }*/
     }
 
-    private void autoPaint(String keyword, PaintAttribute attribute){
+    public synchronized void autoPaint(String keyword, PaintAttribute attribute){
         // convert Json String back to PaintAttribute object.
         // System.out.println(gson.fromJson(attribute, PaintAttribute.class));
         switch (keyword) {
@@ -782,29 +782,9 @@ public class WBController {
         input.clear();
         textMessage.appendText(allMessages + "\n");
         gsonServant.sendMessage("userName",allMessages);
-
     }
 
 
-    // add listener please, don't need to use run()
-//    public void run() {
-//
-//        try {
-//            ArrayList<ChatClient> chatClientArrayList = gsonServant.receiveClientList();
-//            System.out.println("hihihi");
-//            if (chatClientArrayList != null){
-//            for (int i = 0 ; i < chatClientArrayList.size(); i++){
-//                String messagePrint = chatClientArrayList.get(i).getMessage();
-//                setText(messagePrint);
-//                System.out.println(messagePrint);
-//                }
-//            }
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     //print to GUI chat room
     public void setText(String msgPrint) throws IOException{

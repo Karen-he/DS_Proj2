@@ -12,12 +12,12 @@ public interface ServerInterface extends Remote{
     Hashtable receiveGson()throws RemoteException;
     String sendMessage(String userName, String chatContent) throws RemoteException;
     String receiveMessage() throws RemoteException;
-    String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException;
-    ArrayList receiveClientList() throws RemoteException;
-
-
+//    String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException;
+//    ArrayList receiveClientList() throws RemoteException;
+    String[] receivePaints() throws RemoteException;
     String sendPaints(String line, PaintAttribute attribute) throws RemoteException;
-//    String sendError(String errorType) throws RemoteException;
+    PaintAttribute getAttribute(String attribute) throws RemoteException;
+    //    String sendError(String errorType) throws RemoteException;
 
 
 }

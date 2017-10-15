@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -35,6 +36,26 @@ public class Main extends Application {
         ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
 
         // username get from the name after logging in
+
+
+
+        new Thread (new Runnable() {
+            public void run(){
+                try {
+
+                    if (gsonServant.receivePaints() != null){
+                        System.out.println("hihi 我可以画画啦");
+                        String [] drawCommand = gsonServant.receivePaints();
+                        String shapeOption = drawCommand[0];
+                        String attributeGson = drawCommand[1];
+                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                        WBController.autoPaint(shapeOption,attributeRec);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         Runnable client = new ChatClient("Username", chatServant, gsonServant);
         Thread thread1 = new Thread(client);
@@ -64,6 +85,17 @@ public class Main extends Application {
         launch(args);
     }
 
+
+
+
+
+
+
+
+
+
+
+
     private void closeAction() throws IOException{
         WBController wbController = new WBController();
         wbController.infoBox("Your changes will be lost if you don't save them.",
@@ -73,4 +105,6 @@ public class Main extends Application {
         }
 
     }
+
+
 }
