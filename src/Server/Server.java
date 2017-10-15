@@ -66,9 +66,6 @@ public class Server {
             Gson gson = new Gson();
             JsonObject jsonObject = new JsonObject();
 
-            System.out.println("Waiting for client connection..");
-
-
             Scanner keybord = new Scanner(System.in);
             //keep listening
             boolean run = true;

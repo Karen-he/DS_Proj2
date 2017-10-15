@@ -43,7 +43,6 @@ public class Main extends Application {
 // username get from the name after logging in
 
         WBController.setServant(gsonServant);
-//        WBController.run();
 
         window = primaryStage;
         window.setTitle("WhiteBoard");

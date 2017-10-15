@@ -61,7 +61,7 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable{
                 System.out.println(chatContent);
 
                 chatServant.shareMsg(userName, chatContent);
-                gsonServant.sendClientList(chatServant.getChatClients());
+//                gsonServant.sendClientList(chatServant.getChatClients());
             }
         } catch (RemoteException e) {
             e.printStackTrace();
