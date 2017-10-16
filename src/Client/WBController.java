@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -54,10 +56,33 @@ public class WBController {
 
     private String userName;
 
+    private int clientCount = -1;
+
+    private Boolean manager = false;
+
+    private Boolean testSignIn = true;
+
+    private Boolean isRegistered = false;
+
     public void setMessage(String message) {
         System.out.println("SetMessage" +message);
         this.message = message;
     }
+
+    @FXML
+    private TextField nameInput;
+
+    @FXML
+    private TextField passWordInput;
+
+    @FXML
+    private Pane signInPane;
+
+    @FXML
+    private BorderPane wbPane;
+
+    @FXML
+    private AnchorPane mainPane;
 
     @FXML
     private Canvas canvas;
@@ -791,6 +816,60 @@ public class WBController {
         message = msgPrint;
 
     }
+    public void signIn() throws Exception {
+        String user = nameInput.getText();
+        String encrypt = passWordInput.getText();
+        if (testSignIn) {
+            if (true) {
+                signInPane.setVisible(false);
+                mainPane.setPrefHeight(700);
+                mainPane.setPrefWidth(1000);
+                wbPane.setVisible(true);
+
+                //launch the whiteboard and turn off the signIn UI
+            }else if (clientCount <4){
+                //launch the whiteboard and turn off the signIn UI
+                // launch the client
+
+            } else if (clientCount == 4) {
+                warningDialog("Fail to login In", "You can not join in this room!");
+            }
+        }
+        else{
+            warningDialog(user + " is not existed!",
+                    "You should confirm your username or register for " + user + " !");
+        }
+    }
+
+    public void signUp() {
+        String userRegister = nameInput.getText();
+        String passwordRe = passWordInput.getText();
+        if (isRegistered) {
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+
+        } else {
+            inforDialog(userRegister);
+        }
+
+    }
+
+    private void inforDialog(String name) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registration");
+        alert.setHeaderText("Successful");
+        alert.setContentText("Congratulation! you can use " + name + " now!");
+        alert.showAndWait();
+    }
+
+    private void warningDialog(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
 
 }
 
