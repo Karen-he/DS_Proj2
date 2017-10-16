@@ -62,7 +62,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println("the number of command: "+j);
         }
         return commands;
-
     }
 
     public String sendPaints(String keyShape, PaintAttribute paint) throws RemoteException {
@@ -192,6 +191,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return notePrint;
     }
 
+    //log in system
     //server uses this method to get the password from client when logging in
     public String serverCheckPassword(){
         boolean empty = jsonPack.isEmpty();
@@ -224,6 +224,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant"+jsonPack);
     }
 
+    //sign up system
     //server uses this method to add user into the system
     public String addUser(){
         boolean empty = jsonPack.isEmpty();
@@ -239,7 +240,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }
         return command;
     }
-    //client usees this method to register into the system
+    //client uses this method to register into the system
     public void registerUser(String userName, String password){
         String userNameAndPassword = userName+" "+password;
         jsonObject.addProperty("registerUser", userNameAndPassword);
@@ -247,7 +248,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant"+jsonPack);
     }
 }
-
 
 //    public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{
 //        jsonPack = gson.toJson(chatClientList);
