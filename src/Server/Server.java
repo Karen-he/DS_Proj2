@@ -23,9 +23,8 @@ import java.util.Set;
 public class Server {
     private Hashtable<Integer, String> userPassword;
     private Hashtable<Integer, User> userData;
-
+    private int currentUserNum;
     private int numUser;
-
     private static int port = 3000;
     private static int counter = 0;
 
@@ -34,6 +33,7 @@ public class Server {
         this.numUser = 0;
         this.userData = new Hashtable<Integer, User>();
         this.userPassword = new Hashtable<>();
+        this.currentUserNum = 0;
     }
 
     public static void main(String[] args) {
@@ -90,27 +90,36 @@ public class Server {
             //keep listening
             new Thread (() -> {
                 while (run) {
-                    //check password
+                    //log in: chaeck password and ask manager to approve
                     String userNameAndPassword = gsonServant.serverCheckPassword();
-                    String[] split = userNameAndPassword.split(" ");
-                    String userName = split[0];
-                    String password = split[1];
-                    Set<Integer> userIDs = mainserver.userData.keySet();
-                    String actualPassword = "";
-                    for (Integer id : userIDs) {
-                        if (mainserver.userData.get(id).equals(userName)) {
-                            actualPassword = mainserver.userPassword.get(id);
+                    boolean empty = userNameAndPassword.isEmpty();
+                    if(empty!=true){
+                        String[] split = userNameAndPassword.split(" ");
+                        String userName = split[0];
+                        String password = split[1];
+                        Set<Integer> userIDs = mainserver.userData.keySet();
+                        String actualPassword = "";
+                        for (Integer id : userIDs) {
+                            if (mainserver.userData.get(id).equals(userName)) {
+                                actualPassword = mainserver.userPassword.get(id);
+                            }
                         }
+                        boolean validPassword = actualPassword.equals(password);
+                        gsonServant.
+                        boolean managerApproved =
+                        gsonServant.validLogin(validPasswordAndManagerAproved);
+
                     }
-                    boolean validPassword = actualPassword.equals(password);
-                    gsonServant.valid(validPassword);
 
                     //add new users to the system
                     String userNamePlusPassword = gsonServant.addUser();
-                    String[] splitIt = userNamePlusPassword.split(" ");
-                    String username = splitIt[0];
-                    String passWord = splitIt[1];
-                    mainserver.addInUser(username, passWord);
+                    boolean emptyUP = userNamePlusPassword.isEmpty();
+                    if(emptyUP!=true){
+                        String[] splitIt = userNamePlusPassword.split(" ");
+                        String username = splitIt[0];
+                        String passWord = splitIt[1];
+                        mainserver.addInUser(username, passWord);
+                    }
 
                     //receive from WB
                     ArrayList<String> whiteboard = null;
