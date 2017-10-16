@@ -260,8 +260,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             command = jsonObject.get("checkRegister").getAsString();
-            return command;
+
         }
+        return command;
     }
 }
 
