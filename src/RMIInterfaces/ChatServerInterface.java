@@ -13,6 +13,7 @@ public interface ChatServerInterface extends Remote{
    ArrayList<ChatClient> getChatClients() throws RemoteException;
    void kickClient(String userName) throws RemoteException;
    HashMap<String, String> getChatRecords() throws RemoteException;
+   void clearRecords() throws RemoteException;
 
 
 }

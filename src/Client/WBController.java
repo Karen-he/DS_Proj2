@@ -965,7 +965,7 @@ public class WBController {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-        gsonServant.checkPassword(user, encrypt);
+//        gsonServant.checkPassword(user, encrypt);
         if (testSignIn) {
             // the number of client
             if (true) {
@@ -999,7 +999,7 @@ public class WBController {
     public void signUp() throws Exception {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
-        gsonServant.registerUser(userRegister, passwordRe);
+//        gsonServant.registerUser(userRegister, passwordRe);
         if (isRegistered) {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
 
