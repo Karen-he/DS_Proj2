@@ -91,6 +91,23 @@ public class Server {
                 }
             }).start();
 
+            // The thread for monitoring whether a new canvas is created.
+            new Thread (() -> {
+                while (run) {
+                    try {
+                        if (gsonServant.serverCheckNew()) {
+                            Hashtable paintsContainer = new Hashtable();
+                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
+                            paintsKeeper.clearDatabase(paintsContainer);
+                            } else {
+                                System.out.println("No new canvas is created");
+                            }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
             //user system thread
             //keep listening
             new Thread (() -> {
