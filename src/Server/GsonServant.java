@@ -240,14 +240,16 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
     //clients use this method to check if the password is valid
-    public void checkPassword(String userName, String password) {
+    @Override
+    public void checkPassword(String userName, String password)throws RemoteException {
         String userNameAndPassword = userName + " " + password;
         jsonObject.addProperty("checkPassword", userNameAndPassword);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
     }
     //clients use this method to receive the result of loggin
-    public boolean logginResult(){
+    @Override
+    public boolean logginResult()throws RemoteException{
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
@@ -270,7 +272,8 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant" + jsonPack);
     }
     //manager uses this method to send approval
-    public void sendApproval(boolean approval){
+    @Override
+    public void sendApproval(boolean approval)throws RemoteException{
         jsonObject.addProperty("approvalFromManager", approval);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
@@ -291,7 +294,8 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return command;
     }
     //manager uses this to listen request of approval
-    public String listenForApproval(){
+    @Override
+    public String listenForApproval()throws RemoteException{
         boolean empty = jsonPack.isEmpty();
         String username = "";
         if (empty == false) {
@@ -324,7 +328,8 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
     //client uses this method to register into the system and ckeck this register
-    public void registerUser(String userName, String password) {
+    @Override
+    public void registerUser(String userName, String password)throws RemoteException {
         String userNameAndPassword = userName + " " + password;
         jsonObject.addProperty("registerUser", userNameAndPassword);
         jsonObject.addProperty("checkRegister", userName);
@@ -339,7 +344,8 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant" + jsonPack);
     }
     //clients use this method to receive if this register is valid
-    public boolean validRegister(String back){
+    @Override
+    public boolean validRegister(String back)throws RemoteException{
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
