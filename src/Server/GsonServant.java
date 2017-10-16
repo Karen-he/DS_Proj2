@@ -62,6 +62,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println("the number of command: "+j);
         }
         return commands;
+
     }
 
     public String sendPaints(String keyShape, PaintAttribute paint) throws RemoteException {
@@ -190,7 +191,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }
         return notePrint;
     }
-
 
     //server uses this method to get the password from client when logging in
     public String serverCheckPassword(){

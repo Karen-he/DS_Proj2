@@ -102,11 +102,11 @@ public class Server {
 
                 //add new users to the system
                 String userNamePlusPassword = gsonServant.addUser();
-                String[] splitIt = userNameAndPassword.split(" ");
+                String[] splitIt = userNamePlusPassword.split(" ");
                 String username = splitIt[0];
                 String passWord = splitIt[1];
                 mainserver.addInUser(username, passWord);
-                
+
                 //receive from WB
                 ArrayList<String> whiteboard = gsonServant.receivePaints();
                 String wb0 = whiteboard.get(0);
