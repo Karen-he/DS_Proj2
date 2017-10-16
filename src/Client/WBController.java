@@ -943,7 +943,7 @@ public class WBController {
     }
 
 
-    public synchronized void send() throws IOException {
+    public void send() throws IOException {
         String message = input.getText();
         input.clear();
         appendToMessage(message);
