@@ -84,40 +84,47 @@ public class Server {
 
             //user system thread
             //keep listening
-            while (run) {
-                //check password
-                String userNameAndPassword = gsonServant.serverCheckPassword();
-                String[] split = userNameAndPassword.split(" ");
-                String userName = split[0];
-                String password = split[1];
-                Set<Integer> userIDs = mainserver.userData.keySet();
-                String actualPassword = "";
-                for (Integer id : userIDs) {
-                    if (mainserver.userData.get(id).equals(userName)) {
-                        actualPassword = mainserver.userPassword.get(id);
+            new Thread (() -> {
+                while (run) {
+                    //check password
+                    String userNameAndPassword = gsonServant.serverCheckPassword();
+                    String[] split = userNameAndPassword.split(" ");
+                    String userName = split[0];
+                    String password = split[1];
+                    Set<Integer> userIDs = mainserver.userData.keySet();
+                    String actualPassword = "";
+                    for (Integer id : userIDs) {
+                        if (mainserver.userData.get(id).equals(userName)) {
+                            actualPassword = mainserver.userPassword.get(id);
+                        }
+                    }
+                    boolean validPassword = actualPassword.equals(password);
+                    gsonServant.valid(validPassword);
+
+                    //add new users to the system
+                    String userNamePlusPassword = gsonServant.addUser();
+                    String[] splitIt = userNamePlusPassword.split(" ");
+                    String username = splitIt[0];
+                    String passWord = splitIt[1];
+                    mainserver.addInUser(username, passWord);
+
+                    //receive from WB
+                    ArrayList<String> whiteboard = null;
+                    try {
+                        whiteboard = gsonServant.receivePaints();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    String wb0 = whiteboard.get(0);
+                    String wb1 = whiteboard.get(1);
+                    if (wb0.equals("") || wb1.equals("")) {
+                        System.out.println("empty jsonPack");
+                    } else {
+                        System.out.println("the string array received in server: " + wb0
+                                + " ### " + wb1);
                     }
                 }
-                boolean validPassword = actualPassword.equals(password);
-                gsonServant.valid(validPassword);
-
-                //add new users to the system
-                String userNamePlusPassword = gsonServant.addUser();
-                String[] splitIt = userNamePlusPassword.split(" ");
-                String username = splitIt[0];
-                String passWord = splitIt[1];
-                mainserver.addInUser(username, passWord);
-
-                //receive from WB
-                ArrayList<String> whiteboard = gsonServant.receivePaints();
-                String wb0 = whiteboard.get(0);
-                String wb1 = whiteboard.get(1);
-                if (wb0.equals("") || wb1.equals("")) {
-                    System.out.println("empty jsonPack");
-                } else {
-                    System.out.println("the string array received in server: " + wb0
-                            + " ### " + wb1);
-                }
-            }
+            }).start();
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
             //RMI runtime so that they can no longer accept RMI calls you can use:
