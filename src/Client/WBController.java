@@ -944,9 +944,9 @@ public class WBController {
 
 
     public synchronized void send() throws IOException {
-        String allMessages = (" ");
         String message = input.getText();
         input.clear();
+        appendToMessage(message);
         chatServant.shareMsg(userName,message);
     }
 
@@ -976,7 +976,7 @@ public class WBController {
                 managerName.setText(user);
                 userName = user;
 
-                ChatClient chatClient = new ChatClient(userName,chatServant,gsonServant);
+                ChatClient chatClient = new ChatClient(user,chatServant,gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -985,7 +985,7 @@ public class WBController {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                ChatClient chatClient = new ChatClient(userName, chatServant,gsonServant);
+                ChatClient chatClient = new ChatClient(user, chatServant,gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
