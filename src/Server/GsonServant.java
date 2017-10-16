@@ -232,7 +232,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
     //server uses this method to tell the client if this log is valid
     public String validLogin(boolean valid) {
-        jsonObject.addProperty("checkPassword", valid);
+        jsonObject.addProperty("validLogin", valid);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
         //i++;
