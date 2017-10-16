@@ -191,7 +191,10 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return notePrint;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b85730d947172b1eb13c93a1eeea7df8777fb710
     //server uses this method to get the password from client when logging in
     public String serverCheckPassword(){
         boolean empty = jsonPack.isEmpty();
@@ -217,6 +220,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
     //client use this method to check if the password is valid
+<<<<<<< HEAD
     public String checkPassword(String userNameAndPassword){
         jsonObject.addProperty("checkPassword", userNameAndPassword);
         jsonPack = gson.toJson(jsonObject);
@@ -227,6 +231,37 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
     //
+=======
+    public void checkPassword(String userName, String password){
+        String userNameAndPassword = userName+" "+password;
+        jsonObject.addProperty("checkPassword", userNameAndPassword);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant"+jsonPack);
+    }
+
+    //server uses this method to add user into the system
+    public String addUser(){
+        boolean empty = jsonPack.isEmpty();
+        String command = "";
+        if(empty == false){
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("registerUser").getAsString();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
+    }
+    //client usees this method to register into the system
+    public void registerUser(String userName, String password){
+        String userNameAndPassword = userName+" "+password;
+        jsonObject.addProperty("registerUser", userNameAndPassword);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant"+jsonPack);
+    }
+>>>>>>> b85730d947172b1eb13c93a1eeea7df8777fb710
 }
 
 
