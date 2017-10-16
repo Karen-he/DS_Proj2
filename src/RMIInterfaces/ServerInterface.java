@@ -38,6 +38,6 @@ public interface ServerInterface extends Remote{
     String listenForApproval()throws RemoteException;
     //sign up
     void registerUser(String userName, String password)throws RemoteException;
-    boolean validRegister(String back)throws RemoteException;
+    boolean validRegister()throws RemoteException;
 
 }
