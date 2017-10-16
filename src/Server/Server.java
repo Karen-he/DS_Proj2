@@ -109,10 +109,12 @@ public class Server {
                         if(mainserver.currentUserNum!=0){
                             gsonServant.askManager(userName);
                             managerApproved = gsonServant.waitForManager();
+                        }else{
+                            managerApproved = true;
                         }
                         boolean validPasswordAndManagerAproved = validPassword && managerApproved;
                         gsonServant.validLogin(validPasswordAndManagerAproved);
-
+                        mainserver.currentUserNum ++;
                     }
 
                     //add new users to the system
