@@ -42,23 +42,52 @@ public class Main extends Application {
 
         new Thread (() -> {
             while(true)
-            try {
-                if (gsonServant.receivePaints() != null){
-                    System.out.println("hihi 我可以画画啦");
-                    ArrayList<String> drawCommand = gsonServant.receivePaints();
-                    String shapeOption = drawCommand.get(0);
-                    String attributeGson = drawCommand.get(1);
-                    PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                    WBController.autoPaint(shapeOption,attributeRec);
+                try {
+                    if (gsonServant.receivePaints() != null){
+                        System.out.println("hihi 我可以画画啦");
+                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+                        String shapeOption = drawCommand.get(0);
+                        String attributeGson = drawCommand.get(1);
+                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                        WBController.autoPaint(shapeOption,attributeRec);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
         }).start();
 
-        Runnable client = new ChatClient("Username", chatServant, gsonServant);
-        Thread thread1 = new Thread(client);
-        thread1.start();
+        ChatClient chatClient = new ChatClient("Username",chatServant,gsonServant);
+
+        new Thread(() -> {
+            ArrayList<ChatClient> oldChatClient = null;
+            while(true) {
+                try {
+                    ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
+                    System.out.println("hihihi");
+                    if (chatClientArrayList != null) {
+                        System.out.println("byebyebye");
+                        System.out.println(chatClientArrayList);
+                        for (int i = 0; i < chatClientArrayList.size(); i++) {
+
+                            System.out.println("进入chatClient的list打印啦");
+
+                            ChatClient tempClient = chatClientArrayList.get(i);
+                            String messagePrint = tempClient.getChatContent();
+
+                            System.out.println("messagePrint: " + messagePrint);
+                            if (messagePrint != null) {
+                                System.out.println("print次数：" + i);
+                                System.out.println(tempClient.getUserName() + ": " + messagePrint);
+                            }
+                        }
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
 // username get from the name after logging in
 

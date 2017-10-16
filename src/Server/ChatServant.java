@@ -29,20 +29,15 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     public synchronized void shareMsg(String userName, String msgPrint) throws RemoteException {
         String messageToAll;
         for (int i = 0; i < chatClients.size(); i++) {
-            System.out.println("Total Chat Clients Number: "+chatClients.size());
+            System.out.println("Total Chat Clients Number: " + chatClients.size());
 
-    // for each clients, set the message supposed to print out in GUI
+            // for each clients, set the message supposed to print out in GUI
             if (chatClients.get(i).getUserName().equals(userName)) {
-//                System.out.println("进入client's的loop啦");
+                System.out.println("进入client's的loop啦");
                 messageToAll = msgPrint;
-                chatClients.get(i).setMessage(messageToAll);
-                System.out.println("Message to All: "+ messageToAll);
-//                continue;
-            }
-            else{
-                messageToAll = userName + ": " + msgPrint;
-                chatClients.get(i).setMessage(messageToAll);
-                System.out.println("Message to All: "+ messageToAll);
+                chatClients.get(i).setChatContent(messageToAll);
+                System.out.println("Message to All: " + messageToAll);
+                continue;
             }
         }
     }
