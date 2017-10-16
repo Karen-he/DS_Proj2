@@ -105,8 +105,12 @@ public class Server {
                             }
                         }
                         boolean validPassword = actualPassword.equals(password);
-                        gsonServant.
-                        boolean managerApproved =
+                        boolean managerApproved = false;
+                        if(mainserver.currentUserNum!=0){
+                            gsonServant.askManager(userName);
+                            managerApproved = gsonServant.waitForManager();
+                        }
+                        bpplean validPasswordAndManagerAproved = validPassword && managerApproved;
                         gsonServant.validLogin(validPasswordAndManagerAproved);
 
                     }
