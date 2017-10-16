@@ -27,7 +27,6 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -43,7 +42,7 @@ public class WBController {
 
     protected double endY;
 
-    private int count = 0;
+    private int canvasCount = 0;
 
     public Boolean close = false;
 
@@ -162,21 +161,15 @@ public class WBController {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    private void setClient(String one, String two, String three){
-        
-
-    }
-
-    private void setList()throws IOException{
+    private void setClient() throws Exception{
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
+        client1 = chatClients.get(1).getUserName();
+        client2 = chatClients.get(2).getUserName();
+        client3 = chatClients.get(3).getUserName();
         clientCount = chatClients.size();
-        String clientFirst = chatClients.get(1).getUserName();
-        String clientSecond = chatClients.get(2).getUserName();
-        String clientThird = chatClients.get(3).getUserName();
-        setClient(clientFirst,clientSecond,clientThird);
-
-
     }
+
+
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
@@ -256,7 +249,7 @@ public class WBController {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             jsonSendPaints("sketch", addPaintAttri(pointList, "null"));
             pointList.clear();
             g.closePath();
@@ -285,7 +278,7 @@ public class WBController {
             g.closePath();
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             jsonSendPaints("erase", addPaintAttri(pointList, "null"));
             pointList.clear();
         });
@@ -312,7 +305,7 @@ public class WBController {
             newG.strokeLine(startX, startY, endX, endY);
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             endX = e.getX();
             endY = e.getY();
             newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
@@ -348,7 +341,7 @@ public class WBController {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             endX = e.getX();
             endY = e.getY();
             double x = Math.min(startX, endX);
@@ -388,7 +381,7 @@ public class WBController {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             endX = e.getX();
             endY = e.getY();
             double x = Math.min(startX, endX);
@@ -430,7 +423,7 @@ public class WBController {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
             endX = e.getX();
             endY = e.getY();
             double x = Math.min(startX, endX);
@@ -482,7 +475,7 @@ public class WBController {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
-            count = 1;
+            canvasCount = 1;
 
         });
 
@@ -498,13 +491,13 @@ public class WBController {
         slider.setValue(1);
         colorPicker.setValue(Color.BLACK);
         setFile(null);
-        count = 0;
+        canvasCount = 0;
     }
 
 
     public void onNew() throws IOException {
         if (isManager) {
-            if (count == 1) {
+            if (canvasCount == 1) {
                 infoBox("Your changes will be lost if you don't save them.",
                         "Do you want to save the changes?", "save");
             } else {
@@ -521,7 +514,7 @@ public class WBController {
         canvas.snapshot(null, writableImage);
         RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
         ImageIO.write(renderedImage, "png", file);
-        count = 0;
+        canvasCount = 0;
     }
 
     public void onSave() throws IOException {
@@ -572,7 +565,7 @@ public class WBController {
 
     public void onOpen() throws IOException {
         if (isManager) {
-            if (count == 1) {
+            if (canvasCount == 1) {
                 infoBox("Your changes will be lost if you don't save them.",
                         "Do you want to save the changes?", "open");
             } else {
@@ -584,7 +577,7 @@ public class WBController {
 
     public void onExit() throws IOException {
 
-        if (count == 1) {
+        if (canvasCount == 1) {
             infoBox("Your changes will be lost if you don't save them.",
                     "Do you want to save the changes?", "exit");
             if (close == true) {
@@ -597,43 +590,43 @@ public class WBController {
 
     public void onClose() throws IOException {
         if (isManager) {
-            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections");
+            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections",0);
         }
     }
 
-    private void kick(String userName) throws IOException {
+    private void kick(String userName, int clientNum) throws IOException {
         confirmBox("Kick", "Kick the " + userName + "!",
-                "Do you want to kick the " + userName + " ?");
-
+                "Do you want to kick the " + userName + " ?", clientNum);
+        chatServant.kickClient(userName);
     }
 
 
 
-    private void approve(String userName) throws IOException {
+    private void approve(String userName ,int clientNum) throws IOException {
         if(isManager) {
             confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?");
+                    "Do you want to approve the " + userName + " ?",clientNum);
         }
     }
 
     public void kickUserOne() throws IOException {
         if (isManager) {
             String clientName = clientOne.getText();
-            kick(clientName);
+            kick(clientName,1);
         }
     }
 
     public void kickUserTwo() throws IOException {
         if (isManager) {
             String clientName = clientTwo.getText();
-            kick(clientName);
+            kick(clientName,2);
         }
     }
 
     public void kickUserThree() throws IOException {
         if (isManager) {
             String clientName = clientThree.getText();
-            kick(clientName);
+            kick(clientName,3);
         }
     }
 
@@ -697,7 +690,7 @@ public class WBController {
     }
 
     // this is for manager to control the client
-    private void confirmBox(String command, String header, String content) throws IOException {
+    private void confirmBox(String command, String header, String content, int clientNum) throws IOException {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle(command);
         confirmAlert.setHeaderText(header);
@@ -712,29 +705,29 @@ public class WBController {
         if (result.get() == buttonTypeOne) {
             switch (command) {
                 case "Kick":
-                    if (clientCount==2) {
+                    if (clientNum==2) {
                         clientOne.setText(null);
                         break;
                     }
-                    if (clientCount==3) {
+                    if (clientNum==3) {
                         clientTwo.setText(null);
                         break;
                     }
-                    if (clientCount==4) {
+                    if (clientNum==4) {
                         clientThree.setText(null);
                         break;
                     }
                     break;
                 case "Approve":
-                    if (clientCount == 1) {
+                    if (clientNum == 1) {
                         clientOne.setText(userName);
                         break;
                     }
-                    if (clientCount == 2) {
+                    if (clientNum == 2) {
                         clientTwo.setText(userName);
                         break;
                     }
-                    if (clientCount == 3) {
+                    if (clientNum == 3) {
                         clientThree.setText(userName);
                         break;
                     }
@@ -832,7 +825,7 @@ public class WBController {
             g.lineTo(nodeList.get(i).getPointX(), nodeList.get(i).getPointY());
         }
         g.stroke();
-        count = 1;
+        canvasCount = 1;
         g.closePath();
     }
 
@@ -846,7 +839,7 @@ public class WBController {
             double y = nodeList.get(i).getPointY() - size / 2;
             g.clearRect(x, y, size, size);
         }
-        count = 1;
+        canvasCount = 1;
         g.closePath();
 
     }
@@ -863,7 +856,7 @@ public class WBController {
         endX = nodeList.get(1).getPointX();
         endY = nodeList.get(1).getPointY();
         g.strokeLine(startX, startY, endX, endY);
-        count = 1;
+        canvasCount = 1;
         g.closePath();
     }
 
@@ -882,7 +875,7 @@ public class WBController {
         double y = Math.min(startY, endY);
         double height = Math.abs(startY - endY);
         g.strokeOval(x, y, height, height);
-        count = 1;
+        canvasCount = 1;
         g.closePath();
     }
 
@@ -902,7 +895,7 @@ public class WBController {
         double width = Math.abs(startX - endX);
         double height = Math.abs(startY - endY);
         g.strokeRect(x, y, width, height);
-        count = 1;
+        canvasCount = 1;
         g.closePath();
     }
 
@@ -922,7 +915,7 @@ public class WBController {
         double width = Math.abs(startX - endX);
         double height = Math.abs(startY - endY);
         g.strokeOval(x, y, width, height);
-        count = 1;
+        canvasCount = 1;
         g.closePath();
     }
 
