@@ -132,9 +132,9 @@ public class Server {
                         }
                         if(notAlreadyExist){
                             mainserver.addInUser(username, passWord);
-                            gsonServant.validRegister(true);
+                            gsonServant.serverValidRegister(true);
                         }else{
-                            gsonServant.validRegister(false);
+                            gsonServant.serverValidRegister(false);
                         }
                     }
 
