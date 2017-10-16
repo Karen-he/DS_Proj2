@@ -64,7 +64,7 @@ public class Main extends Application {
 
             while(true) {
                 try {
-                    
+
                     HashMap<String, String> chatRecords = chatServant.getChatRecords();
                     System.out.println("hihihi");
 
@@ -86,7 +86,7 @@ public class Main extends Application {
 
                             WBController.appendToMessage(messagePrint);
                         }
-                        chatServant.getChatRecords().clear();
+                        chatServant.clearRecords();
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
