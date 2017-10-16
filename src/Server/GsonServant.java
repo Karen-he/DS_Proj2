@@ -192,6 +192,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return notePrint;
     }
 
+    //log in system
     //server uses this method to get the password from client when logging in
     public String serverCheckPassword(){
         boolean empty = jsonPack.isEmpty();
@@ -224,6 +225,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant"+jsonPack);
     }
 
+    //sign up system
     //server uses this method to add user into the system
     public String addUser(){
         boolean empty = jsonPack.isEmpty();
