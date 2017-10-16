@@ -6,6 +6,7 @@ import RMIInterfaces.ChatServerInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 //gsonReceive, return command: chatbox
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 public class ChatServant extends UnicastRemoteObject implements ChatServerInterface {
 
     private ArrayList<ChatClient> chatClients = new ArrayList<ChatClient>();
+
+    private HashMap<String,String> chatRecords = new HashMap();
 
     //create a peer list by manager, constructor
     public ChatServant() throws RemoteException {
@@ -27,6 +30,8 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
 
     //set the message that will print out in GUI
     public synchronized void shareMsg(String userName, String msgPrint) throws RemoteException {
+        chatRecords.put(userName, msgPrint);
+
         String messageToAll;
         for (int i = 0; i < chatClients.size(); i++) {
             System.out.println("Total Chat Clients Number: " + chatClients.size());
@@ -52,5 +57,9 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
                 chatClients.remove(i);
             }
         }
+    }
+
+    public HashMap<String, String> getChatRecords() throws RemoteException {
+        return chatRecords;
     }
 }
