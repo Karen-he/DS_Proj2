@@ -162,7 +162,19 @@ public class WBController {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    private void getList(){
+    private void setClient(String one, String two, String three){
+        
+
+    }
+
+    private void setList()throws IOException{
+        ArrayList<ChatClient> chatClients = chatServant.getChatClients();
+        clientCount = chatClients.size();
+        String clientFirst = chatClients.get(1).getUserName();
+        String clientSecond = chatClients.get(2).getUserName();
+        String clientThird = chatClients.get(3).getUserName();
+        setClient(clientFirst,clientSecond,clientThird);
+
 
     }
 
