@@ -56,16 +56,24 @@ public class WBController {
 
     private String userName;
 
-    private int clientCount = -1;
+    private String client1 = null;
 
-    private Boolean manager = false;
+    private String client2 = null;
+
+    private String client3 = null;
+
+    private int clientCount = 0;
+
+
+    private Boolean isManager = false;
 
     private Boolean testSignIn = true;
 
     private Boolean isRegistered = false;
 
+
     public void setMessage(String message) {
-        System.out.println("SetMessage" +message);
+        System.out.println("SetMessage" + message);
         this.message = message;
     }
 
@@ -132,16 +140,33 @@ public class WBController {
     @FXML
     private ImageView imageView;
 
+    @FXML
+    private Button clientOne;
+
+    @FXML
+    private Button clientTwo;
+
+    @FXML
+    private Button clientThree;
+
+    @FXML
+    private Label managerName;
+
+
     protected ArrayList<Point> pointList = new ArrayList<Point>();
     Registry registry;
     ServerInterface gsonServant;
 
+
     private final ToggleGroup group = new ToggleGroup();
 
+    private void getList(){
+
+    }
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
-    public void setImage(){
+    public void setImage() {
         sketch.setUserData("sketch");
         eraser.setUserData("eraser");
         line.setUserData("line");
@@ -158,20 +183,21 @@ public class WBController {
         rect.setToggleGroup(group);
         sketch.setSelected(true);
         imageView.setImage(new Image("sketch.png"));
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
                                 Toggle old_toggle, Toggle new_toggle) {
                 if (group.getSelectedToggle() != null) {
                     final Image image = new Image(
-                                    group.getSelectedToggle().getUserData().toString() +
-                                            ".png"
-                            );
+                            group.getSelectedToggle().getUserData().toString() +
+                                    ".png"
+                    );
                     imageView.setImage(image);
                 }
             }
         });
 
     }
+
     public void initialize() {
 
         colorPicker.setValue(Color.BLACK);
@@ -203,7 +229,7 @@ public class WBController {
         pathCanvas.setOnMousePressed(e -> {
             g.beginPath();
             g.lineTo(e.getX(), e.getY());
-            pointList.add(getPoint(e.getX(),e.getY()));
+            pointList.add(getPoint(e.getX(), e.getY()));
             g.setStroke(colorPicker.getValue());
             g.stroke();
 
@@ -211,7 +237,7 @@ public class WBController {
         pathCanvas.setOnMouseDragged(e -> {
 
             g.lineTo(e.getX(), e.getY());
-            pointList.add(getPoint(e.getX(),e.getY()));
+            pointList.add(getPoint(e.getX(), e.getY()));
             g.stroke();
 
         });
@@ -233,14 +259,14 @@ public class WBController {
             double size = slider.getValue();
             double x = e.getX() - size / 2;
             double y = e.getY() - size / 2;
-            pointList.add(getPoint(e.getX(),e.getY()));
+            pointList.add(getPoint(e.getX(), e.getY()));
             g.clearRect(x, y, size, size);
         });
         pathCanvas.setOnMouseDragged(e -> {
             double size = slider.getValue();
             double x = e.getX() - size / 2;
             double y = e.getY() - size / 2;
-            pointList.add(getPoint(e.getX(),e.getY()));
+            pointList.add(getPoint(e.getX(), e.getY()));
             g.clearRect(x, y, size, size);
             g.closePath();
         });
@@ -463,12 +489,14 @@ public class WBController {
 
 
     public void onNew() throws IOException {
-        if (count == 1) {
-            infoBox("Your changes will be lost if you don't save them.",
-                    "Do you want to save the changes?", "save");
-        } else {
-            newFile();
-            setFont();
+        if (isManager) {
+            if (count == 1) {
+                infoBox("Your changes will be lost if you don't save them.",
+                        "Do you want to save the changes?", "save");
+            } else {
+                newFile();
+                setFont();
+            }
         }
     }
 
@@ -529,11 +557,13 @@ public class WBController {
 
 
     public void onOpen() throws IOException {
-        if (count == 1) {
-            infoBox("Your changes will be lost if you don't save them.",
-                    "Do you want to save the changes?", "open");
-        } else {
-            open();
+        if (isManager) {
+            if (count == 1) {
+                infoBox("Your changes will be lost if you don't save them.",
+                        "Do you want to save the changes?", "open");
+            } else {
+                open();
+            }
         }
 
     }
@@ -548,6 +578,48 @@ public class WBController {
             }
         } else {
             Platform.exit();
+        }
+    }
+
+    public void onClose() throws IOException {
+        if (isManager) {
+            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections");
+        }
+    }
+
+    private void kick(String userName) throws IOException {
+        confirmBox("Kick", "Kick the " + userName + "!",
+                "Do you want to kick the " + userName + " ?");
+
+    }
+
+
+
+    private void approve(String userName) throws IOException {
+        if(isManager) {
+            confirmBox("Approve", "Approve the " + userName + "!",
+                    "Do you want to approve the " + userName + " ?");
+        }
+    }
+
+    public void kickUserOne() throws IOException {
+        if (isManager) {
+            String clientName = clientOne.getText();
+            kick(clientName);
+        }
+    }
+
+    public void kickUserTwo() throws IOException {
+        if (isManager) {
+            String clientName = clientTwo.getText();
+            kick(clientName);
+        }
+    }
+
+    public void kickUserThree() throws IOException {
+        if (isManager) {
+            String clientName = clientThree.getText();
+            kick(clientName);
         }
     }
 
@@ -610,6 +682,61 @@ public class WBController {
 
     }
 
+    // this is for manager to control the client
+    private void confirmBox(String command, String header, String content) throws IOException {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle(command);
+        confirmAlert.setHeaderText(header);
+        confirmAlert.setContentText(content);
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeTwo = new ButtonType("No");
+
+        confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            switch (command) {
+                case "Kick":
+                    if (clientCount==2) {
+                        clientOne.setText(null);
+                        break;
+                    }
+                    if (clientCount==3) {
+                        clientTwo.setText(null);
+                        break;
+                    }
+                    if (clientCount==4) {
+                        clientThree.setText(null);
+                        break;
+                    }
+                    break;
+                case "Approve":
+                    if (clientCount == 1) {
+                        clientOne.setText(userName);
+                        break;
+                    }
+                    if (clientCount == 2) {
+                        clientTwo.setText(userName);
+                        break;
+                    }
+                    if (clientCount == 3) {
+                        clientThree.setText(userName);
+                        break;
+                    }
+                    break;
+                case "Close":
+                    infoBox("Your changes will be lost if you don't save them.",
+                            "Do you want to save the changes?", "exit");
+
+            }
+
+        }
+        if (result.get() == buttonTypeTwo) {
+            confirmAlert.close();
+        }
+    }
+
 
     private void jsonSendPaints(String shapeKey, PaintAttribute attribute) {
         try {
@@ -637,7 +764,7 @@ public class WBController {
     }
 
 
-    private void jsonSendUserData(String userName, String password){
+    private void jsonSendUserData(String userName, String password) {
         //test userSys
         /*
         try{
@@ -648,37 +775,45 @@ public class WBController {
         }*/
     }
 
-    public synchronized void autoPaint(String keyword, PaintAttribute attribute){
+    public synchronized void autoPaint(String keyword, PaintAttribute attribute) {
         // convert Json String back to PaintAttribute object.
         // System.out.println(gson.fromJson(attribute, PaintAttribute.class));
         switch (keyword) {
-            case "sketch": autoSketch(attribute);
+            case "sketch":
+                autoSketch(attribute);
                 break;
-            case "erase": autoErase(attribute);
+            case "erase":
+                autoErase(attribute);
                 break;
-            case "line": autoLine(attribute);
+            case "line":
+                autoLine(attribute);
                 break;
-            case "cir": autoCir(attribute);
+            case "cir":
+                autoCir(attribute);
                 break;
-            case "rect": autoRect(attribute);
+            case "rect":
+                autoRect(attribute);
                 break;
-            case "oval": autoOval(attribute);
+            case "oval":
+                autoOval(attribute);
                 break;
-            case "text": autoText(attribute);
+            case "text":
+                autoText(attribute);
                 break;
-            default: System.out.println("Error shape keyword! Lao Ma Ni Za Hui SHier!!!");
+            default:
+                System.out.println("Error shape keyword! Lao Ma Ni Za Hui SHier!!!");
                 break;
         }
     }
 
-    private void autoSketch(PaintAttribute attribute){
+    private void autoSketch(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         g.beginPath();
         Color newColor = assembleColor(attribute);
         g.setStroke(newColor);
         g.setLineWidth(attribute.getLineWidth());
         ArrayList<Point> nodeList = attribute.getPointList();
-        for(int i = 0; i < nodeList.size(); i++){
+        for (int i = 0; i < nodeList.size(); i++) {
             g.lineTo(nodeList.get(i).getPointX(), nodeList.get(i).getPointY());
         }
         g.stroke();
@@ -686,22 +821,22 @@ public class WBController {
         g.closePath();
     }
 
-    private void autoErase(PaintAttribute attribute){
+    private void autoErase(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         g.beginPath();
         double size = attribute.getLineWidth();
         ArrayList<Point> nodeList = attribute.getPointList();
-        for(int i = 0; i < nodeList.size(); i++){
+        for (int i = 0; i < nodeList.size(); i++) {
             double x = nodeList.get(i).getPointX() - size / 2;
             double y = nodeList.get(i).getPointY() - size / 2;
             g.clearRect(x, y, size, size);
         }
-            count = 1;
-            g.closePath();
+        count = 1;
+        g.closePath();
 
     }
 
-    private void autoLine(PaintAttribute attribute){
+    private void autoLine(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         Color newColor = assembleColor(attribute);
         g.setStroke(newColor);
@@ -717,7 +852,7 @@ public class WBController {
         g.closePath();
     }
 
-    private void autoCir(PaintAttribute attribute){
+    private void autoCir(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         Color newColor = assembleColor(attribute);
         g.setStroke(newColor);
@@ -756,7 +891,7 @@ public class WBController {
         g.closePath();
     }
 
-    private void autoOval(PaintAttribute attribute){
+    private void autoOval(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         Color newColor = assembleColor(attribute);
         g.setStroke(newColor);
@@ -789,15 +924,12 @@ public class WBController {
         g.fillText(text, startX - 5, startY + 25);
     }
 
-    private Color assembleColor(PaintAttribute attribute){
+    private Color assembleColor(PaintAttribute attribute) {
         double[] colorList = attribute.getColor();
         Color newColor = Color.color(colorList[0], colorList[1], colorList[2]);
         return newColor;
     }
 
-    private void kickUser(){
-
-    }
 
     public synchronized void send() throws IOException {
         String allMessages = ("userName: ");
@@ -806,44 +938,50 @@ public class WBController {
         allMessages += message;
         input.clear();
         textMessage.appendText(allMessages + "\n");
-        gsonServant.sendMessage("userName",allMessages);
+        gsonServant.sendMessage("userName", allMessages);
     }
-
 
 
     //print to GUI chat room
-    public void setText(String msgPrint) throws IOException{
+    public void setText(String msgPrint) throws IOException {
         message = msgPrint;
 
     }
+
+
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
+        gsonServant.checkPassword(user, encrypt);
         if (testSignIn) {
+            // the number of client
             if (true) {
+                isManager = true;
                 signInPane.setVisible(false);
-                mainPane.setPrefHeight(700);
-                mainPane.setPrefWidth(1000);
                 wbPane.setVisible(true);
+                isManager = true;
+                managerName.setText(user);
+
 
                 //launch the whiteboard and turn off the signIn UI
-            }else if (clientCount <4){
+            } else if (clientCount < 4) {
+                isManager = false;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
             }
-        }
-        else{
+        } else {
             warningDialog(user + " is not existed!",
                     "You should confirm your username or register for " + user + " !");
         }
     }
 
-    public void signUp() {
+    public void signUp() throws Exception {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
+        gsonServant.registerUser(userRegister, passwordRe);
         if (isRegistered) {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
 
@@ -864,6 +1002,15 @@ public class WBController {
     private void warningDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    private void errorDialog(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
         alert.setHeaderText(header);
         alert.setContentText(message);
 

@@ -31,12 +31,12 @@
                     <Font name="Chalkboard Bold" size="17.0" />
                 </font>
             </Button>
-            <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="65.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: Transparent;" text="UserName">
+            <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="65.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: Transparent;" text="">
                 <font>
                     <Font size="14.0" />
                 </font>
             </TextField>
-            <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="130.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Password">
+            <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="130.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -84,7 +84,6 @@
                         <menus>
                             <Menu mnemonicParsing="false" text="File">
                                 <items>
-                                    <MenuItem fx:id="menuOpen" mnemonicParsing="false" onAction="#onOpen" text="Open" />
                                     <MenuItem fx:id="menuSave" mnemonicParsing="false" onAction="#onSave" text="Save" />
                                     <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" onAction="#onSaveAs" text="Save as" />
                                     <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
@@ -92,8 +91,9 @@
                             </Menu>
                             <Menu text="Manager">
                                 <items>
+                                    <MenuItem fx:id="menuOpen" mnemonicParsing="false" onAction="#onOpen" text="Open" />
                                     <MenuItem fx:id="menuNew" mnemonicParsing="false" onAction="#onNew" text="New" />
-                                    <!--<MenuItem fx:id="menuClose" onAction="#onClose" text="Close" />-->
+                                    <MenuItem fx:id="menuClose" onAction="#onClose" text="Close" />
                                 </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Help">
@@ -131,7 +131,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <!--<Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />-->
+                                            <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -141,7 +141,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <!--<Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: transparent;" text="" />-->
+                                            <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: transparent;" text="" />
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -151,7 +151,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <!--<Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />-->
+                                            <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />
                                         </children>
                                     </HBox>
                                 </children>
