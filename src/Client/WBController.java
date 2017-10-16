@@ -27,6 +27,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -940,13 +941,39 @@ public class WBController {
 
 
     public synchronized void send() throws IOException {
-        String allMessages = ("userName: ");
+        String allMessages = (" ");
         String message = input.getText();
-        chatServant.shareMsg(userName,message);
-        allMessages += message;
         input.clear();
-        textMessage.appendText(allMessages + "\n");
-        gsonServant.sendMessage("userName", allMessages);
+
+        chatServant.shareMsg(userName,message);
+        try {
+            ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
+            System.out.println("hihihi");
+            if (chatClientArrayList != null) {
+                System.out.println("byebyebye");
+                System.out.println(chatClientArrayList);
+                for (int i = 0; i < chatClientArrayList.size(); i++) {
+
+                    System.out.println("进入chatClient的list打印啦");
+
+                    ChatClient tempClient = chatClientArrayList.get(i);
+
+                    if (tempClient.getUserName() != userName) {
+                        String messagePrint = tempClient.getChatContent();
+                        System.out.println("messagePrint: " + messagePrint);
+                        if (messagePrint != null) {
+                            System.out.println("print次数：" + i);
+                            System.out.println(tempClient.getUserName() + ": " + messagePrint);
+                            textMessage.appendText(tempClient.getUserName() + ": " + messagePrint + "\n");
+                        }
+                    }
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
