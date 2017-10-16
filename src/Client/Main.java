@@ -83,7 +83,7 @@ public class Main extends Application {
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         }).start();
 
