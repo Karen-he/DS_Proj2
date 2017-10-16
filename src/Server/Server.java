@@ -126,7 +126,7 @@ public class Server {
                         String username = splitIt[0];
                         String passWord = splitIt[1];
                         for (Integer id : userIDs) {
-                            if (mainserver.userData.get(id).equals(userName)){
+                            if (mainserver.userData.get(id).equals(username)){
                                 notAlreadyExist = true;
                             }
                         }

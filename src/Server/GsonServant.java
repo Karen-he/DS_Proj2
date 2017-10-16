@@ -205,7 +205,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }
         return command;
     }
-
     //server uses this method to tell the client if this log is valid
     public String validLogin(boolean valid) {
         jsonObject.addProperty("checkPassword", valid);
@@ -215,7 +214,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         //System.out.println("the number of command: "+i);
         return jsonPack;
     }
-
     //clients use this method to check if the password is valid
     public void checkPassword(String userName, String password) {
         String userNameAndPassword = userName + " " + password;
