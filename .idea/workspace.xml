@@ -23,7 +23,6 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-<<<<<<< HEAD
     <splitter split-orientation="horizontal" split-proportion="0.56275976">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -152,7 +151,6 @@
         </leaf>
       </split-second>
     </splitter>
-=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
@@ -211,7 +209,6 @@
         </entry>
       </file>
     </leaf>
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -222,11 +219,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-<<<<<<< HEAD
       <find>setM</find>
     </findStrings>
   </component>
-=======
       <find>send</find>
       <find>gson</find>
     </findStrings>
@@ -234,7 +229,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
@@ -244,7 +238,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/ChatBox/ChatClientSender.java" />
-<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/Server/GsonServant.java" />
         <option value="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" />
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
@@ -253,7 +246,6 @@
         <option value="$PROJECT_DIR$/src/ChatBox/ChatClient.java" />
         <option value="$PROJECT_DIR$/src/Server/ChatServant.java" />
         <option value="$PROJECT_DIR$/src/RMIInterfaces/ChatServerInterface.java" />
-=======
         <option value="$PROJECT_DIR$/src/Client/WBController.java" />
         <option value="$PROJECT_DIR$/src/ChatBox/ChatClient.java" />
         <option value="$PROJECT_DIR$/src/Client/Main.java" />
@@ -261,7 +253,6 @@
         <option value="$PROJECT_DIR$/src/RMIInterfaces/ServerInterface.java" />
         <option value="$PROJECT_DIR$/src/Server/GsonServant.java" />
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
       </list>
     </option>
   </component>
@@ -277,13 +268,10 @@
       <select />
     </treeState>
   </component>
-<<<<<<< HEAD
   <component name="ProjectFrameBounds">
     <option name="x" value="17" />
-=======
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="1" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
     <option name="y" value="23" />
     <option name="width" value="1436" />
     <option name="height" value="877" />
@@ -515,36 +503,25 @@
       <workItem from="1507972887989" duration="2565000" />
       <workItem from="1507979072806" duration="52000" />
       <workItem from="1507984826028" duration="16959000" />
-<<<<<<< HEAD
       <workItem from="1508114835146" duration="17537000" />
-=======
       <workItem from="1508114835146" duration="5373000" />
-<<<<<<< HEAD
       <workItem from="1508123944301" duration="7000000" />
-=======
+
       <workItem from="1508123944301" duration="6172000" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
->>>>>>> a632347ed64d178cb2c591dffecec5072c3282d7
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
     <option name="totallyTimeSpent" value="31949000" />
-=======
-<<<<<<< HEAD
     <option name="totallyTimeSpent" value="37113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="17" y="23" width="1436" height="877" extended-state="0" />
-=======
     <option name="totallyTimeSpent" value="31121000" />
->>>>>>> a632347ed64d178cb2c591dffecec5072c3282d7
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -553,26 +530,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292595" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-=======
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13577586" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-=======
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15379113" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -861,22 +832,20 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="747" column="0" lean-forward="false" selection-start-line="747" selection-start-column="0" selection-end-line="747" selection-end-column="0" />
-=======
     <entry file="file://$PROJECT_DIR$/src/Client/SignInController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />>>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/com/sun/corba/se/impl/protocol/giopmsgheaders/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -884,10 +853,10 @@
         </state>
       </provider>
     </entry>
-=======
+
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/lang/Thread.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/com/sun/corba/se/impl/protocol/giopmsgheaders/Message.java" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
+
     <entry file="file://$PROJECT_DIR$/src/ChatBox/ChatClientSender.java" />
     <entry file="file://$PROJECT_DIR$/src/Client/PaintAttribute.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -923,90 +892,74 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/UserSysInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-=======
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ChatServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Server/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-=======
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ChatClientInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ChatClientInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-=======
     <entry file="file://$PROJECT_DIR$/src/Client/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="497">
           <caret line="64" column="36" lean-forward="false" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
+
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/src/Client/SignInController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-=======
     <entry file="file://$PROJECT_DIR$/src/Client/WBController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="588" column="31" lean-forward="false" selection-start-line="588" selection-start-column="17" selection-end-line="588" selection-end-column="31" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/UserSysServant.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="102">
           <caret line="130" column="41" lean-forward="false" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
-=======
         <state relative-caret-position="290">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Client/whiteBoard.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="125" column="66" lean-forward="true" selection-start-line="125" selection-start-column="66" selection-end-line="125" selection-end-column="66" />
-=======
     <entry file="file://$PROJECT_DIR$/src/ChatBox/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
           <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding />
         </state>
       </provider>
@@ -1014,7 +967,6 @@
         <state />
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Client/WBController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
@@ -1038,7 +990,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-=======
     <entry file="file://$PROJECT_DIR$/src/Server/ChatServant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -1051,14 +1002,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
+
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ChatServerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1071,17 +1021,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="28" column="55" lean-forward="true" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="55" />
-=======
     <entry file="file://$PROJECT_DIR$/src/Server/test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
+
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/RMIInterfaces/ClientServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1095,7 +1043,6 @@
         <state relative-caret-position="347">
           <caret line="80" column="77" lean-forward="true" selection-start-line="80" selection-start-column="77" selection-end-line="80" selection-end-column="77" />
           <folding />
-=======
     <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="571">
@@ -1123,7 +1070,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
->>>>>>> d8e671dcca8bd634cfa930b9a60144e49c9299e8
         </state>
       </provider>
     </entry>
