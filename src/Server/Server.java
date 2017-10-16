@@ -128,7 +128,6 @@ public class Server {
                                 + " ### " + wb1);
                     }
                 }
-<<<<<<< HEAD
 
             //user system thread
             //keep listening
@@ -190,9 +189,6 @@ public class Server {
                 }
             }).start();
 
-=======
-            }).start();
->>>>>>> ead1d3dbb2c60db4f6c4fffaf67340495002b8ce
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
             //RMI runtime so that they can no longer accept RMI calls you can use:
