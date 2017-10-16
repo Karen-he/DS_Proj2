@@ -590,43 +590,43 @@ public class WBController {
 
     public void onClose() throws IOException {
         if (isManager) {
-            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections");
+            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections",0);
         }
     }
 
-    private void kick(String userName) throws IOException {
+    private void kick(String userName, int clientNum) throws IOException {
         confirmBox("Kick", "Kick the " + userName + "!",
-                "Do you want to kick the " + userName + " ?");
+                "Do you want to kick the " + userName + " ?", clientNum);
         chatServant.kickClient(userName);
     }
 
 
 
-    private void approve(String userName) throws IOException {
+    private void approve(String userName ,int clientNum) throws IOException {
         if(isManager) {
             confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?");
+                    "Do you want to approve the " + userName + " ?",clientNum);
         }
     }
 
     public void kickUserOne() throws IOException {
         if (isManager) {
             String clientName = clientOne.getText();
-            kick(clientName);
+            kick(clientName,1);
         }
     }
 
     public void kickUserTwo() throws IOException {
         if (isManager) {
             String clientName = clientTwo.getText();
-            kick(clientName);
+            kick(clientName,2);
         }
     }
 
     public void kickUserThree() throws IOException {
         if (isManager) {
             String clientName = clientThree.getText();
-            kick(clientName);
+            kick(clientName,3);
         }
     }
 
@@ -690,7 +690,7 @@ public class WBController {
     }
 
     // this is for manager to control the client
-    private void confirmBox(String command, String header, String content) throws IOException {
+    private void confirmBox(String command, String header, String content, int clientNum) throws IOException {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle(command);
         confirmAlert.setHeaderText(header);
@@ -705,29 +705,29 @@ public class WBController {
         if (result.get() == buttonTypeOne) {
             switch (command) {
                 case "Kick":
-                    if (clientCount==2) {
+                    if (clientNum==2) {
                         clientOne.setText(null);
                         break;
                     }
-                    if (clientCount==3) {
+                    if (clientNum==3) {
                         clientTwo.setText(null);
                         break;
                     }
-                    if (clientCount==4) {
+                    if (clientNum==4) {
                         clientThree.setText(null);
                         break;
                     }
                     break;
                 case "Approve":
-                    if (clientCount == 1) {
+                    if (clientNum == 1) {
                         clientOne.setText(userName);
                         break;
                     }
-                    if (clientCount == 2) {
+                    if (clientNum == 2) {
                         clientTwo.setText(userName);
                         break;
                     }
-                    if (clientCount == 3) {
+                    if (clientNum == 3) {
                         clientThree.setText(userName);
                         break;
                     }
