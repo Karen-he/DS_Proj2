@@ -15,6 +15,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Set;
@@ -71,14 +72,14 @@ public class Server {
             boolean run = true;
             while (run) {
                 if (gsonServant.receivePaints() != null) {
-                    String[] whiteboard = gsonServant.receivePaints();
-                    String wb0 = whiteboard[0];
-                    String wb1 = whiteboard[1];
+                    ArrayList<String> whiteboard = gsonServant.receivePaints();
+                    String wb0 = whiteboard.get(0);
+                    String wb1 = whiteboard.get(1);
                     if (wb0.equals("") || wb1.equals("")) {
                         System.out.println("empty jsonPack");
                     } else {
-                        System.out.println("the string array received in server: " + whiteboard[0]
-                                + " ### " + whiteboard[1]);
+                        System.out.println("the string array received in server: " + wb0
+                                + " ### " + wb1);
                     }
                 }
             }
@@ -114,14 +115,14 @@ public class Server {
                     }
                 }
                 //receive from WB
-                String[] whiteboard = gsonServant.receivePaints();
-                String wb0 = whiteboard[0];
-                String wb1 = whiteboard[1];
+                ArrayList<String> whiteboard = gsonServant.receivePaints();
+                String wb0 = whiteboard.get(0);
+                String wb1 = whiteboard.get(1);
                 if (wb0.equals("") || wb1.equals("")) {
                     System.out.println("empty jsonPack");
                 } else {
-                    System.out.println("the string array received in server: " + whiteboard[0]
-                            + " ### " + whiteboard[1]);
+                    System.out.println("the string array received in server: " + wb0
+                            + " ### " + wb1);
                 }
             }
             //The server will continue running as long as there are remote objects exported into

@@ -75,28 +75,49 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
 
-    public String[] receivePaints() throws RemoteException {
-        boolean empty = jsonPack.isEmpty();
-        String[] whiteboard = new String[2];
-        whiteboard[0] = "";
-        whiteboard[1] = "";
-        if (empty == false) {
+//    public String[] receivePaints() throws RemoteException {
+//        boolean empty = jsonPack.isEmpty();
+//        String[] whiteboard = new String[2];
+//        whiteboard[0] = "";
+//        whiteboard[1] = "";
+//        if (empty == false) {
+//
+//            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+//            jsonObject = jsonElement.getAsJsonObject();
+//            String shape = jsonObject.get("Shape").getAsString();
+//            System.out.println("shape is " + shape);
+//            String attribute = jsonObject.get("paintAttribute").getAsString();
+//            System.out.println("paintAttribute: " + attribute);
+//
+//
+//            whiteboard[0] = shape;
+//            whiteboard[1] = attribute;
+//            System.out.println("the string array is " + whiteboard[0]
+//                    + " ### " + whiteboard[1]);
+//
+//        } else {
+//            whiteboard = null;
+//        }
+//        return whiteboard;
+//    }
 
+    public ArrayList<String> receivePaints() throws RemoteException {
+        boolean empty = jsonPack.isEmpty();
+        ArrayList<String> whiteBoard = null;
+        if(empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             String shape = jsonObject.get("Shape").getAsString();
             System.out.println("shape is " + shape);
             String attribute = jsonObject.get("paintAttribute").getAsString();
             System.out.println("paintAttribute: " + attribute);
-            whiteboard[0] = shape;
-            whiteboard[1] = attribute;
-            System.out.println("the string array is " + whiteboard[0]
-                    + " ### " + whiteboard[1]);
 
-        } else {
-            whiteboard = null;
+            whiteBoard.add(0, shape);
+            whiteBoard.add(1, attribute);
+            System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
         }
-        return whiteboard;
+        return whiteBoard;
+
     }
 
     public PaintAttribute getAttribute(String attribute) throws RemoteException{
@@ -105,12 +126,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     }
 
-    public String sendError(String errorType) throws RemoteException {
-        jsonObject.addProperty("Exception", errorType);
-        jsonPack = gson.toJson(jsonObject);
-        System.out.println("Error catch initiated: " + errorType);
-        return jsonPack;
-    }
+
 
     public synchronized String sendMessage(String userName, String chatContent) throws RemoteException {
         jsonObject.addProperty("Username", userName);
@@ -134,7 +150,50 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return msgPrint;
     }
 
+
+
+    /***
+     *
+     * @param noteType
+     * @param userName
+     * @return
+     * @throws RemoteException
+     *
+     * Broadcast the notification of any member left the room
+     * NoteType: 1) whiteBoard disband - userName = manager name
+     *           2) Member left room （kickoff or volunteer)
+     *
+     */
+    public String sendNote(String noteType, String userName) throws RemoteException {
+            jsonObject.addProperty("NoteType", noteType);
+            jsonObject.addProperty("Username", userName);
+            jsonPack = gson.toJson(jsonObject);
+            System.out.println("Notification Send out: " + noteType);
+            return jsonPack;
+        }
+
+    /***
+     *
+     * @return
+     * @throws RemoteException
+     *
+     * show notification info on dialog window
+     */
+    public String receiveNote() throws RemoteException {
+        boolean empty = jsonPack.isEmpty();
+        String notePrint = "";
+        if (empty == false) {
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            String noteType = jsonObject.get("NoteTyple").getAsString();
+            String userName = jsonObject.get("Username").getAsString();
+            notePrint = userName + " has left room.";
+        }
+        return notePrint;
+    }
+
 }
+
 
 //    public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{
 //        jsonPack = gson.toJson(chatClientList);

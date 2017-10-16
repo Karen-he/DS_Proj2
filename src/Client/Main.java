@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -44,9 +45,9 @@ public class Main extends Application {
             try {
                 if (gsonServant.receivePaints() != null){
                     System.out.println("hihi 我可以画画啦");
-                    String [] drawCommand = gsonServant.receivePaints();
-                    String shapeOption = drawCommand[0];
-                    String attributeGson = drawCommand[1];
+                    ArrayList<String> drawCommand = gsonServant.receivePaints();
+                    String shapeOption = drawCommand.get(0);
+                    String attributeGson = drawCommand.get(1);
                     PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
                     WBController.autoPaint(shapeOption,attributeRec);
                 }
