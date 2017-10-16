@@ -21,4 +21,8 @@ public class PaintsDatabase {
     public Hashtable getPaintsDatabase(){
         return this.paintsDatabase;
     }
+
+    public void clearDatabase(Hashtable paintsDatabase){
+        paintsDatabase.clear();
+    }
 }
