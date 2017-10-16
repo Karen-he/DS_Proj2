@@ -24,9 +24,9 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="250" prefWidth="450" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
 
-    <Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0">
+    <Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" visible="false">
         <children>
-            <Button onAction="#signUp" contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Sign Up">
+            <Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">
                 <font>
                     <Font name="Chalkboard Bold" size="17.0" />
                 </font>
@@ -53,14 +53,14 @@
                     <Image url="@../password.png" />
                 </image>
             </ImageView>
-            <Button onAction="#signIn" layoutX="256.0" layoutY="196.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">
+            <Button layoutX="256.0" layoutY="196.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">
                 <font>
                     <Font name="Chalkboard SE Regular" size="18.0" />
                 </font>
             </Button>
         </children>
     </Pane>
-    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="false">
+    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="true">
         <right>
 
 
@@ -212,6 +212,11 @@
                 <children>
                     <TextArea fx:id="textMessage" editable="false" layoutY="5.0" prefHeight="480.0" prefWidth="215.0" style="-fx-background-color: transparent;" wrapText="true" />
                     <TextArea fx:id="input" layoutY="490.0" prefHeight="100.0" prefWidth="215.0" style="-fx-background-color: transparent;" />
+               <Button fx:id="sendMessage" onAction="#send" layoutX="130.0" layoutY="602.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="85.0" style="-fx-background-color: white;" text="Send">
+                  <font>
+                     <Font size="17.0" />
+                  </font>
+               </Button>
                 </children>
             </AnchorPane>
         </right>
