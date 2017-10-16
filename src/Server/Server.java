@@ -50,14 +50,12 @@ public class Server {
             //is done automatically when the object is initialized.
             GsonServant gsonServant = new GsonServant();
             ChatServant chatServant = new ChatServant();
-            UserSysServant userSysServant = new UserSysServant();
 
             //Publish the remote object's stub in the registry under the name "Compute"
             Registry registry = LocateRegistry.createRegistry(2020);
             registry.bind("Gson", gsonServant);
             registry.bind("Chatbox", chatServant);
-            registry.bind("userSystem", userSysServant);
-
+            
             System.out.println("ServerInterface ready");
 
             System.out.println("Waiting for client connection..");
@@ -86,12 +84,26 @@ public class Server {
 
             //user system thread
             //keep listening
-            Hashtable commands;
+            String userNameAndPassword = "";
             while (run) {
-                //receive commands
-                commands = gsonServant.receiveGson();
-                Set keywords = commands.keySet();
-                for (Object i : keywords) {
+                //check password
+                userNameAndPassword = gsonServant.serverCheckPassword();
+                String[] split = userNameAndPassword.split(" ");
+                String userName = split[0];
+                String password = split[1];
+                Set<Integer> userIDs = mainserver.userData.keySet();
+                String actualPassword = "";
+                for (Integer id : userIDs) {
+                    if (mainserver.userData.get(id).equals(userName)) {
+                        actualPassword = mainserver.userPassword.get(id);
+                    }
+                }
+                boolean validPassword = actualPassword.equals(password);
+                gsonServant.valid(validPassword);
+
+
+
+                    /***
                     String command = commands.get(i).toString();
                     if (i.equals("userName")) {
                         if (keywords.contains("registerUser")) {
@@ -110,10 +122,9 @@ public class Server {
                                 }
                             }
                             boolean validPassword = actualPassword.equals(password);
-                            userSysServant.sendBack(validPassword);
                         }
-                    }
-                }
+                    }***/
+
                 //receive from WB
                 ArrayList<String> whiteboard = gsonServant.receivePaints();
                 String wb0 = whiteboard.get(0);

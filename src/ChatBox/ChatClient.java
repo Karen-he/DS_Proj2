@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class ChatClient implements ChatClientInterface, Serializable, Runnable {
+public class ChatClient implements ChatClientInterface, Serializable {
 
     //receiveGson include peerID/peer Username, chat content
     //private int peerId;
@@ -19,7 +19,7 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable {
     private ServerInterface gsonServant;
 
 
-    private String message;
+    private String chatContent;
 
 
     // chat register with userName and server
@@ -34,73 +34,80 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable {
         return userName;
     }
 
-    public String getMessage() {
-        return message;
+    public String getChatContent() {
+        return chatContent;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setChatContent(String chatContent) {
+        this.chatContent = chatContent;
     }
 
-    //print message on own board
+    //print chatContent on own board
     public void retrieveMsg(String msgPrint) throws RemoteException {
         System.out.println(msgPrint);
 //        return msgPrint;
     }
 
+}
    /*
      * retrieve Msg from server
      * add listener to receive chat content
      */
 
-    public void run() {
+//    public void run() {
         // Broadcast messgae when input in GUI
-        new Thread(() -> {
-            while(true) {
-                try {
-                    if (gsonServant.receiveMessage() != null) {
+//        new Thread(() -> {
+//            while(true) {
+//                try {
+//                    if (gsonServant.receiveMessage() != null) {
+//
+//                        String chatContent = gsonServant.receiveMessage();
+//
+//                        System.out.println(chatContent);
+//
+//                        this.setChatContent(chatContent);
+//
+////                        chatServant.shareMsg(userName, chatContent);
+//                    }
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
-                        String chatContent = gsonServant.receiveMessage();
 
-                        System.out.println(chatContent);
-
-                        chatServant.shareMsg(userName, chatContent);
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-
-     // show others sent message
-        new Thread(() -> {
-            while(true) {
-                try {
-                    ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
-                    System.out.println("hihihi");
-                    if (chatClientArrayList != null) {
-                        System.out.println("byebyebye");
-                        for (int i = 0; i < chatClientArrayList.size(); i++) {
-
-//                          System.out.println("进入chatClient的list打印啦");
-
-                            ChatClient tempClient = chatClientArrayList.get(i);
-                            String messagePrint = tempClient.getMessage();
-
-//                          setText(messagePrint);
-                          System.out.println("print次数：" + i);
-                        }
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-}
+     // show others sent chatContent
+//        new Thread(() -> {
+//            ArrayList<ChatClient> oldChatClient = null;
+//            while(true) {
+//                try {
+//                    ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
+//                    System.out.println("hihihi");
+//                    if (chatClientArrayList != null) {
+//                        System.out.println("byebyebye");
+//                        System.out.println(chatClientArrayList);
+//                        for (int i = 0; i < chatClientArrayList.size(); i++) {
+//
+//                            System.out.println("进入chatClient的list打印啦");
+//
+//                            ChatClient tempClient = chatClientArrayList.get(i);
+//                            String messagePrint = tempClient.getChatContent();
+//                            System.out.println("messagePrint: " + messagePrint);
+//                            if (messagePrint != null) {
+//                                System.out.println("print次数：" + i);
+//                                System.out.println(tempClient.getUserName() + "： " + messagePrint);
+//                            }
+//                        }
+//                    }
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//    }
+//}
 
 
 
@@ -132,7 +139,7 @@ public class ChatClient implements ChatClientInterface, Serializable, Runnable {
 ////                        System.out.println("进入chatClient的list打印啦");
 //
 //                        ChatClient tempClient = chatClientArrayList.get(i);
-//                        String messagePrint = tempClient.getMessage();
+//                        String messagePrint = tempClient.getChatContent();
 ////                    setText(messagePrint);
 //                        System.out.println(messagePrint);
 //                    }

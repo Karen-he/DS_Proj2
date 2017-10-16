@@ -1,6 +1,7 @@
 package Client;
 
 import ChatBox.ChatClient;
+import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ServerInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -50,14 +51,14 @@ public class WBController {
         this.file = file;
     }
 
-    private String message;
+//    private String message;
 
     private String userName;
 
-    public void setMessage(String message) {
-        System.out.println("SetMessage" +message);
-        this.message = message;
-    }
+//    public void setMessage(String message) {
+//        System.out.println("SetMessage" +message);
+//        this.message = message;
+//    }
 
     @FXML
     private Canvas canvas;
@@ -110,6 +111,7 @@ public class WBController {
     protected ArrayList<Point> pointList = new ArrayList<Point>();
     Registry registry;
     ServerInterface gsonServant;
+    ChatServerInterface chatServant;
 
     private final ToggleGroup group = new ToggleGroup();
 
@@ -607,9 +609,7 @@ public class WBController {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant) {
-        this.gsonServant = gsonServant;
-    }
+
 
 
     private void jsonSendUserData(String userName, String password){
@@ -775,21 +775,31 @@ public class WBController {
     }
 
     public synchronized void send() throws IOException {
+        System.out.println("用了send");
         String allMessages = ("userName: ");
-        String message = input.getText();
-        setMessage(message);
-        allMessages += message;
-        input.clear();
-        textMessage.appendText(allMessages + "\n");
-        gsonServant.sendMessage("userName",allMessages);
+        System.out.println("allMessages: "+allMessages);
+        String chatContent = input.getText();
+        System.out.println("chatcontent: "+chatContent);
+        if(chatContent != null) {
+            chatServant.shareMsg(userName, "asdf");
+            allMessages += chatContent;
+            input.clear();
+            textMessage.appendText(allMessages + "\n");
+        }
+//        gsonServant.sendMessage("userName",allMessages);
     }
 
 
 
-    //print to GUI chat room
-    public void setText(String msgPrint) throws IOException{
-        message = msgPrint;
+//    //print to GUI chat room
+//    public void setText(String msgPrint) throws IOException{
+//        message = msgPrint;
+//
+//    }
 
+    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant) {
+        this.gsonServant = gsonServant;
+        this.chatServant = chatServant;
     }
 
 }

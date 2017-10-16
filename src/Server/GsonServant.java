@@ -62,7 +62,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println("the number of command: "+j);
         }
         return commands;
-
     }
 
     public String sendPaints(String keyShape, PaintAttribute paint) throws RemoteException {
@@ -192,6 +191,42 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return notePrint;
     }
 
+
+    //server uses this method to get the password from client when logging in
+    public String serverCheckPassword(){
+        boolean empty = jsonPack.isEmpty();
+        String command = "";
+        if(empty == false){
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("checkPassword").getAsString();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
+    }
+    //server uses this method to tell the client if this password is valid
+    public String valid(boolean valid){
+        jsonObject.addProperty("checkPassword", valid);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant"+jsonPack);
+        //i++;
+        //System.out.println("the number of command: "+i);
+        return jsonPack;
+    }
+    //client use this method to check if the password is valid
+    public String checkPassword(String userNameAndPassword){
+        jsonObject.addProperty("checkPassword", userNameAndPassword);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant"+jsonPack);
+        //i++;
+        //System.out.println("the number of command: "+i);
+        return jsonPack;
+    }
+
+    //
 }
 
 

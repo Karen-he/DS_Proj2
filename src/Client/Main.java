@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -56,13 +57,43 @@ public class Main extends Application {
             }
         }).start();
 
-        Runnable client = new ChatClient("Username", chatServant, gsonServant);
-        Thread thread1 = new Thread(client);
-        thread1.start();
+        ChatClient chatClient = new ChatClient("Username",chatServant,gsonServant);
 
-// username get from the name after logging in
+        new Thread(() -> {
+            ArrayList<ChatClient> oldChatClient = null;
+            while(true) {
+                try {
+                    ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
+                    System.out.println("hihihi");
+                    if (chatClientArrayList != null) {
+                        System.out.println("byebyebye");
+                        System.out.println(chatClientArrayList);
+                        for (int i = 0; i < chatClientArrayList.size(); i++) {
 
-        WBController.setServant(gsonServant);
+                            System.out.println("进入chatClient的list打印啦");
+
+                            ChatClient tempClient = chatClientArrayList.get(i);
+                            String messagePrint = tempClient.getChatContent();
+
+                            System.out.println("messagePrint: " + messagePrint);
+                            if (messagePrint != null) {
+                                System.out.println("print次数：" + i);
+                                System.out.println(tempClient.getUserName() + ": " + messagePrint);
+                            }
+                        }
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+        // username get from the name after logging in
+
+        WBController.setServant(gsonServant, chatServant);
 
         window = primaryStage;
         window.setTitle("WhiteBoard");
@@ -83,17 +114,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     private void closeAction() throws IOException{
         WBController wbController = new WBController();
