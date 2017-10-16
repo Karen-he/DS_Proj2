@@ -942,7 +942,6 @@ public class WBController {
     public synchronized void send() throws IOException {
         String allMessages = ("userName: ");
         String message = input.getText();
-        setMessage(message);
         allMessages += message;
         input.clear();
         textMessage.appendText(allMessages + "\n");
@@ -974,6 +973,7 @@ public class WBController {
                 //launch the whiteboard and turn off the signIn UI
             } else if (clientCount < 4) {
                 isManager = false;
+                userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
 
