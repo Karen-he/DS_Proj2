@@ -109,14 +109,17 @@ public class Server {
                         if(mainserver.currentUserNum!=0){
                             gsonServant.askManager(userName);
                             managerApproved = gsonServant.waitForManager();
+                        }else{
+                            managerApproved = true;
                         }
                         boolean validPasswordAndManagerAproved = validPassword && managerApproved;
                         gsonServant.validLogin(validPasswordAndManagerAproved);
-
+                        mainserver.currentUserNum ++;
                     }
 
                     //add new users to the system
                     String userNamePlusPassword = gsonServant.addUser();
+                    boolean notAlreadyExist = false;
                     boolean emptyUP = userNamePlusPassword.isEmpty();
                     if(emptyUP!=true){
                         String[] splitIt = userNamePlusPassword.split(" ");
@@ -124,10 +127,15 @@ public class Server {
                         String passWord = splitIt[1];
                         for (Integer id : userIDs) {
                             if (mainserver.userData.get(id).equals(userName)){
-                                
+                                notAlreadyExist = true;
                             }
                         }
-                        mainserver.addInUser(username, passWord);
+                        if(notAlreadyExist){
+                            mainserver.addInUser(username, passWord);
+                            gsonServant.validRegister(true);
+                        }else{
+                            gsonServant.validRegister(false);
+                        }
                     }
 
                     //receive from WB

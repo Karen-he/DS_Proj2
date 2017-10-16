@@ -206,10 +206,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return command;
     }
 
-    //server uses this method to tell the client if this password is valid
-    public String validAndClientNumber(boolean valid, int clientNumber) {
+    //server uses this method to tell the client if this log is valid
+    public String validLogin(boolean valid) {
         jsonObject.addProperty("checkPassword", valid);
-        jsonObject.addProperty("clientNumber", clientNumber);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
         //i++;
@@ -223,6 +222,35 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         jsonObject.addProperty("checkPassword", userNameAndPassword);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
+    }
+
+    //manager approve
+    //server uses thismethod to ask manager to approve log in
+    public void askManager(String username){
+        jsonObject.addProperty("askManager", username);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant" + jsonPack);
+    }
+    //manager uses this method to send approval
+    public void sendApproval(boolean approval){
+        jsonObject.addProperty("approvalFromManager", approval);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant" + jsonPack);
+    }
+    //server uses this method to receive the approval from manager
+    public boolean waitForManager(){
+        boolean empty = jsonPack.isEmpty();
+        boolean command = false;
+        if (empty == false) {
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("approvalFromManager").getAsBoolean();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
     }
 
     //sign up system
