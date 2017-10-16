@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4204638e-b447-4937-b951-f63991b1824e" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/UserSysServant.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DS_Proj2.iml" afterPath="$PROJECT_DIR$/DS_Proj2.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/GsonServant.java" afterPath="$PROJECT_DIR$/src/Server/GsonServant.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Server.java" afterPath="$PROJECT_DIR$/src/Server/Server.java" />
     </list>
@@ -26,8 +24,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="57" column="12" lean-forward="false" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+            <state relative-caret-position="-1247">
+              <caret line="108" column="16" lean-forward="false" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -38,8 +36,8 @@
       <file leaf-file-name="GsonServant.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="194" column="15" lean-forward="false" selection-start-line="194" selection-start-column="15" selection-end-line="194" selection-end-column="15" />
+            <state relative-caret-position="571">
+              <caret line="244" column="66" lean-forward="false" selection-start-line="244" selection-start-column="47" selection-end-line="244" selection-end-column="66" />
               <folding>
                 <element signature="e#2648#2710#0" expanded="false" />
                 <element signature="method#receivePaints#0;class#GsonServant#0" expanded="false" />
@@ -50,7 +48,6 @@
                 <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
                 <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
                 <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-                <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
                 <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
                 <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
               </folding>
@@ -364,12 +361,12 @@
       <workItem from="1507979072806" duration="52000" />
       <workItem from="1507984826028" duration="16959000" />
       <workItem from="1508114835146" duration="5373000" />
-      <workItem from="1508123944301" duration="6172000" />
+      <workItem from="1508123944301" duration="7000000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31121000" />
+    <option name="totallyTimeSpent" value="31949000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -458,7 +455,6 @@
             <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
             <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
             <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-            <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
             <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
             <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
           </folding>
@@ -539,7 +535,6 @@
             <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
             <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
             <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-            <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
             <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
             <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
           </folding>
@@ -610,7 +605,6 @@
             <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
             <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
             <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-            <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
             <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
             <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
           </folding>
@@ -673,7 +667,6 @@
             <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
             <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
             <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-            <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
             <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
             <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
           </folding>
@@ -799,8 +792,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/GsonServant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="194" column="15" lean-forward="false" selection-start-line="194" selection-start-column="15" selection-end-line="194" selection-end-column="15" />
+        <state relative-caret-position="571">
+          <caret line="244" column="66" lean-forward="false" selection-start-line="244" selection-start-column="47" selection-end-line="244" selection-end-column="66" />
           <folding>
             <element signature="e#2648#2710#0" expanded="false" />
             <element signature="method#receivePaints#0;class#GsonServant#0" expanded="false" />
@@ -811,7 +804,6 @@
             <element signature="method#sendNote#0;class#GsonServant#0" expanded="false" />
             <element signature="docComment;method#receiveNote#0;class#GsonServant#0" expanded="false" />
             <element signature="method#receiveNote#0;class#GsonServant#0" expanded="false" />
-            <element signature="method#serverCheckPassword#0;class#GsonServant#0" expanded="false" />
             <element signature="method#valid#0;class#GsonServant#0" expanded="false" />
             <element signature="method#checkPassword#0;class#GsonServant#0" expanded="false" />
           </folding>
@@ -820,8 +812,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="57" column="12" lean-forward="false" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+        <state relative-caret-position="-1247">
+          <caret line="108" column="16" lean-forward="false" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

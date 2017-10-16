@@ -217,16 +217,35 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
     //client use this method to check if the password is valid
-    public String checkPassword(String userNameAndPassword){
+    public void checkPassword(String userName, String password){
+        String userNameAndPassword = userName+" "+password;
         jsonObject.addProperty("checkPassword", userNameAndPassword);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant"+jsonPack);
-        //i++;
-        //System.out.println("the number of command: "+i);
-        return jsonPack;
     }
 
-    //
+    //server uses this method to add user into the system
+    public String addUser(){
+        boolean empty = jsonPack.isEmpty();
+        String command = "";
+        if(empty == false){
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("registerUser").getAsString();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
+    }
+    //client usees this method to register into the system
+    public void registerUser(String userName, String password){
+        String userNameAndPassword = userName+" "+password;
+        jsonObject.addProperty("registerUser", userNameAndPassword);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant"+jsonPack);
+    }
 }
 
 

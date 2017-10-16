@@ -55,7 +55,7 @@ public class Server {
             Registry registry = LocateRegistry.createRegistry(2020);
             registry.bind("Gson", gsonServant);
             registry.bind("Chatbox", chatServant);
-            
+
             System.out.println("ServerInterface ready");
 
             System.out.println("Waiting for client connection..");
@@ -65,7 +65,7 @@ public class Server {
             Gson gson = new Gson();
             JsonObject jsonObject = new JsonObject();
 
-            Scanner keybord = new Scanner(System.in);
+            //Scanner keybord = new Scanner(System.in);
             //keep listening
             boolean run = true;
             while (run) {
@@ -84,10 +84,9 @@ public class Server {
 
             //user system thread
             //keep listening
-            String userNameAndPassword = "";
             while (run) {
                 //check password
-                userNameAndPassword = gsonServant.serverCheckPassword();
+                String userNameAndPassword = gsonServant.serverCheckPassword();
                 String[] split = userNameAndPassword.split(" ");
                 String userName = split[0];
                 String password = split[1];
@@ -101,30 +100,13 @@ public class Server {
                 boolean validPassword = actualPassword.equals(password);
                 gsonServant.valid(validPassword);
 
-
-
-                    /***
-                    String command = commands.get(i).toString();
-                    if (i.equals("userName")) {
-                        if (keywords.contains("registerUser")) {
-                            User newUser = gson.fromJson(jsonObject.get("registerUser").getAsString(), User.class);
-                            String password = commands.get("password").toString();
-                            mainserver.addInUser(newUser.getUsername(), password);
-                        }
-                        if (keywords.contains("checkPassword")) {
-                            String username = commands.get("checkPassword").toString();
-                            Set<Integer> userIDs = mainserver.userData.keySet();
-                            String actualPassword = "";
-                            String password = commands.get("password").toString();
-                            for (Integer id : userIDs) {
-                                if (mainserver.userData.get(id).equals(username)) {
-                                    actualPassword = mainserver.userPassword.get(id);
-                                }
-                            }
-                            boolean validPassword = actualPassword.equals(password);
-                        }
-                    }***/
-
+                //add new users to the system
+                String userNamePlusPassword = gsonServant.addUser();
+                String[] splitIt = userNameAndPassword.split(" ");
+                String username = splitIt[0];
+                String passWord = splitIt[1];
+                mainserver.addInUser(username, passWord);
+                
                 //receive from WB
                 ArrayList<String> whiteboard = gsonServant.receivePaints();
                 String wb0 = whiteboard.get(0);
