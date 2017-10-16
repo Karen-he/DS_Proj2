@@ -74,31 +74,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return jsonPack;
     }
 
-//    public String[] receivePaints() throws RemoteException {
-//        boolean empty = jsonPack.isEmpty();
-//        String[] whiteboard = new String[2];
-//        whiteboard[0] = "";
-//        whiteboard[1] = "";
-//        if (empty == false) {
-//
-//            JsonElement jsonElement = new JsonParser().parse(jsonPack);
-//            jsonObject = jsonElement.getAsJsonObject();
-//            String shape = jsonObject.get("Shape").getAsString();
-//            System.out.println("shape is " + shape);
-//            String attribute = jsonObject.get("paintAttribute").getAsString();
-//            System.out.println("paintAttribute: " + attribute);
-//
-//
-//            whiteboard[0] = shape;
-//            whiteboard[1] = attribute;
-//            System.out.println("the string array is " + whiteboard[0]
-//                    + " ### " + whiteboard[1]);
-//
-//        } else {
-//            whiteboard = null;
-//        }
-//        return whiteboard;
-//    }
 
     public ArrayList<String> receivePaints() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
