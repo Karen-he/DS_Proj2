@@ -965,10 +965,11 @@ public class WBController {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-//        gsonServant.checkPassword(user, encrypt);
-        if (testSignIn) {
+        gsonServant.checkPassword(user, encrypt);
+        Boolean isSignIn = gsonServant.logginResult();
+        if (isSignIn) {
             // the number of client
-            if (true) {
+            if (clientCount == 1) {
                 isManager = true;
                 signInPane.setVisible(false);
                 wbPane.setVisible(true);
@@ -999,7 +1000,8 @@ public class WBController {
     public void signUp() throws Exception {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
-//        gsonServant.registerUser(userRegister, passwordRe);
+        gsonServant.registerUser(userRegister, passwordRe);
+        Boolean isRegistered =gsonServant.validRegister();
         if (isRegistered) {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
 
