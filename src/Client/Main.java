@@ -64,6 +64,7 @@ public class Main extends Application {
 
             while(true) {
                 try {
+                    
                     HashMap<String, String> chatRecords = chatServant.getChatRecords();
                     System.out.println("hihihi");
 
@@ -76,6 +77,7 @@ public class Main extends Application {
                         Iterator it = chatRecords.entrySet().iterator();
 
                         while (it.hasNext()) {
+
                             HashMap.Entry pair = (HashMap.Entry) it.next();
 
                             System.out.println("进入chatClient的list打印啦");
@@ -84,7 +86,7 @@ public class Main extends Application {
 
                             WBController.appendToMessage(messagePrint);
                         }
-                        chatRecords.clear();
+                        chatServant.getChatRecords().clear();
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -94,7 +96,7 @@ public class Main extends Application {
             }
         }).start();
 
-// username get from the name after logging in
+        // username get from the name after logging in
 
         WBController.setServant(gsonServant,chatServant);
 

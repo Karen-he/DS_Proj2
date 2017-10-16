@@ -162,15 +162,13 @@ public class WBController {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    private void setClient() throws Exception{
+    private void setClient() throws Exception {
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
         client1 = chatClients.get(1).getUserName();
         client2 = chatClients.get(2).getUserName();
         client3 = chatClients.get(3).getUserName();
         clientCount = chatClients.size();
     }
-
-
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
@@ -498,7 +496,6 @@ public class WBController {
     }
 
 
-
     public void onNew() throws IOException {
         if (isManager) {
             if (canvasCount == 1) {
@@ -594,7 +591,7 @@ public class WBController {
 
     public void onClose() throws IOException {
         if (isManager) {
-            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections",0);
+            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0);
         }
     }
 
@@ -605,32 +602,31 @@ public class WBController {
     }
 
 
-
-    private void approve(String userName ,int clientNum) throws IOException {
-        if(isManager) {
+    private void approve(String userName, int clientNum) throws IOException {
+        if (isManager) {
             confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?",clientNum);
+                    "Do you want to approve the " + userName + " ?", clientNum);
         }
     }
 
     public void kickUserOne() throws IOException {
         if (isManager) {
             String clientName = clientOne.getText();
-            kick(clientName,1);
+            kick(clientName, 1);
         }
     }
 
     public void kickUserTwo() throws IOException {
         if (isManager) {
             String clientName = clientTwo.getText();
-            kick(clientName,2);
+            kick(clientName, 2);
         }
     }
 
     public void kickUserThree() throws IOException {
         if (isManager) {
             String clientName = clientThree.getText();
-            kick(clientName,3);
+            kick(clientName, 3);
         }
     }
 
@@ -709,15 +705,15 @@ public class WBController {
         if (result.get() == buttonTypeOne) {
             switch (command) {
                 case "Kick":
-                    if (clientNum==2) {
+                    if (clientNum == 2) {
                         clientOne.setText(null);
                         break;
                     }
-                    if (clientNum==3) {
+                    if (clientNum == 3) {
                         clientTwo.setText(null);
                         break;
                     }
-                    if (clientNum==4) {
+                    if (clientNum == 4) {
                         clientThree.setText(null);
                         break;
                     }
@@ -770,7 +766,7 @@ public class WBController {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant,ChatServerInterface chatServant) {
+    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant) {
         this.gsonServant = gsonServant;
         this.chatServant = chatServant;
     }
@@ -947,7 +943,7 @@ public class WBController {
         String allMessages = (" ");
         String message = input.getText();
         input.clear();
-        chatServant.shareMsg(userName,message);
+        chatServant.shareMsg(userName, message);
     }
 
 
@@ -957,15 +953,15 @@ public class WBController {
 
     }
 
-    public void appendToMessage(String message){
-        textMessage.appendText(message+"\n");
+    public void appendToMessage(String message) {
+        textMessage.appendText(message + "\n");
     }
 
 
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-        gsonServant.checkPassword(user, encrypt);
+//        gsonServant.checkPassword(user, encrypt);
         if (testSignIn) {
             // the number of client
             if (true) {
@@ -976,7 +972,7 @@ public class WBController {
                 managerName.setText(user);
                 userName = user;
 
-                ChatClient chatClient = new ChatClient(userName,chatServant,gsonServant);
+                ChatClient chatClient = new ChatClient(userName, chatServant, gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -985,7 +981,7 @@ public class WBController {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                ChatClient chatClient = new ChatClient(userName, chatServant,gsonServant);
+                ChatClient chatClient = new ChatClient(userName, chatServant, gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
@@ -999,14 +995,12 @@ public class WBController {
     public void signUp() throws Exception {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
-        gsonServant.registerUser(userRegister, passwordRe);
+//        gsonServant.registerUser(userRegister, passwordRe);
         if (isRegistered) {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
-
         } else {
             inforDialog(userRegister);
         }
-
     }
 
     private void inforDialog(String name) {
@@ -1031,10 +1025,7 @@ public class WBController {
         alert.setTitle("Error");
         alert.setHeaderText(header);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
-
-
 }
 
