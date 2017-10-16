@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.layout.BorderPane;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -117,6 +118,14 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }
         return whiteBoard;
 
+    }
+
+    //This method is to send a command of initilize a new canvas to the server in order to clear the
+    // paints database.
+    public synchronized String tellSeverNew(boolean command){
+        jsonObject.addProperty("Newcanvase", command);
+        jsonPack = gson.toJson(jsonObject);
+        return jsonPack;
     }
 
     public PaintAttribute getAttribute(String attribute) throws RemoteException {
@@ -298,6 +307,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         }
         return command;
     }
+
 }
 
 //    public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{

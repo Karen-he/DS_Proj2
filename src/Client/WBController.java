@@ -484,6 +484,7 @@ public class WBController {
 
 
     private void newFile() throws IOException {
+        gsonServant.tellSeverNew(true);
         canvasPane.getChildren().remove(canvas);
         canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
         pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
@@ -493,7 +494,9 @@ public class WBController {
         colorPicker.setValue(Color.BLACK);
         setFile(null);
         canvasCount = 0;
+
     }
+
 
 
     public void onNew() throws IOException {

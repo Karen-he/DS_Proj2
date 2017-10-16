@@ -26,6 +26,6 @@ public interface ServerInterface extends Remote{
     //Serve for note broadcasting
     String sendNote(String noteType, String userName) throws RemoteException;
     String receiveNote() throws RemoteException;
-
+    String tellSeverNew(boolean command);
 
 }
