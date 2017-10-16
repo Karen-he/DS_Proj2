@@ -945,7 +945,6 @@ public class WBController {
         String message = input.getText();
         input.clear();
         chatServant.shareMsg(userName,message);
-        textMessage.appendText(allMessages + "\n");
     }
 
 

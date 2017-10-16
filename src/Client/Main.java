@@ -17,6 +17,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Main extends Application {
 
@@ -63,7 +64,7 @@ public class Main extends Application {
 
             while(true) {
                 try {
-                    HashMap<String,String> chatRecords =  chatServant.getChatRecords();
+                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
                     System.out.println("hihihi");
 
                     if (chatRecords != null) {
@@ -72,27 +73,24 @@ public class Main extends Application {
 
                         System.out.println(chatRecords);
 
-                        for (int i = 0; i < chatRecords.size(); i++) {
+                        Iterator it = chatRecords.entrySet().iterator();
+
+                        while (it.hasNext()) {
+                            HashMap.Entry pair = (HashMap.Entry) it.next();
 
                             System.out.println("进入chatClient的list打印啦");
 
-                            if(tempClient.getUserName() != )
+                            String messagePrint = pair.getKey() + ": " + pair.getValue();
 
-                            String messagePrint = tempClient.getChatContent();
-
-                            System.out.println("messagePrint: " + messagePrint);
-
-                                if (messagePrint != null) {
-                                    System.out.println("print次数：" + i);
-                                    System.out.println(tempClient.getUserName() + ": " + messagePrint);
-                                }
-                            }
+                            WBController.appendToMessage(messagePrint);
                         }
+                        chatRecords.clear();
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
-
+                }
             }
         }).start();
 
