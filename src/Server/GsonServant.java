@@ -277,16 +277,24 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("the jsonpack in servant" + jsonPack);
     }
 
-    //server uses this method to check if this client exist in system
-    public String serverCheckRegister() {
+    //server uses this method to send if this client exist in system
+    public void serverValidRegister(boolean valid) {
+        jsonObject.addProperty("checkExist", valid);
+        jsonPack = gson.toJson(jsonObject);
+        System.out.println("the jsonpack in servant" + jsonPack);
+    }
+    //clients use this method to receive if this register is valid
+    public boolean validRegister(String back){
         boolean empty = jsonPack.isEmpty();
-        String command = "";
+        boolean command = false;
         if (empty == false) {
             System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("checkRegister").getAsString();
-
+            command = jsonObject.get("checkExist").getAsBoolean();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
         }
         return command;
     }
