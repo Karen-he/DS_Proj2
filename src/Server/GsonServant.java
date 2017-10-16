@@ -345,7 +345,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
     //clients use this method to receive if this register is valid
     @Override
-    public boolean validRegister(String back)throws RemoteException{
+    public boolean validRegister()throws RemoteException{
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
