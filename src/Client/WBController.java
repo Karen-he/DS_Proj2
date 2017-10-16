@@ -1,6 +1,7 @@
 package Client;
 
 import ChatBox.ChatClient;
+import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ServerInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -156,6 +157,7 @@ public class WBController {
     protected ArrayList<Point> pointList = new ArrayList<Point>();
     Registry registry;
     ServerInterface gsonServant;
+    ChatServerInterface chatServant;
 
 
     private final ToggleGroup group = new ToggleGroup();
@@ -759,8 +761,9 @@ public class WBController {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant) {
+    public void setServant(ServerInterface gsonServant,ChatServerInterface chatServant) {
         this.gsonServant = gsonServant;
+        this.chatServant = chatServant;
     }
 
 
