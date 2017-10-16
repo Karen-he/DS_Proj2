@@ -24,7 +24,7 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="250" prefWidth="450" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
 
-    <Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" visible="false">
+    <Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" visible="true">
         <children>
             <Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">
                 <font>
@@ -60,7 +60,7 @@
             </Button>
         </children>
     </Pane>
-    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="true">
+    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="false">
         <right>
 
 
