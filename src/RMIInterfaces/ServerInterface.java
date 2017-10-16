@@ -2,6 +2,8 @@ package RMIInterfaces;
 
 import ChatBox.ChatClient;
 import Client.PaintAttribute;
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public interface ServerInterface extends Remote{
     //Serve for note broadcasting
     String sendNote(String noteType, String userName) throws RemoteException;
     String receiveNote() throws RemoteException;
-    String tellSeverNew(boolean command);
+    String tellSeverNew(boolean command) throws RemoteException;
+    boolean serverCheckNew() throws RemoteException;
 
 }

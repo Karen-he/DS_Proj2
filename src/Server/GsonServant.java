@@ -122,10 +122,26 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     //This method is to send a command of initilize a new canvas to the server in order to clear the
     // paints database.
-    public synchronized String tellSeverNew(boolean command){
+    public synchronized String tellSeverNew(boolean command) throws RemoteException{
         jsonObject.addProperty("Newcanvase", command);
         jsonPack = gson.toJson(jsonObject);
         return jsonPack;
+    }
+
+    //Server uses this method to monitor whether a new canvas is crated.
+    public boolean serverCheckNew() throws RemoteException {
+        boolean empty = jsonPack.isEmpty();
+        boolean command = false;
+        if (empty == false) {
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("Newcanvase").getAsBoolean();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
     }
 
     public PaintAttribute getAttribute(String attribute) throws RemoteException {
