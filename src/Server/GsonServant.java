@@ -246,6 +246,21 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
     }
+    //clients use this method to receive the result of loggin
+    public boolean logginResult(){
+        boolean empty = jsonPack.isEmpty();
+        boolean command = false;
+        if (empty == false) {
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            command = jsonObject.get("validLogin").getAsBoolean();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return command;
+    }
 
     //manager approve
     //server uses thismethod to ask manager to approve log in
@@ -274,6 +289,21 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println("the number of command: "+j);
         }
         return command;
+    }
+    //manager uses this to listen request of approval
+    public String listenForApproval(){
+        boolean empty = jsonPack.isEmpty();
+        String username = "";
+        if (empty == false) {
+            System.out.println(jsonPack);
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            username = jsonObject.get("askManager").getAsString();
+            //System.out.println("back to string: "+actual);
+            //j++;
+            //System.out.println("the number of command: "+j);
+        }
+        return username;
     }
 
     //sign up system
