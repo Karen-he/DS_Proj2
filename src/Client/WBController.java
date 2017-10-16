@@ -944,36 +944,8 @@ public class WBController {
         String allMessages = (" ");
         String message = input.getText();
         input.clear();
-
         chatServant.shareMsg(userName,message);
-        try {
-            ArrayList<ChatClient> chatClientArrayList = chatServant.getChatClients();
-            System.out.println("hihihi");
-            if (chatClientArrayList != null) {
-                System.out.println("byebyebye");
-                System.out.println(chatClientArrayList);
-                for (int i = 0; i < chatClientArrayList.size(); i++) {
-
-                    System.out.println("进入chatClient的list打印啦");
-
-                    ChatClient tempClient = chatClientArrayList.get(i);
-
-                    if (tempClient.getUserName() != userName) {
-                        String messagePrint = tempClient.getChatContent();
-                        System.out.println("messagePrint: " + messagePrint);
-                        if (messagePrint != null) {
-                            System.out.println("print次数：" + i);
-                            System.out.println(tempClient.getUserName() + ": " + messagePrint);
-                            textMessage.appendText(tempClient.getUserName() + ": " + messagePrint + "\n");
-                        }
-                    }
-                }
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        textMessage.appendText(allMessages + "\n");
     }
 
 
@@ -998,6 +970,8 @@ public class WBController {
                 managerName.setText(user);
                 userName = user;
 
+                ChatClient chatClient = new ChatClient(userName,chatServant,gsonServant);
+
 
                 //launch the whiteboard and turn off the signIn UI
             } else if (clientCount < 4) {
@@ -1005,6 +979,7 @@ public class WBController {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
+                ChatClient chatClient = new ChatClient(userName, chatServant,gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");

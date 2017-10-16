@@ -4,6 +4,7 @@ import ChatBox.ChatClient;
 
 import java.rmi.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface ChatServerInterface extends Remote{
 
@@ -11,6 +12,7 @@ public interface ChatServerInterface extends Remote{
    void shareMsg(String userName, String chatContent) throws RemoteException;
    ArrayList<ChatClient> getChatClients() throws RemoteException;
    void kickClient(String userName) throws RemoteException;
+   HashMap<String, String> getChatRecords() throws RemoteException;
 
 
 }
