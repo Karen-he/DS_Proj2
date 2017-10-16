@@ -969,6 +969,7 @@ public class WBController {
                 wbPane.setVisible(true);
                 isManager = true;
                 managerName.setText(user);
+                userName = user;
 
 
                 //launch the whiteboard and turn off the signIn UI
