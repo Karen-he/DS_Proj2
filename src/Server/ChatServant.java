@@ -18,6 +18,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private HashMap<String,String> chatRecords = new HashMap();
 
     //create a peer list by manager, constructor
+
     public ChatServant() throws RemoteException {
         this.chatClients = new ArrayList<ChatClient>();
     }
@@ -31,20 +32,6 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     //set the message that will print out in GUI
     public synchronized void shareMsg(String userName, String msgPrint) throws RemoteException {
         chatRecords.put(userName, msgPrint);
-
-//        String messageToAll;
-//        for (int i = 0; i < chatClients.size(); i++) {
-//            System.out.println("Total Chat Clients Number: " + chatClients.size());
-//
-//            // for each clients, set the message supposed to print out in GUI
-//            if (chatClients.get(i).getUserName().equals(userName)) {
-//                System.out.println("进入client's的loop啦");
-//                messageToAll = msgPrint;
-//                chatClients.get(i).setChatContent(messageToAll);
-//                System.out.println("Message to All: " + messageToAll);
-//                continue;
-//            }
-//        }
     }
     public ArrayList<ChatClient> getChatClients() throws RemoteException{
         return chatClients;
