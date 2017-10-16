@@ -30,13 +30,13 @@ public interface ServerInterface extends Remote{
     String receiveNote() throws RemoteException;
     String tellSeverNew(boolean command) throws RemoteException;
     boolean serverCheckNew() throws RemoteException;
-
+    //log in
     void checkPassword(String userName, String password)throws RemoteException;
     boolean logginResult()throws RemoteException;
-
+    //manager
     void sendApproval(boolean approval)throws RemoteException;
     String listenForApproval()throws RemoteException;
-
+    //sign up
     void registerUser(String userName, String password)throws RemoteException;
     boolean validRegister(String back)throws RemoteException;
 
