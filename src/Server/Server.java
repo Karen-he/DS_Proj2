@@ -68,19 +68,25 @@ public class Server {
             //Scanner keybord = new Scanner(System.in);
             //keep listening
             boolean run = true;
-            while (run) {
-                if (gsonServant.receivePaints() != null) {
-                    ArrayList<String> whiteboard = gsonServant.receivePaints();
-                    String wb0 = whiteboard.get(0);
-                    String wb1 = whiteboard.get(1);
-                    if (wb0.equals("") || wb1.equals("")) {
-                        System.out.println("empty jsonPack");
-                    } else {
-                        System.out.println("the string array received in server: " + wb0
-                                + " ### " + wb1);
+            new Thread (() -> {
+                while (run) {
+                    try {
+                        if (gsonServant.receivePaints() != null) {
+                            ArrayList<String> whiteboard = gsonServant.receivePaints();
+                            String wb0 = whiteboard.get(0);
+                            String wb1 = whiteboard.get(1);
+                            if (wb0.equals("") || wb1.equals("")) {
+                                System.out.println("empty jsonPack");
+                            } else {
+                                System.out.println("the string array received in server: " + wb0
+                                        + " ### " + wb1);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
                     }
                 }
-            }
+            }).start();
 
             //user system thread
             //keep listening
