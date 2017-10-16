@@ -141,7 +141,7 @@ public class Server {
 
                     //add new users to the system
                     String userNamePlusPassword = gsonServant.addUser();
-                    boolean notAlreadyExist = false;
+                    boolean notAlreadyExist = true;
                     boolean emptyUP = userNamePlusPassword.isEmpty();
                     if(emptyUP!=true){
                         String[] splitIt = userNamePlusPassword.split(" ");
@@ -149,7 +149,8 @@ public class Server {
                         String passWord = splitIt[1];
                         for (Integer id : userIDs) {
                             if (mainserver.userData.get(id).equals(username)){
-                                notAlreadyExist = true;
+                                notAlreadyExist = false;
+                                break;
                             }
                         }
                         if(notAlreadyExist){
