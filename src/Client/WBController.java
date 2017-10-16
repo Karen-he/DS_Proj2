@@ -983,6 +983,10 @@ public class WBController {
 
     }
 
+    public void appendToMessage(String message){
+        textMessage.appendText(message+"\n");
+    }
+
 
     public void signIn() throws Exception {
         String user = nameInput.getText();
