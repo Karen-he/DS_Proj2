@@ -47,6 +47,8 @@ public class ChatClient implements ChatClientInterface, Serializable  {
         System.out.println(msgPrint);
 //        return msgPrint;
     }
+
+
 }
 
    /*

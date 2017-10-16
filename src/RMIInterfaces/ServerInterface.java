@@ -27,4 +27,6 @@ public interface ServerInterface extends Remote{
     String sendNote(String noteType, String userName) throws RemoteException;
     String receiveNote() throws RemoteException;
 
+    void kickClient(String userName) throws RemoteException;
+
 }

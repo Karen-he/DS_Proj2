@@ -45,4 +45,12 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         return chatClients;
     }
 
+    
+    public void kickClient(String userName) throws RemoteException {
+        for (int i = 0; i < chatClients.size(); i++){
+            if (chatClients.get(i).getUserName().equals(userName)) {
+                chatClients.remove(i);
+            }
+        }
+    }
 }
