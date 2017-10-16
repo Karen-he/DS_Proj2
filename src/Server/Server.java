@@ -67,10 +67,15 @@ public class Server {
 
             boolean run = true;
             new Thread (() -> {
+                int i = 0;
                 while (run) {
                     try {
                         if (gsonServant.receivePaints() != null) {
+                            Hashtable paintsContainer = new Hashtable();
+                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                             ArrayList<String> whiteboard = gsonServant.receivePaints();
+                            paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, i);
+                            i = i + 1;
                             String wb0 = whiteboard.get(0);
                             String wb1 = whiteboard.get(1);
                             if (wb0.equals("") || wb1.equals("")) {

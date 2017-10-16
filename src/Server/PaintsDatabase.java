@@ -18,7 +18,7 @@ public class PaintsDatabase {
 
     }
 
-    public Hashtable getPaintsDatabase(Hashtable paintsDatabase){
+    public Hashtable getPaintsDatabase(){
         return this.paintsDatabase;
     }
 }
