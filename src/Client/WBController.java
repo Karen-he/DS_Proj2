@@ -942,6 +942,7 @@ public class WBController {
     public synchronized void send() throws IOException {
         String allMessages = ("userName: ");
         String message = input.getText();
+        chatServant.shareMsg(userName,message);
         allMessages += message;
         input.clear();
         textMessage.appendText(allMessages + "\n");
