@@ -597,7 +597,7 @@ public class WBController {
     private void kick(String userName) throws IOException {
         confirmBox("Kick", "Kick the " + userName + "!",
                 "Do you want to kick the " + userName + " ?");
-
+        chatServant.kickClient(userName);
     }
 
 

@@ -92,12 +92,12 @@ public class Server {
                 while (run) {
                     //log in: chaeck password and ask manager to approve
                     String userNameAndPassword = gsonServant.serverCheckPassword();
+                    Set<Integer> userIDs = mainserver.userData.keySet();
                     boolean empty = userNameAndPassword.isEmpty();
                     if(empty!=true){
                         String[] split = userNameAndPassword.split(" ");
                         String userName = split[0];
                         String password = split[1];
-                        Set<Integer> userIDs = mainserver.userData.keySet();
                         String actualPassword = "";
                         for (Integer id : userIDs) {
                             if (mainserver.userData.get(id).equals(userName)) {
@@ -105,8 +105,12 @@ public class Server {
                             }
                         }
                         boolean validPassword = actualPassword.equals(password);
-                        gsonServant.
-                        boolean managerApproved =
+                        boolean managerApproved = false;
+                        if(mainserver.currentUserNum!=0){
+                            gsonServant.askManager(userName);
+                            managerApproved = gsonServant.waitForManager();
+                        }
+                        boolean validPasswordAndManagerAproved = validPassword && managerApproved;
                         gsonServant.validLogin(validPasswordAndManagerAproved);
 
                     }
@@ -118,6 +122,11 @@ public class Server {
                         String[] splitIt = userNamePlusPassword.split(" ");
                         String username = splitIt[0];
                         String passWord = splitIt[1];
+                        for (Integer id : userIDs) {
+                            if (mainserver.userData.get(id).equals(userName)){
+                                
+                            }
+                        }
                         mainserver.addInUser(username, passWord);
                     }
 
