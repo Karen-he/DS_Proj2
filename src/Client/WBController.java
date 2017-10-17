@@ -61,6 +61,10 @@ public class WBController {
     }
 
 
+    public String getUserName() {
+        return userName;
+    }
+
     private String userName;
 
     private String client1 = null;
@@ -979,14 +983,14 @@ public class WBController {
         return newColor;
     }
 
-
     public void send() throws IOException {
         String message = input.getText();
         input.clear();
-//        chatServant.printToAll(message);
-//        chatServant.shareMsg(userName,message);
-    }
+        String fullMessgae = userName + ": " + message;
+        appendToMessage(userName + ": " + message);
+        gsonServant.sendMessage(userName, fullMessgae);
 
+    }
 
 
     public void appendToMessage(String message) {

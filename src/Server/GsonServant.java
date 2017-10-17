@@ -159,27 +159,25 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     public synchronized String sendMessage(String userName, String chatContent) throws RemoteException {
         jsonObject.addProperty("Username", userName);
         jsonObject.addProperty("Content", chatContent);
-//        System.out.println(userName + ": " + chatContent);
         jsonPack = gson.toJson(jsonObject);
         return jsonPack;
     }
 
-    public String receiveMessage() throws RemoteException {
+    public ArrayList<String> receiveMessage() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
-        String msgPrint = "";
+        ArrayList<String> tmp = new ArrayList<String>();
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             //unpack json to find username and content
             //retrieve userName
-//            String userName = jsonObject.get("UserName").getAsString();
-            if(jsonObject.get("Content") != null) {
-                msgPrint = jsonObject.get("Content").getAsString();
-            }
+            String user = jsonObject.get("UserName").getAsString();
+            String msgPrint = jsonObject.get("Content").getAsString();
+            tmp.add(0,user);
+            tmp.add(1,msgPrint);
         }
-        return msgPrint;
+        return tmp;
     }
-
 
     /***
      *
