@@ -223,10 +223,12 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         String command = "";
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("checkPassword").getAsString();
+            if(jsonObject.get("checkPassword") != null) {
+                command = jsonObject.get("checkPassword").getAsString();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
@@ -256,7 +258,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("validLogin")!=null){
@@ -305,7 +307,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         String username = "";
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("askManager")!=null){
@@ -324,7 +326,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         String command = "";
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             command = jsonObject.get("registerUser").getAsString();
@@ -342,7 +344,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         jsonObject.addProperty("registerUser", userNameAndPassword);
         jsonObject.addProperty("checkRegister", userName);
         jsonPack = gson.toJson(jsonObject);
-        System.out.println("the jsonpack in servant" + jsonPack);
+        //System.out.println("the jsonpack in servant" + jsonPack);
     }
 
     //server uses this method to send if this client exist in system
@@ -358,7 +360,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         System.out.println("in valid Register:"+jsonPack);
         boolean command = false;
         if (empty == false) {
-            System.out.println("in valid Register and jsonpack is not empty:"+jsonPack);
+            //System.out.println("in valid Register and jsonpack is not empty:"+jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("checkExist")!=null){
