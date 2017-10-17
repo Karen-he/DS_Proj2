@@ -28,13 +28,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        try {
+
             FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
 
             Parent root = (Parent) fLoader.load();
             WBController WBController = fLoader.getController();
 
-
+        try {
             Registry registry = LocateRegistry.getRegistry(2020);
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
