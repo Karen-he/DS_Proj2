@@ -1,17 +1,13 @@
 package ChatBox;
 
-import Client.WBController;
 import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
-import RMIInterfaces.ClientServer;
 import RMIInterfaces.ServerInterface;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class ChatClient implements ChatClientInterface, Serializable  {
 
@@ -22,12 +18,6 @@ public class ChatClient implements ChatClientInterface, Serializable  {
     private ChatServerInterface chatServant;
     private ServerInterface gsonServant;
 
-
-    public void setWbController(ClientServer wbController) {
-        this.wbController = wbController;
-    }
-
-    private ClientServer wbController;
 
     private String chatContent;
 
@@ -54,7 +44,8 @@ public class ChatClient implements ChatClientInterface, Serializable  {
 
     //print chatContent on own board
     public void retrieveMsg(String msgPrint) throws RemoteException {
-        wbController.appendToMessage(msgPrint);
+        System.out.println(msgPrint);
+//        return msgPrint;
     }
 
 
@@ -68,7 +59,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
 //    public void run() {
 //        // Broadcast messgae when input in GUI
 //        new Thread(() -> {
-//            while (true) {
+//            while(true) {
 //                try {
 //                    if (gsonServant.receiveMessage() != null) {
 //
@@ -83,41 +74,9 @@ public class ChatClient implements ChatClientInterface, Serializable  {
 //                }
 //            }
 //        }).start();
-//    }
-
-
 //
 //
-//    public void printAll{
-//            new Thread(() -> {
-//                try {
-//
-//                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
-//                    System.out.println("hihihi");
-//
-//                    if (chatRecords != null) {
-//
-//                        System.out.println("byebyebye");
-//
-//                        System.out.println(chatRecords);
-//
-//                        Iterator it = chatRecords.entrySet().iterator();
-//
-//                        while (it.hasNext()) {
-//
-//                            HashMap.Entry pair = (HashMap.Entry) it.next();
-//
-//                            System.out.println("进入chatClient的list打印啦");
-//
-//                            String messagePrint = pair.getKey() + ": " + pair.getValue();
-//
-//                            WBController.appendToMessage(messagePrint);
-//                        }
-//                        chatServant.clearRecords();
-//                    }
-//
-//
-//            }
+//     // show others sent chatContent
 //        new Thread(() -> {
 //            while(true) {
 //                try {
