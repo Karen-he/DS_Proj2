@@ -1023,7 +1023,7 @@ public class WBController {
             String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
             gsonServant.sendMessage(userName, fullMessgae, timestamp);
         } catch(ConnectException e){
-
+            errorDialog("Server Error", "Server Disconnected! Please contact manager!");
         }
     }
 
