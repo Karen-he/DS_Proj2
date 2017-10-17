@@ -1,7 +1,9 @@
 package Client;
 
 import ChatBox.ChatClient;
+import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
+import RMIInterfaces.ClientServer;
 import RMIInterfaces.ServerInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 
-public class WBController {
+public class WBController implements ClientServer {
 
     protected double startX;
 
@@ -957,7 +959,7 @@ public class WBController {
 
     }
 
-    public void appendToMessage(String message){
+    public void appendToMessage(String message) throws RemoteException{
         textMessage.appendText(message+"\n");
     }
 
