@@ -60,7 +60,6 @@ public class WBController {
         this.file = file;
     }
 
-    private String message;
 
     private String userName;
 
@@ -74,16 +73,6 @@ public class WBController {
 
 
     private Boolean isManager = false;
-
-    private Boolean testSignIn = true;
-
-    private Boolean isRegistered = false;
-
-
-    public void setMessage(String message) {
-        System.out.println("SetMessage" + message);
-        this.message = message;
-    }
 
 
     @FXML
@@ -999,11 +988,6 @@ public class WBController {
     }
 
 
-    //print to GUI chat room
-    public void setText(String msgPrint) throws IOException {
-        message = msgPrint;
-
-    }
 
     public void appendToMessage(String message) {
         textMessage.appendText(message + "\n");
