@@ -341,15 +341,16 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     public void serverValidRegister(boolean valid) {
         jsonObject.addProperty("checkExist", valid);
         jsonPack = gson.toJson(jsonObject);
-        System.out.println("the jsonpack in servant" + jsonPack);
+        //System.out.println("the jsonpack in servant" + jsonPack);
     }
     //clients use this method to receive if this register is valid
     @Override
     public boolean validRegister()throws RemoteException{
         boolean empty = jsonPack.isEmpty();
+        System.out.println("in valid Register:"+jsonPack);
         boolean command = false;
         if (empty == false) {
-            System.out.println(jsonPack);
+            System.out.println("in valid Register and jsonpack is not empty:"+jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             command = jsonObject.get("checkExist").getAsBoolean();
@@ -360,6 +361,10 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return command;
     }
 
+    public String getJsonPack() throws RemoteException{
+        String temp = this.jsonPack;
+        return temp;
+    }
 }
 
 //    public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{

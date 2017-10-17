@@ -1043,15 +1043,24 @@ public class WBController  {
     public void signUp() throws Exception {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
+
         gsonServant.registerUser(userRegister, passwordRe);
-        Boolean isRegistered =gsonServant.validRegister();
-        if (isRegistered) {
-            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+        final Boolean[] isRegistered = {true};
+        Platform.runLater(() -> {
+            try {
+                //System.out.println(gsonServant.getJsonPack());
+                isRegistered[0] = gsonServant.validRegister();}
+            catch (RemoteException e) {
+            e.printStackTrace();
+            }
+        });
+        //System.out.println("valid register in WB:"+ isRegistered[0]);
+        if (isRegistered[0]) {
+            inforDialog(userRegister);
 
         } else {
-            inforDialog(userRegister);
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
         }
-
     }
 
     private void inforDialog(String name) {
