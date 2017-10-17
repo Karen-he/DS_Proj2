@@ -24,39 +24,44 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-            FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
+        FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
 
-            Parent root = (Parent) fLoader.load();
-            WBController WBController = fLoader.getController();
+        Parent root = (Parent) fLoader.load();
+        WBController WBController = fLoader.getController();
         try {
             Registry registry = LocateRegistry.getRegistry(2020);
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
 
-
-
-//            chatServant.setWbController(WBController);
-        new Thread (() -> {
-            while(true) {
-                try {
-                    if (!gsonServant.receivePaints().isEmpty()) {
-                        System.out.println("hihi 我可以画画啦");
-                        ArrayList<String> drawCommand = gsonServant.receivePaints();
-                        String shapeOption = drawCommand.get(0);
-                        String attributeGson = drawCommand.get(1);
-                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                        WBController.autoPaint(shapeOption, attributeRec);
+            /***
+             * synchronize paint
+             */
+            Thread paint = new Thread(() -> {
+                while (true) {
+                    try {
+                        if (!gsonServant.receivePaints().isEmpty()) {
+                            System.out.println("hihi 我可以画画啦");
+                            ArrayList<String> drawCommand = gsonServant.receivePaints();
+                            String shapeOption = drawCommand.get(0);
+                            String attributeGson = drawCommand.get(1);
+                            PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                            WBController.autoPaint(shapeOption, attributeRec);
+                        }
+                    } catch (RemoteException e) {
+                        //WBController.errorDialog("Connection Error", "Connection is lost!");
+                        //e.printStackTrace();
                     }
-                } catch (RemoteException e) {
-                    //WBController.errorDialog("Connection Error", "Connection is lost!");
-                    //e.printStackTrace();
                 }
-            }
-        }).start();
+            });
 
-        // This thread is to monitor whether there is a new user want to join the whiteboard.
-            new Thread (() -> {
-                while(true) {
+            paint.start();
+
+            /***
+             * This thread is to monitor whether there is a new user want to join the whiteboard.
+             */
+
+            Thread approval = new Thread(() -> {
+                while (true) {
                     try {
                         boolean empty = gsonServant.listenForApproval().isEmpty();
                         if (!empty) {
@@ -70,30 +75,37 @@ public class Main extends Application {
 
                     }
                 }
-            }).start();
+            });
 
+            approval.start();
 
-            Thread printChat = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true){
-                        try {
-                            if (!gsonServant.receiveMessage().isEmpty()){
-                                ArrayList<String> tmp = gsonServant.receiveMessage();
-                                String userName = tmp.get(0);
-                                String fullPrint = tmp.get(1);
-                                if(userName != WBController.getUserName()){
-                                    WBController.appendToMessage(fullPrint);
-                                }
+            /***
+             * Show chatroom Content
+             ***/
+
+            Thread printChat = new Thread(() -> {
+                while (true) {
+                    try {
+                        if (!gsonServant.receiveMessage().isEmpty()) {
+                            ArrayList<String> tmp = gsonServant.receiveMessage();
+                            String userName = tmp.get(0);
+                            String fullPrint = tmp.get(1);
+                            if (userName != WBController.getUserName()) {
+                                WBController.appendToMessage(fullPrint);
                             }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
                         }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
                     }
                 }
             });
 
             printChat.start();
+
+
+
+
+            
 //        new Thread(() -> {
 //            while(true) {
 //                ArrayList<ChatClient> tmpChatList = null;
