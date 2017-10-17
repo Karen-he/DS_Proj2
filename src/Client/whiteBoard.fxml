@@ -5,45 +5,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.shape.Line?>
 <Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
 
-    <!--<Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" visible="false">-->
-        <!--<children>-->
-            <!--<Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">-->
-                <!--<font>-->
-                    <!--<Font name="Chalkboard Bold" size="17.0" />-->
-                <!--</font>-->
-            <!--</Button>-->
-            <!--<TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="65.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: Transparent;" text="">-->
-                <!--<font>-->
-                    <!--<Font size="14.0" />-->
-                <!--</font>-->
-            <!--</TextField>-->
-            <!--<TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="130.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="">-->
-                <!--<font>-->
-                    <!--<Font size="14.0" />-->
-                <!--</font>-->
-            <!--</TextField>-->
-            <!--<Line endX="100.0" layoutX="235.0" layoutY="100.0" startX="-100.0" />-->
-            <!--<Line endX="100.0" layoutX="235.0" layoutY="165.0" startX="-100.0" />-->
-            <!--<ImageView fx:id="userPhoto" fitHeight="35.0" fitWidth="35.0" layoutX="85.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">-->
-                <!--<image>-->
-                    <!--<Image url="@../user.png" />-->
-                <!--</image>-->
-            <!--</ImageView>-->
-            <!--<ImageView fx:id="passwordPhoto" fitHeight="40.0" fitWidth="40.0" layoutX="83.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">-->
-                <!--<image>-->
-                    <!--<Image url="@../password.png" />-->
-                <!--</image>-->
-            <!--</ImageView>-->
-            <!--<Button layoutX="256.0" layoutY="196.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">-->
-                <!--<font>-->
-                    <!--<Font name="Chalkboard SE Regular" size="18.0" />-->
-                <!--</font>-->
-            <!--</Button>-->
-        <!--</children>-->
-    <!--</Pane>-->
-    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" >
+    <Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" visible="true">
+        <children>
+            <Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">
+                <font>
+                    <Font name="Chalkboard Bold" size="17.0" />
+                </font>
+            </Button>
+            <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="65.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: Transparent;" text="">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </TextField>
+            <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="135.0" layoutY="130.0" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </TextField>
+            <Line endX="100.0" layoutX="235.0" layoutY="100.0" startX="-100.0" />
+            <Line endX="100.0" layoutX="235.0" layoutY="165.0" startX="-100.0" />
+            <ImageView fx:id="userPhoto" fitHeight="35.0" fitWidth="35.0" layoutX="85.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../user.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="passwordPhoto" fitHeight="40.0" fitWidth="40.0" layoutX="83.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../password.png" />
+                </image>
+            </ImageView>
+            <Button layoutX="256.0" layoutY="196.0" mnemonicParsing="false" onAction="#signIn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sign In">
+                <font>
+                    <Font name="Chalkboard SE Regular" size="18.0" />
+                </font>
+            </Button>
+        </children>
+    </Pane>
+    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="false" >
         <right>
 
 
@@ -68,7 +69,7 @@
                         <menus>
                             <Menu mnemonicParsing="false" text="File">
                                 <items>
-                                    <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LogIn"/>
+                                    <!--<MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LogIn"/>-->
                                     <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
                                 </items>
                             </Menu>
