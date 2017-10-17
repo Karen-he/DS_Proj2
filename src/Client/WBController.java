@@ -9,6 +9,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -16,11 +18,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -34,8 +39,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class WBController implements ClientServer, Serializable {
 
+public class WBController {
 
     protected double startX;
 
@@ -55,15 +60,9 @@ public class WBController implements ClientServer, Serializable {
         this.file = file;
     }
 
-//    private String message;
-
-    public String getUserName() {
-        return userName;
-    }
+    private String message;
 
     private String userName;
-
-    private ChatClient chatClient;
 
     private String client1 = null;
 
@@ -80,15 +79,11 @@ public class WBController implements ClientServer, Serializable {
 
     private Boolean isRegistered = false;
 
-//
-//    public String getMessage() {
-//        return message;
-//    }
-//
-//    public void setMessage(String message) {
-//        System.out.println("SetMessage" + message);
-//        this.message = message;
-//    }
+
+    public void setMessage(String message) {
+        System.out.println("SetMessage" + message);
+        this.message = message;
+    }
 
 
     @FXML
@@ -644,11 +639,21 @@ public class WBController implements ClientServer, Serializable {
     }
 
 
-    private void approve(String userName, int clientNum) throws IOException {
+
+
+    public Boolean approve(String clientName) throws IOException {
         if (isManager) {
-            confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?", clientNum);
+            int currentNum = clientCount;
+            confirmBox("Approve", "Approve the " + clientName + "!",
+                    "Do you want to approve the " + clientName + " ?", currentNum+1);
+            if(clientCount - currentNum == 1 ){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
+        return false;
     }
 
     public void kickUserOne() throws IOException {
@@ -761,16 +766,19 @@ public class WBController implements ClientServer, Serializable {
                     }
                     break;
                 case "Approve":
-                    if (clientNum == 1) {
-                        clientOne.setText(userName);
-                        break;
-                    }
                     if (clientNum == 2) {
-                        clientTwo.setText(userName);
+                        clientOne.setText(userName);
+                        clientCount = 2;
                         break;
                     }
                     if (clientNum == 3) {
+                        clientTwo.setText(userName);
+                        clientCount = 3;
+                        break;
+                    }
+                    if (clientNum == 4) {
                         clientThree.setText(userName);
+                        clientCount = 4;
                         break;
                     }
                     break;
@@ -985,24 +993,17 @@ public class WBController implements ClientServer, Serializable {
 
     public void send() throws IOException {
         String message = input.getText();
-//        System.out.println(message);
-//        chatServant.printToAll(userName, message);
-//        setMessage(message);
         input.clear();
-//        System.out.println(userName+chatClient.getChatContent());
-
-        String fullMessgae = userName + ": " + message;
-        appendToMessage(userName + ": " + message);
-        gsonServant.sendMessage(userName, fullMessgae);
-
+//        chatServant.printToAll(message);
+//        chatServant.shareMsg(userName,message);
     }
 
 
     //print to GUI chat room
-//    public void setText(String msgPrint) throws IOException {
-//        message = msgPrint;
-//
-//    }
+    public void setText(String msgPrint) throws IOException {
+        message = msgPrint;
+
+    }
 
     public void appendToMessage(String message) {
         textMessage.appendText(message + "\n");
@@ -1013,30 +1014,20 @@ public class WBController implements ClientServer, Serializable {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
         gsonServant.checkPassword(user, encrypt);
-        Boolean[] isSignIn = {false};
-        Platform.runLater(() -> {
-            try {
-                isSignIn[0] = gsonServant.logginResult();
-                System.out.println("modify isSignIn:"+isSignIn[0].toString());
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        });
+        Boolean isSignIn = gsonServant.logginResult();
         nameInput.clear();
         passWordInput.clear();
-        if (isSignIn[0]) {
+        if (isSignIn) {
             clientCount += 1;
-
             // the number of client
-            if (clientCount == 0) {
+            if (clientCount == 1) {
                 isManager = true;
                 signInPane.setVisible(false);
                 wbPane.setVisible(true);
                 managerName.setText(user);
                 userName = user;
 
-
-                chatClient = new ChatClient(user, chatServant, gsonServant);
+                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -1045,7 +1036,7 @@ public class WBController implements ClientServer, Serializable {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                chatClient = new ChatClient(user, chatServant, gsonServant);
+                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
@@ -1060,7 +1051,7 @@ public class WBController implements ClientServer, Serializable {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
         gsonServant.registerUser(userRegister, passwordRe);
-        Boolean[] isRegistered = {false};
+        final Boolean[] isRegistered = {true};
         Platform.runLater(() -> {
             try {
                 //System.out.println(gsonServant.getJsonPack());
@@ -1074,10 +1065,11 @@ public class WBController implements ClientServer, Serializable {
         //System.out.println("valid register in WB:"+ isRegistered[0]);
         if (isRegistered[0]) {
             inforDialog(userRegister);
+
         } else {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
-
         }
+
     }
 
     private void inforDialog(String name) {
