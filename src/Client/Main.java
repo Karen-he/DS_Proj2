@@ -90,15 +90,15 @@ public class Main extends Application {
 
 
 
-        new Thread(() -> {
-            while(true) {
-                try {
-                    chatServant.printToAll(WBController.getUserName(), WBController.getMessage());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//        new Thread(() -> {
+//            while(true) {
+//                try {
+//                    chatServant.printToAll(WBController.getUserName(), WBController.getMessage());
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
 
 //            while(true) {

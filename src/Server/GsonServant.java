@@ -103,6 +103,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     public ArrayList<String> receivePaints() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
+        System.out.println("isEmpty = " + empty);
         ArrayList<String> whiteBoard = new ArrayList<>();
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);

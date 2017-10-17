@@ -1014,7 +1014,7 @@ public class WBController {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
         gsonServant.checkPassword(user, encrypt);
-        final Boolean[] isSignIn = {true};
+        Boolean[] isSignIn = {true};
         Platform.runLater(() -> {
             try {
                 isSignIn[0] = gsonServant.logginResult();
@@ -1058,7 +1058,7 @@ public class WBController {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
         gsonServant.registerUser(userRegister, passwordRe);
-        final Boolean[] isRegistered = {true};
+        Boolean[] isRegistered = {true};
         Platform.runLater(() -> {
             try {
                 //System.out.println(gsonServant.getJsonPack());

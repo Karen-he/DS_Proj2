@@ -3,6 +3,7 @@ package Server;
 import ChatBox.ChatClient;
 import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
+import RMIInterfaces.ServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +20,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private HashMap<String,String> chatRecords = new HashMap();
 
 
-    private ClientServer wbController;
+    //private ClientServer wbController;
 
     //create a peer list by manager, constructor
 
