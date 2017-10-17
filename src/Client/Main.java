@@ -28,20 +28,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
+        try {
+            FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
 
-        Parent root = (Parent) fLoader.load();
-        WBController WBController = fLoader.getController();
-
-
-        Registry registry = LocateRegistry.getRegistry(2020);
-        ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
-        ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
-
-        // username get from the name after logging in
+            Parent root = (Parent) fLoader.load();
+            WBController WBController = fLoader.getController();
 
 
-        chatServant.setWbController(WBController);
+            Registry registry = LocateRegistry.getRegistry(2020);
+            ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
+            ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
+
+            // username get from the name after logging in
+
+
+            chatServant.setWbController(WBController);
 //        new Thread (() -> {
 //            while(true)
 //                try {
@@ -57,7 +58,6 @@ public class Main extends Application {
 //                    e.printStackTrace();
 //                }
 //        }).start();
-
 
 
 //        new Thread(() -> {
@@ -96,23 +96,28 @@ public class Main extends Application {
 //            }
 //        }).start();
 
-        // username get from the name after logging in
+            // username get from the name after logging in
 
-        WBController.setServant(gsonServant,chatServant);
+            WBController.setServant(gsonServant, chatServant);
 
-        window = primaryStage;
-        window.setTitle("WhiteBoard");
+            window = primaryStage;
+            window.setTitle("WhiteBoard");
 
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            try {
-                closeAction();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
-        window.setScene(new Scene(root, 1000, 700));
-        window.show();
+            window.setOnCloseRequest(e -> {
+                e.consume();
+                try {
+                    closeAction();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            window.setScene(new Scene(root, 1000, 700));
+            window.show();
+        }catch(RemoteException e){ // This RemoteException is for the lookup and Register.
+            //e.printStackTrace(); // When the server has not started and a client want to connect,
+            // Here is that place to catch the Exception
+            WBController.errorDialog("Connection Error", "Connection is lost!" );
+        }
 
     }
 

@@ -1031,7 +1031,7 @@ public class WBController implements ClientServer {
         alert.showAndWait();
     }
 
-    private void errorDialog(String header, String message) {
+    public static void errorDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
