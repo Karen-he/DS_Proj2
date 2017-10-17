@@ -3,6 +3,7 @@ package Client;
 import ChatBox.ChatClient;
 import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ServerInterface;
+import RMIInterfaces.UserSysInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -55,6 +56,9 @@ public class WBController {
         this.file = file;
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
     private String userName;
 
@@ -148,7 +152,11 @@ public class WBController {
     Registry registry;
     ServerInterface gsonServant;
     ChatServerInterface chatServant;
+    UserSysInterface userSysServant;
 
+    public Boolean getManager() {
+        return isManager;
+    }
 
     private final ToggleGroup group = new ToggleGroup();
 
@@ -773,16 +781,19 @@ public class WBController {
                     if (clientNum == 2) {
                         clientOne.setText(client1);
                         isApproved = true;
+                        userSysServant.addApprove(client1,true);
                         break;
                     }
                     if (clientNum == 3) {
                         clientTwo.setText(client2);
                         isApproved = true;
+                        userSysServant.addApprove(client2,true);
                         break;
                     }
                     if (clientNum == 4) {
                         clientThree.setText(client3);
                         isApproved = true;
+                        userSysServant.addApprove(client3,true);
                         break;
                     }
                     break;
@@ -797,6 +808,18 @@ public class WBController {
             switch (command){
                 case "Approve":
                     confirmAlert.close();
+                    if(clientNum == 2){
+                        userSysServant.addApprove(client1, false);
+                        break;
+                    }
+                    if(clientNum == 3){
+                        userSysServant.addApprove(client2,false);
+                        break;
+                    }
+                    if(clientNum == 4){
+                        userSysServant.addApprove(client3, false);
+                        break;
+                    }
                     clientCount -= 1;
             }
         }
@@ -827,9 +850,11 @@ public class WBController {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant) {
+    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant,
+                           UserSysInterface userSysServant) {
         this.gsonServant = gsonServant;
         this.chatServant = chatServant;
+        this.userSysServant = userSysServant;
     }
 
 
@@ -1033,15 +1058,15 @@ public class WBController {
                     break;
 
                 case 2:
-                    listenApproval();
+                    listenApproval(user);
                     approveDialog();
                     break;
                 case 3:
-                    listenApproval();
+                    listenApproval(user);
                     approveDialog();
                     break;
                 case 4:
-                    listenApproval();
+                    listenApproval(user);
                     approveDialog();
                     break;
 
@@ -1051,12 +1076,25 @@ public class WBController {
         }
     }
 
-    public void listenApproval() throws  ConnectException{
+    private void listenApproval(String clientName) throws RemoteException {
+        userSysServant.sendRequest(clientName);
         boolean run = true;
+        String approval = null;
         while(run){
-            // call the function from userSys
-            // sign the boolean to the run
+            approval = userSysServant.checkApproval(clientName);
+            if(approval!=null){
+                run = false;
+            }
         }
+        if (approval.equals("Y")) {
+            signInPane.setVisible(false);
+            wbPane.setVisible(true);
+            userName = clientName;
+        }else{
+            warningDialog("DECLINED","Your request has been denied!");
+            Platform.exit();
+        }
+
     }
 
 //        if (clientCount == 1) {

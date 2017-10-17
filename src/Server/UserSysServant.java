@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class UserSysServant extends UnicastRemoteObject implements UserSysInterface {
     private ArrayList<String> approvalRequistList;
-    private HashMap<String,Integer> approveResult;
+    private HashMap<String,String> approveResult;
 
     protected UserSysServant() throws RemoteException {
         this.approveResult = new HashMap<>();
@@ -22,9 +22,9 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
     }
 
     public void addApprove(String userName, boolean approval) throws RemoteException{
-        int approve = 0;
+        String approve = "N";
         if(approval){
-            approve = 1;
+            approve = "Y";
         }
         approveResult.put(userName,approve);
     }
@@ -33,9 +33,9 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
         approvalRequistList.add(userName);
     }
 
-    public int checkApproval(String userName) throws RemoteException{
-        int approve = approveResult.get(userName);
-        return  approve;
+    public String checkApproval(String userName) throws RemoteException{
+        String approve = approveResult.get(userName);
+        return approve;
     }
 
 }

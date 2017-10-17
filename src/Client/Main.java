@@ -2,6 +2,7 @@ package Client;
 
 import ChatBox.ChatClient;
 import RMIInterfaces.*;
+import Server.UserSysServant;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,7 @@ public class Main extends Application {
         Registry registry = LocateRegistry.getRegistry(2020);
         ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
         ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
+        UserSysInterface userSysServant = (UserSysInterface) registry.lookup(("UserSys"));
         int clientCount = chatServant.getChatClients().size();
         if (clientCount == 0) {
             WBController.setIsManager(true);
@@ -82,14 +84,15 @@ public class Main extends Application {
          */
 
         Thread approval = new Thread(() -> {
-            while (true) {
+            while (WBController.getManager()) {
                 try {
-                    boolean empty = gsonServant.listenForApproval().isEmpty();
-                    if (!empty) {
-                        WBController.approve(gsonServant.listenForApproval());
+                    if (userSysServant.listenRequestList() == false){
+                        WBController.approve(WBController.getUserName());
 
                     }
-                } catch (RemoteException e) {
+
+                    }
+                catch (RemoteException e) {
                     //WBController.errorDialog("Connection Error", "Connection is lost!");
                     //e.printStackTrace();
                 } catch (IOException e) {
