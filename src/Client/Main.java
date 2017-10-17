@@ -58,7 +58,8 @@ public class Main extends Application {
             new Thread (() -> {
                 while(true) {
                     try {
-                        if (gsonServant.listenForApproval() != null) {
+                        boolean empty = gsonServant.listenForApproval().isEmpty();
+                        if (!empty) {
                             WBController.approve(gsonServant.listenForApproval());
 
                         }

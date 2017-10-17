@@ -103,7 +103,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     public ArrayList<String> receivePaints() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
-        System.out.println("isEmpty = " + empty);
+        //System.out.println("isEmpty = " + empty);
         ArrayList<String> whiteBoard = new ArrayList<>();
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
@@ -259,7 +259,10 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("validLogin").getAsBoolean();
+            if(jsonObject.get("validLogin")!=null){
+                command = jsonObject.get("validLogin").getAsBoolean();
+            }
+
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
@@ -358,7 +361,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             System.out.println("in valid Register and jsonpack is not empty:"+jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("checkExist").getAsBoolean();
+            if(jsonObject.get("checkExist")!=null){
+                command = jsonObject.get("checkExist").getAsBoolean();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
