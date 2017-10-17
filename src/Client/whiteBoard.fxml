@@ -32,12 +32,12 @@
                           <Font name="Chalkboard Bold" size="24.0" />
                       </font>
                   </Button>
-                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" style="-fx-background-color: Transparent;" text="">
+                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" style="-fx-background-color: transparent;" >
                       <font>
                           <Font size="17.0" />
                       </font>
                   </TextField>
-                  <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" style="-fx-background-color: transparent;" text="">
+                  <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" style="-fx-background-color: transparent;">
                       <font>
                           <Font size="14.0" />
                       </font>
