@@ -1,9 +1,6 @@
 package RMIInterfaces;
 
-import ChatBox.ChatClient;
 import Client.PaintAttribute;
-import Client.WBController;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

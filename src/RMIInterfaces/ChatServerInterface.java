@@ -1,7 +1,6 @@
 package RMIInterfaces;
 
 import ChatBox.ChatClient;
-import Client.WBController;
 
 import java.rmi.*;
 import java.util.ArrayList;

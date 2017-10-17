@@ -1,11 +1,8 @@
 package Server;
 
 import ChatBox.ChatClient;
-import Client.WBController;
 import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
-import RMIInterfaces.ClientServer;
-import RMIInterfaces.ServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

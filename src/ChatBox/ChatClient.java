@@ -23,10 +23,6 @@ public class ChatClient implements ChatClientInterface, Serializable  {
     private ServerInterface gsonServant;
 
 
-    public void setWbController(ClientServer wbController) {
-        this.wbController = wbController;
-    }
-
     private ClientServer wbController;
 
     private String chatContent;
@@ -55,6 +51,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
     //print chatContent on own board
     public void retrieveMsg(String msgPrint) throws RemoteException {
         System.out.println("msgPrint:" +msgPrint);
+        setChatContent("msgPrint: " + msgPrint);
     }
 
 

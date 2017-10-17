@@ -1,6 +1,5 @@
 package Client;
 
-import ChatBox.ChatClient;
 import RMIInterfaces.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,17 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class Main extends Application {
 
@@ -78,20 +72,20 @@ public class Main extends Application {
             }).start();
 
 
-        new Thread(() -> {
-            while(true) {
-                ArrayList<ChatClient> tmpChatList = null;
-                try {
-                    tmpChatList = chatServant.getChatClients();
-                    for (int i = 0; i < tmpChatList.size(); i++) {
-                        ChatClient tempClient = tmpChatList.get(i);
-                        tempClient.retrieveMsg(WBController.getMessage());
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//        new Thread(() -> {
+//            while(true) {
+//                ArrayList<ChatClient> tmpChatList = null;
+//                try {
+//                    tmpChatList = chatServant.getChatClients();
+//                    for (int i = 0; i < tmpChatList.size(); i++) {
+//                        ChatClient tempClient = tmpChatList.get(i);
+//                        tempClient.retrieveMsg(WBController.getMessage());
+//                    }
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
 
 

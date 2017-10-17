@@ -9,8 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -18,14 +16,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -67,6 +62,8 @@ public class WBController implements ClientServer, Serializable {
     }
 
     private String userName;
+
+    private ChatClient chatClient;
 
     private String client1 = null;
 
@@ -990,6 +987,7 @@ public class WBController implements ClientServer, Serializable {
         String message = input.getText();
         setMessage(message);
         input.clear();
+        appendToMessage(chatClient.getChatContent());
     }
 
 
@@ -1019,7 +1017,7 @@ public class WBController implements ClientServer, Serializable {
                 userName = user;
 
 
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                chatClient = new ChatClient(user, chatServant, gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -1029,7 +1027,7 @@ public class WBController implements ClientServer, Serializable {
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
 
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                chatClient = new ChatClient(user, chatServant, gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
