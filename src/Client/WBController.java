@@ -9,8 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -18,14 +16,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -39,8 +34,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
 
+public class WBController implements ClientServer, Serializable {
 
-public class WBController {
 
     protected double startX;
 
@@ -60,9 +55,15 @@ public class WBController {
         this.file = file;
     }
 
-    private String message;
+//    private String message;
+
+    public String getUserName() {
+        return userName;
+    }
 
     private String userName;
+
+    private ChatClient chatClient;
 
     private String client1 = null;
 
@@ -79,11 +80,15 @@ public class WBController {
 
     private Boolean isRegistered = false;
 
-
-    public void setMessage(String message) {
-        System.out.println("SetMessage" + message);
-        this.message = message;
-    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        System.out.println("SetMessage" + message);
+//        this.message = message;
+//    }
 
 
     @FXML
@@ -639,21 +644,11 @@ public class WBController {
     }
 
 
-
-
-    public Boolean approve(String clientName) throws IOException {
+    private void approve(String userName, int clientNum) throws IOException {
         if (isManager) {
-            int currentNum = clientCount;
-            confirmBox("Approve", "Approve the " + clientName + "!",
-                    "Do you want to approve the " + clientName + " ?", currentNum+1);
-            if(clientCount - currentNum == 1 ){
-                return true;
-            }
-            else{
-                return false;
-            }
+            confirmBox("Approve", "Approve the " + userName + "!",
+                    "Do you want to approve the " + userName + " ?", clientNum);
         }
-        return false;
     }
 
     public void kickUserOne() throws IOException {
@@ -766,19 +761,16 @@ public class WBController {
                     }
                     break;
                 case "Approve":
-                    if (clientNum == 2) {
+                    if (clientNum == 1) {
                         clientOne.setText(userName);
-                        clientCount = 2;
+                        break;
+                    }
+                    if (clientNum == 2) {
+                        clientTwo.setText(userName);
                         break;
                     }
                     if (clientNum == 3) {
-                        clientTwo.setText(userName);
-                        clientCount = 3;
-                        break;
-                    }
-                    if (clientNum == 4) {
                         clientThree.setText(userName);
-                        clientCount = 4;
                         break;
                     }
                     break;
@@ -993,17 +985,24 @@ public class WBController {
 
     public void send() throws IOException {
         String message = input.getText();
+//        System.out.println(message);
+//        chatServant.printToAll(userName, message);
+//        setMessage(message);
         input.clear();
-//        chatServant.printToAll(message);
-//        chatServant.shareMsg(userName,message);
+//        System.out.println(userName+chatClient.getChatContent());
+
+        String fullMessgae = userName + ": " + message;
+        appendToMessage(userName + ": " + message);
+        gsonServant.sendMessage(userName, fullMessgae);
+
     }
 
 
     //print to GUI chat room
-    public void setText(String msgPrint) throws IOException {
-        message = msgPrint;
-
-    }
+//    public void setText(String msgPrint) throws IOException {
+//        message = msgPrint;
+//
+//    }
 
     public void appendToMessage(String message) {
         textMessage.appendText(message + "\n");
@@ -1013,6 +1012,10 @@ public class WBController {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
+
+//        gsonServant.checkPassword(user, encrypt);
+//        Boolean isSignIn = gsonServant.logginResult();
+        if (true) {
         gsonServant.checkPassword(user, encrypt);
         Boolean[] isSignIn = {false};
         Platform.runLater(() -> {
@@ -1027,15 +1030,17 @@ public class WBController {
         passWordInput.clear();
         if (isSignIn[0]) {
             clientCount += 1;
+
             // the number of client
-            if (clientCount == 1) {
+            if (clientCount == 0) {
                 isManager = true;
                 signInPane.setVisible(false);
                 wbPane.setVisible(true);
                 managerName.setText(user);
                 userName = user;
 
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+
+                chatClient = new ChatClient(user, chatServant, gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -1044,7 +1049,7 @@ public class WBController {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                chatClient = new ChatClient(user, chatServant, gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
@@ -1053,6 +1058,7 @@ public class WBController {
             warningDialog(user + " is not  existed!",
                     "You should confirm your username or register it!");
         }
+    }
     }
 
     public void signUp() throws Exception {
@@ -1073,11 +1079,10 @@ public class WBController {
         //System.out.println("valid register in WB:"+ isRegistered[0]);
         if (isRegistered[0]) {
             inforDialog(userRegister);
-
         } else {
             warningDialog(userRegister + " is existed!", "Please change your username to register!");
-        }
 
+        }
     }
 
     private void inforDialog(String name) {
