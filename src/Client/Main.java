@@ -41,7 +41,7 @@ public class Main extends Application {
             // username get from the name after logging in
 
 
-            chatServant.setWbController(WBController);
+//            chatServant.setWbController(WBController);
 //        new Thread (() -> {
 //            while(true)
 //                try {

@@ -32,12 +32,13 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
-public class WBController implements ClientServer {
+public class WBController  {
 
     protected double startX;
 
