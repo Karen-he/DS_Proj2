@@ -1000,13 +1000,18 @@ public class WBController {
 
     // Used to implement the chatBox.
     public void send() throws IOException {
-        String message = input.getText();
-        input.clear();
-        System.out.println("hou get here 0");
-        String fullMessgae = userName + ": " + message;
-        System.out.println("hou get here 1");
-        String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
-        gsonServant.sendMessage(userName, fullMessgae, timestamp);
+        try {
+            String message = input.getText();
+            input.clear();
+            System.out.println("hou get here 0");
+            String fullMessgae = userName + ": " + message;
+            System.out.println("hou get here 1");
+            String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
+            gsonServant.sendMessage(userName, fullMessgae, timestamp);
+        } catch(ConnectException e){
+
+        }
+
     }
 
 
