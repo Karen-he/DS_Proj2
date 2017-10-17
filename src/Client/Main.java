@@ -15,6 +15,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class Main extends Application {
 
     private static String ip = "localhost";
@@ -47,19 +49,25 @@ public class Main extends Application {
              * synchronize paint
              */
             Thread paint = new Thread(() -> {
+                String oldTimePaint = "2017";
                 while (true) {
                     try {
+                        sleep(400);
                         if (!gsonServant.receivePaints().isEmpty()) {
-                            System.out.println("hihi 我可以画画啦");
                             ArrayList<String> drawCommand = gsonServant.receivePaints();
-                            String shapeOption = drawCommand.get(0);
-                            String attributeGson = drawCommand.get(1);
-                            PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                            WBController.autoPaint(shapeOption, attributeRec);
+                            String timeStamp = drawCommand.get(2);
+                            if (!timeStamp.equals(oldTimePaint)) {
+                                String shapeOption = drawCommand.get(0);
+                                String attributeGson = drawCommand.get(1);
+                                PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                                WBController.autoPaint(shapeOption, attributeRec);
+                                oldTimePaint = timeStamp;
+                            }
                         }
                     } catch (RemoteException e) {
-                        //WBController.errorDialog("Connection Error", "Connection is lost!");
-                        //e.printStackTrace();
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -94,17 +102,27 @@ public class Main extends Application {
              ***/
 
             Thread printChat = new Thread(() -> {
+                String oriTimestamp ="2017";
                 while (true) {
                     try {
+                        sleep(500);
+//                        System.out.println(gsonServant.receiveMessage());
                         if (!gsonServant.receiveMessage().isEmpty()) {
+
                             ArrayList<String> tmp = gsonServant.receiveMessage();
+                            String timestamp = tmp.get(2);
                             String userName = tmp.get(0);
+                            System.out.println(timestamp);
+                        if (!oriTimestamp.equals(timestamp)) {
                             String fullPrint = tmp.get(1);
-                            if (userName != WBController.getUserName()) {
-                                WBController.appendToMessage(fullPrint);
-                            }
+                            System.out.println(userName+fullPrint);
+                            WBController.appendToMessage(fullPrint);
+                            oriTimestamp = timestamp ;
+                        }
                         }
                     } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
@@ -113,57 +131,6 @@ public class Main extends Application {
             printChat.start();
 
 
-
-
-
-//        new Thread(() -> {
-//            while(true) {
-//                ArrayList<ChatClient> tmpChatList = null;
-//                try {
-//                    tmpChatList = chatServant.getChatClients();
-//                    for (int i = 0; i < tmpChatList.size(); i++) {
-//                        ChatClient tempClient = tmpChatList.get(i);
-//                        tempClient.retrieveMsg(WBController.getMessage());
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
-
-//                try {
-//
-//                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
-//                    System.out.println("hihihi");
-//
-//                    if (chatRecords != null) {
-//
-//                        System.out.println("byebyebye");
-//
-//                        System.out.println(chatRecords);
-//
-//                        Iterator it = chatRecords.entrySet().iterator();
-//
-//                        while (it.hasNext()) {
-//
-//                            HashMap.Entry pair = (HashMap.Entry) it.next();
-//
-//                            System.out.println("进入chatClient的list打印啦");
-//
-//                            String messagePrint = pair.getKey() + ": " + pair.getValue();
-//
-//                            WBController.appendToMessage(messagePrint);
-//                        }
-//
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
 
             // username get from the name after logging in
 
