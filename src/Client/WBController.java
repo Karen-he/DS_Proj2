@@ -1012,9 +1012,25 @@ public class WBController implements ClientServer, Serializable {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
+
 //        gsonServant.checkPassword(user, encrypt);
 //        Boolean isSignIn = gsonServant.logginResult();
         if (true) {
+        gsonServant.checkPassword(user, encrypt);
+        Boolean[] isSignIn = {false};
+        Platform.runLater(() -> {
+            try {
+                isSignIn[0] = gsonServant.logginResult();
+                System.out.println("modify isSignIn:"+isSignIn);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
+        nameInput.clear();
+        passWordInput.clear();
+        if (isSignIn[0]) {
+            clientCount += 1;
+
             // the number of client
             if (clientCount == 0) {
                 isManager = true;
