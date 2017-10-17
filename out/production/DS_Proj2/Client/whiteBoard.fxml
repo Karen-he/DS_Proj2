@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
-   <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0" visible="true">
+   <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0">
       <center>
           <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" visible="true" BorderPane.alignment="CENTER">
               <children>
@@ -32,14 +32,14 @@
                           <Font name="Chalkboard Bold" size="24.0" />
                       </font>
                   </Button>
-                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" style="-fx-background-color: transparent;">
+                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" promptText="Username" style="-fx-background-color: transparent;">
                       <font>
-                          <Font size="17.0" />
+                          <Font size="26.0" />
                       </font>
                   </TextField>
-                  <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" style="-fx-background-color: transparent;">
+                  <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" promptText="Password" style="-fx-background-color: transparent;">
                       <font>
-                          <Font size="14.0" />
+                          <Font size="26.0" />
                       </font>
                   </TextField>
                   <Line endX="200.0" layoutX="262.0" layoutY="94.0" startX="-100.0" />
@@ -142,7 +142,7 @@
                                                     <Image url="@../manager.png" />
                                                 </image>
                                             </ImageView>
-                                            <Label fx:id="managerName" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" text="">
+                                            <Label fx:id="managerName" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" wrapText="true">
                                     <font>
                                        <Font name="Helvetica" size="16.0" />
                                     </font></Label>
@@ -155,7 +155,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                            <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" wrapText="true">
                                     <font>
                                        <Font name="Helvetica" size="16.0" />
                                     </font></Button>
@@ -168,7 +168,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                            <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" wrapText="true">
                                     <font>
                                        <Font size="16.0" />
                                     </font></Button>
@@ -181,7 +181,7 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                            <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" underline="true" wrapText="true">
                                     <font>
                                        <Font size="16.0" />
                                     </font></Button>
