@@ -1,7 +1,6 @@
 package Client;
 
 import ChatBox.ChatClient;
-import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ClientServer;
 import RMIInterfaces.ServerInterface;
@@ -33,7 +32,6 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -97,7 +95,7 @@ public class WBController implements ClientServer {
     private BorderPane wbPane;
 
     @FXML
-    private AnchorPane mainPane;
+    private Pane mainPane;
 
     @FXML
     private Canvas canvas;
@@ -214,9 +212,9 @@ public class WBController implements ClientServer {
 
     public void initialize() {
 
-        colorPicker.setValue(Color.BLACK);
-        setImage();
-        sketch();
+//        colorPicker.setValue(Color.BLACK);
+//        setImage();
+//        sketch();
 
     }
 
@@ -494,6 +492,8 @@ public class WBController implements ClientServer {
         canvasPane.getChildren().remove(canvas);
         canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
         pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+        canvas.setStyle("-fx-background-color: white");
+        pathCanvas.setStyle("-fx-background-color: white");
         canvasPane.getChildren().add(canvas);
         canvasPane.getChildren().add(pathCanvas);
         slider.setValue(1);
@@ -953,7 +953,7 @@ public class WBController implements ClientServer {
         String message = input.getText();
         input.clear();
         appendToMessage(message);
-        chatServant.shareMsg(userName,message);
+//        chatServant.shareMsg(userName,message);
     }
 
 
@@ -963,20 +963,20 @@ public class WBController implements ClientServer {
 
     }
 
-    public void appendToMessage(String message) throws RemoteException{
+    public void appendToMessage(String message){
         textMessage.appendText(message+"\n");
     }
 
 
     public void signIn(String user, String encrypt) throws Exception {
-//        String user = nameInput.getText();
-//        String encrypt = passWordInput.getText();
 //        gsonServant.checkPassword(user, encrypt);
 //        Boolean isSignIn = gsonServant.logginResult();
-        if (isSignIn) {
+        if (true) {
             // the number of client
             if (clientCount == 0) {
                 isManager = true;
+//                signInPane.setVisible(false);
+//                wbPane.setVisible(true);
                 managerName.setText(user);
                 userName = user;
 
@@ -1000,19 +1000,19 @@ public class WBController implements ClientServer {
         }
     }
 
-    public void signUp() throws Exception {
-        String userRegister = nameInput.getText();
-        String passwordRe = passWordInput.getText();
-        gsonServant.registerUser(userRegister, passwordRe);
-        Boolean isRegistered =gsonServant.validRegister();
-        if (isRegistered) {
-            warningDialog(userRegister + " is existed!", "Please change your username to register!");
-
-        } else {
-            inforDialog(userRegister);
-        }
-
-    }
+//    public void signUp() throws Exception {
+//        String userRegister = nameInput.getText();
+//        String passwordRe = passWordInput.getText();
+//        gsonServant.registerUser(userRegister, passwordRe);
+//        Boolean isRegistered =gsonServant.validRegister();
+//        if (isRegistered) {
+//            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+//
+//        } else {
+//            inforDialog(userRegister);
+//        }
+//
+//    }
 
     private void inforDialog(String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1031,7 +1031,7 @@ public class WBController implements ClientServer {
         alert.showAndWait();
     }
 
-    public static void errorDialog(String header, String message) {
+    private void errorDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
@@ -1041,7 +1041,6 @@ public class WBController implements ClientServer {
     }
 
     public void loginDialog(){
-        System.out.println("laoma shi  shazi");
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Welcome");
         dialog.setHeaderText("LogIn");
@@ -1099,5 +1098,9 @@ public class WBController implements ClientServer {
             }
         });
     }
+
+
+
+
 }
 
