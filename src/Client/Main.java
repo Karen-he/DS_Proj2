@@ -122,17 +122,12 @@ public class Main extends Application {
 
 
 
-    private void closeAction() throws IOException{
+    private void closeAction() throws IOException {
         WBController wbController = new WBController();
         wbController.infoBox("Your changes will be lost if you don't save them.",
-                 "Do you want to save the changes?","exit");
-        if(wbController.close == true) {
+                "Do you want to save the changes?", "exit");
+        if (wbController.close == true) {
             window.close();
         }
-
     }
-
-
-
-
 }

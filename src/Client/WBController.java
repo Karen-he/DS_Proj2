@@ -968,17 +968,14 @@ public class WBController implements ClientServer {
     }
 
 
-    public void signIn() throws Exception {
-        String user = nameInput.getText();
-        String encrypt = passWordInput.getText();
-        gsonServant.checkPassword(user, encrypt);
-        Boolean isSignIn = gsonServant.logginResult();
+    public void signIn(String user, String encrypt) throws Exception {
+//        String user = nameInput.getText();
+//        String encrypt = passWordInput.getText();
+//        gsonServant.checkPassword(user, encrypt);
+//        Boolean isSignIn = gsonServant.logginResult();
         if (isSignIn) {
             // the number of client
-            if (clientCount == 1) {
-                isManager = true;
-                signInPane.setVisible(false);
-                wbPane.setVisible(true);
+            if (clientCount == 0) {
                 isManager = true;
                 managerName.setText(user);
                 userName = user;
