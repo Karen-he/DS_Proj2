@@ -32,6 +32,15 @@ public class Main extends Application {
             Registry registry = LocateRegistry.getRegistry(2020);
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
+            int clientCount = chatServant.getChatClients().size();
+            if(clientCount == 0){
+                WBController.setIsManager(true);
+                WBController.setClientCount(1);
+            }else if(clientCount > 0 && clientCount <4){
+                WBController.setIsManager(false);
+                WBController.setClientCount(clientCount+1);
+            }
+
 
             /***
              * synchronize paint
