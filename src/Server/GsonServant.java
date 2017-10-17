@@ -139,7 +139,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("Newcanvase").getAsBoolean();
+            if(jsonObject.get("Newcanvase") != null) {
+                command = jsonObject.get("Newcanvase").getAsBoolean();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
@@ -171,7 +173,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //unpack json to find username and content
             //retrieve userName
 //            String userName = jsonObject.get("UserName").getAsString();
-            msgPrint = jsonObject.get("Content").getAsString();
+            if(jsonObject.get("Content") != null) {
+                msgPrint = jsonObject.get("Content").getAsString();
+            }
         }
         return msgPrint;
     }
@@ -210,9 +214,11 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            String noteType = jsonObject.get("NoteTyple").getAsString();
-            String userName = jsonObject.get("Username").getAsString();
-            notePrint = userName + " has left room.";
+            if(jsonObject.get("NoteTyple") != null) {
+                String noteType = jsonObject.get("NoteTyple").getAsString();
+                String userName = jsonObject.get("Username").getAsString();
+                notePrint = userName + " has left room.";
+            }
         }
         return notePrint;
     }
@@ -294,7 +300,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("approvalFromManager").getAsBoolean();
+            if(jsonObject.get("approvalFromManager") != null) {
+                command = jsonObject.get("approvalFromManager").getAsBoolean();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
@@ -329,7 +337,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            command = jsonObject.get("registerUser").getAsString();
+            if(jsonObject.get("registerUser") != null) {
+                command = jsonObject.get("registerUser").getAsString();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
