@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -33,31 +34,32 @@ public class Main extends Application {
 
             Parent root = (Parent) fLoader.load();
             WBController WBController = fLoader.getController();
-
+        try {
             Registry registry = LocateRegistry.getRegistry(2020);
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
 
+
+
 //            chatServant.setWbController(WBController);
-            // username get from the name after logging in
+        new Thread (() -> {
+            while(true) {
+                try {
+                    if (gsonServant.receivePaints() != null) {
+                        System.out.println("hihi 我可以画画啦");
+                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+                        String shapeOption = drawCommand.get(0);
+                        String attributeGson = drawCommand.get(1);
+                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                        WBController.autoPaint(shapeOption, attributeRec);
+                    }
+                } catch (RemoteException e) {
+                    //WBController.errorDialog("Connection Error", "Connection is lost!");
+                    //e.printStackTrace();
+                }
+            }
+        }).start();
 
-
-
-//        new Thread (() -> {
-//            while(true)
-//                try {
-//                    if (gsonServant.receivePaints() != null){
-//                        System.out.println("hihi 我可以画画啦");
-//                        ArrayList<String> drawCommand = gsonServant.receivePaints();
-//                        String shapeOption = drawCommand.get(0);
-//                        String attributeGson = drawCommand.get(1);
-//                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-//                        WBController.autoPaint(shapeOption,attributeRec);
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
-//        }).start();
 
 
         new Thread(() -> {
@@ -127,7 +129,11 @@ public class Main extends Application {
             });
             window.setScene(new Scene(root, 1000, 700));
             window.show();
-        
+        }catch(ConnectException e){ // This RemoteException is for the lookup and Register.
+                //e.printStackTrace(); // When the server has not started and a client want to connect,
+                // Here is that place to catch the Exception
+                WBController.errorDialog("Connection Error", "Connection is lost!" );
+        }
 
     }
 
