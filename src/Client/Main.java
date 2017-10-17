@@ -126,57 +126,6 @@ public class Main extends Application {
 
 
 
-
-
-//        new Thread(() -> {
-//            while(true) {
-//                ArrayList<ChatClient> tmpChatList = null;
-//                try {
-//                    tmpChatList = chatServant.getChatClients();
-//                    for (int i = 0; i < tmpChatList.size(); i++) {
-//                        ChatClient tempClient = tmpChatList.get(i);
-//                        tempClient.retrieveMsg(WBController.getMessage());
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
-
-//                try {
-//
-//                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
-//                    System.out.println("hihihi");
-//
-//                    if (chatRecords != null) {
-//
-//                        System.out.println("byebyebye");
-//
-//                        System.out.println(chatRecords);
-//
-//                        Iterator it = chatRecords.entrySet().iterator();
-//
-//                        while (it.hasNext()) {
-//
-//                            HashMap.Entry pair = (HashMap.Entry) it.next();
-//
-//                            System.out.println("进入chatClient的list打印啦");
-//
-//                            String messagePrint = pair.getKey() + ": " + pair.getValue();
-//
-//                            WBController.appendToMessage(messagePrint);
-//                        }
-//
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
             // username get from the name after logging in
 
             WBController.setServant(gsonServant, chatServant);
