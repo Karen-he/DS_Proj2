@@ -25,6 +25,7 @@ public class Server {
     private Hashtable<Integer, User> userData;
     private int currentUserNum;
     private int numUser;
+    private static int paintSequence = 0;
     private static int port = 3000;
     private static int counter = 0;
 
@@ -67,15 +68,14 @@ public class Server {
 
             boolean run = true;
             new Thread (() -> {
-                int i = 0;
                 while (run) {
                     try {
                         if (gsonServant.receivePaints() != null) {
                             Hashtable paintsContainer = new Hashtable();
                             PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                             ArrayList<String> whiteboard = gsonServant.receivePaints();
-                            paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, i);
-                            i = i + 1;
+                            paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, paintSequence);
+                            paintSequence = paintSequence + 1;
                             String wb0 = whiteboard.get(0);
                             String wb1 = whiteboard.get(1);
                             if (wb0.equals("") || wb1.equals("")) {
@@ -99,6 +99,7 @@ public class Server {
                             Hashtable paintsContainer = new Hashtable();
                             PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                             paintsKeeper.clearDatabase(paintsContainer);
+                            paintSequence = 0;
                             } else {
                                 System.out.println("No new canvas is created");
                             }
