@@ -1005,41 +1005,54 @@ public class WBController {
         Boolean[] isSignIn = {false};
         Platform.runLater(() -> {
             try {
+                Thread.sleep(100);
                 isSignIn[0] = gsonServant.logginResult();
             } catch (RemoteException e) {
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
-        nameInput.clear();
-        passWordInput.clear();
-        if (isSignIn[0]) {
-            clientCount += 1;
-            // the number of client
-            if (clientCount == 1) {
-                isManager = true;
-                signInPane.setVisible(false);
-                wbPane.setVisible(true);
-                managerName.setText(user);
-                userName = user;
+        Platform.runLater(() -> {
+            nameInput.clear();
+            passWordInput.clear();
+            if (isSignIn[0]) {
+                clientCount += 1;
+                // the number of client
+                if (clientCount == 1) {
+                    isManager = true;
+                    signInPane.setVisible(false);
+                    wbPane.setVisible(true);
+                    managerName.setText(user);
+                    userName = user;
 
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    try {
+                        ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
 
 
-                //launch the whiteboard and turn off the signIn UI
-            } else if (clientCount < 4) {
-                isManager = false;
-                userName = user;
-                //launch the whiteboard and turn off the signIn UI
-                // launch the client
-                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    //launch the whiteboard and turn off the signIn UI
+                } else if (clientCount < 4) {
+                    isManager = false;
+                    userName = user;
+                    //launch the whiteboard and turn off the signIn UI
+                    // launch the client
+                    try {
+                        ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
 
-            } else if (clientCount == 4) {
-                warningDialog("Fail to login In", "You can not join in this room!");
+                } else if (clientCount == 4) {
+                    warningDialog("Fail to login In", "You can not join in this room!");
+                }
+            } else {
+                warningDialog(user + " is not  existed!",
+                        "You should confirm your username or register it!");
             }
-        } else {
-            warningDialog(user + " is not  existed!",
-                    "You should confirm your username or register it!");
-        }
+        });
     }
 
     public void signUp() throws Exception {
@@ -1050,22 +1063,31 @@ public class WBController {
         Platform.runLater(() -> {
             try {
                 //System.out.println(gsonServant.getJsonPack());
-                isRegistered[0] = gsonServant.validRegister();}
+                Thread.sleep(100);
+                isRegistered[0] = gsonServant.validRegister();
+                //System.out.println(gsonServant.getJsonPack());
+                //System.out.println("modify isRegisterd: "+isRegistered[0].toString());
+            }
             catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-        nameInput.clear();
-        passWordInput.clear();
-        //System.out.println("valid register in WB:"+ isRegistered[0]);
-        if (isRegistered[0]) {
-            inforDialog(userRegister);
+        Platform.runLater(() -> {
+            //System.out.println("out of thread ");
+            nameInput.clear();
+            passWordInput.clear();
+            //System.out.println("valid register in WB:"+ isRegistered[0]);
+            if (isRegistered[0]) {
+                inforDialog(userRegister);
 
-        } else {
-            warningDialog(userRegister + " is existed!", "Please change your username to register!");
-        }
-
+            } else {
+                warningDialog(userRegister + " is existed!", "Please change your username to register!");
+            }
+        });
     }
+
 
     private void inforDialog(String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
