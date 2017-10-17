@@ -952,7 +952,7 @@ public class WBController implements ClientServer {
     public void send() throws IOException {
         String message = input.getText();
         input.clear();
-        appendToMessage(message);
+        chatServant.printToAll(message);
 //        chatServant.shareMsg(userName,message);
     }
 
