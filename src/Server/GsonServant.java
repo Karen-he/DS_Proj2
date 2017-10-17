@@ -171,10 +171,13 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             jsonObject = jsonElement.getAsJsonObject();
             //unpack json to find username and content
             //retrieve userName
-            String user = jsonObject.get("UserName").getAsString();
-            String msgPrint = jsonObject.get("Content").getAsString();
-            tmp.add(0,user);
-            tmp.add(1,msgPrint);
+            if(jsonObject.get("UserName") != null) {
+                String user = jsonObject.get("UserName").getAsString();
+                String msgPrint = jsonObject.get("Content").getAsString();
+
+                tmp.add(0, user);
+                tmp.add(1, msgPrint);
+            }
         }
         return tmp;
     }
