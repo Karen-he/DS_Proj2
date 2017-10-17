@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.ConnectException;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -531,13 +532,17 @@ public class WBController  {
     }
 
     private void save() throws IOException {
-        int width = (int) canvasPane.getWidth();
-        int height = (int) canvasPane.getHeight();
-        WritableImage writableImage = new WritableImage(width, height);
-        canvas.snapshot(null, writableImage);
-        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-        ImageIO.write(renderedImage, "png", file);
-        canvasCount = 0;
+        try {
+            int width = (int) canvasPane.getWidth();
+            int height = (int) canvasPane.getHeight();
+            WritableImage writableImage = new WritableImage(width, height);
+            canvas.snapshot(null, writableImage);
+            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+            ImageIO.write(renderedImage, "png", file);
+            canvasCount = 0;
+        }catch(ConnectException e){
+            errorDialog("Connection Error", "Connection is lost!");
+        }
     }
 
     public void onSave() throws IOException {
@@ -551,24 +556,28 @@ public class WBController  {
     }
 
     public void onSaveAs() throws IOException {
-        if(isManager) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save As");
-            fileChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
-            File tempFile = fileChooser.showSaveDialog(null);
-            if (tempFile == null) {
+        try {
+            if (isManager) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save As");
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
+                File tempFile = fileChooser.showSaveDialog(null);
+                if (tempFile == null) {
 
-            } else {
-                setFile(tempFile);
+                } else {
+                    setFile(tempFile);
+                }
+                if (file != null) {
+                    save();
+                }
             }
-            if (file != null) {
-                save();
-            }
+        }catch(ConnectException e){
+            errorDialog("Connection Error", "Connection is lost!");
         }
     }
 
-    private void open() throws IOException {
+    private void open() throws IOException, ConnectException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
         fileChooser.getExtensionFilters().add(
@@ -596,7 +605,11 @@ public class WBController  {
                 infoBox("Your changes will be lost if you don't save them.",
                         "Do you want to save the changes?", "open");
             } else {
-                open();
+                try {
+                    open();
+                }catch(ConnectException e){
+                    errorDialog("Connection Error", "Connection is lost!");
+                }
             }
         }
 
@@ -778,7 +791,9 @@ public class WBController  {
             // String output = sendPoints(shapeKey, list);
             System.out.println("output = " + output);
 
-        } catch (Exception e) {
+        } catch(ConnectException e){
+            errorDialog("Connection Error", "Connection is lost!");
+        } catch(RemoteException e){
             e.printStackTrace();
         }
     }
