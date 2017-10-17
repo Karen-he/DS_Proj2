@@ -59,7 +59,7 @@ public class Main extends Application {
                 while(true) {
                     try {
                         if (gsonServant.listenForApproval() != null) {
-                            WBController.approve(gsonServant.listenForApproval(), 3);
+                            WBController.approve(gsonServant.listenForApproval());
 
                         }
                     } catch (RemoteException e) {
