@@ -36,11 +36,14 @@ import java.io.Serializable;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
 public class WBController {
+
 
     protected double startX;
 
@@ -66,6 +69,8 @@ public class WBController {
     }
 
     private String userName;
+
+//    private String timestamp = "20";
 
     private String client1 = null;
 
@@ -1010,10 +1015,11 @@ public class WBController {
     public void send() throws IOException {
         String message = input.getText();
         input.clear();
+        System.out.println("hou get here 0");
         String fullMessgae = userName + ": " + message;
-        appendToMessage(userName + ": " + message);
-        gsonServant.sendMessage(userName, fullMessgae);
-
+        System.out.println("hou get here 1");
+        String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
+        gsonServant.sendMessage(userName,fullMessgae, timestamp);
     }
 
 
@@ -1040,7 +1046,7 @@ public class WBController {
         Platform.runLater(() -> {
             nameInput.clear();
             passWordInput.clear();
-            if (isSignIn[0]) {
+            if (true) {
                 try {
                 } catch (Exception e) {
                     e.printStackTrace();
