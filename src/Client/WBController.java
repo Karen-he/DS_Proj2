@@ -994,7 +994,7 @@ public class WBController {
     public void send() throws IOException {
         String message = input.getText();
         input.clear();
-        chatServant.printToAll(message);
+//        chatServant.printToAll(message);
 //        chatServant.shareMsg(userName,message);
     }
 
@@ -1013,11 +1013,14 @@ public class WBController {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-//        gsonServant.checkPassword(user, encrypt);
-//        Boolean isSignIn = gsonServant.logginResult();
-        if (true) {
+        gsonServant.checkPassword(user, encrypt);
+        Boolean isSignIn = gsonServant.logginResult();
+        nameInput.clear();
+        passWordInput.clear();
+        if (isSignIn) {
+            clientCount += 1;
             // the number of client
-            if (clientCount == 0) {
+            if (clientCount == 1) {
                 isManager = true;
                 signInPane.setVisible(false);
                 wbPane.setVisible(true);
@@ -1057,12 +1060,14 @@ public class WBController {
                 e.printStackTrace();
             }
         });
+        nameInput.clear();
+        passWordInput.clear();
         //System.out.println("valid register in WB:"+ isRegistered[0]);
         if (isRegistered[0]) {
-            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+            inforDialog(userRegister);
 
         } else {
-            inforDialog(userRegister);
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
         }
 
     }

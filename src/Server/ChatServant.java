@@ -69,14 +69,11 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         try
         {
             for (int i = 0; i < chatClients.size(); i++) {
-<<<<<<< HEAD
-                ChatClient tempClient =  chatClients.get(i);
-                tempClient.retrieveMsg(chatContent);
-=======
+
+
                 ChatClientInterface tempClient =  chatClients.get(i);
                 tempClient.retrieveMsg(userName + ": " + chatContent);
 
->>>>>>> 39cf79aa30500fc31b5de9ba0eb8e0d80dce2c1b
             }
         }catch (Exception e){
                 e.printStackTrace();
