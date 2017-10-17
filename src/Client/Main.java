@@ -41,22 +41,22 @@ public class Main extends Application {
         // username get from the name after logging in
 
 
-
-        new Thread (() -> {
-            while(true)
-                try {
-                    if (gsonServant.receivePaints() != null){
-                        System.out.println("hihi 我可以画画啦");
-                        ArrayList<String> drawCommand = gsonServant.receivePaints();
-                        String shapeOption = drawCommand.get(0);
-                        String attributeGson = drawCommand.get(1);
-                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                        WBController.autoPaint(shapeOption,attributeRec);
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-        }).start();
+        chatServant.setWbController(WBController);
+//        new Thread (() -> {
+//            while(true)
+//                try {
+//                    if (gsonServant.receivePaints() != null){
+//                        System.out.println("hihi 我可以画画啦");
+//                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+//                        String shapeOption = drawCommand.get(0);
+//                        String attributeGson = drawCommand.get(1);
+//                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+//                        WBController.autoPaint(shapeOption,attributeRec);
+//                    }
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//        }).start();
 
 
 

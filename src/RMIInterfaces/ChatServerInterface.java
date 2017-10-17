@@ -16,5 +16,6 @@ public interface ChatServerInterface extends Remote{
    HashMap<String, String> getChatRecords() throws RemoteException;
    void clearRecords() throws RemoteException;
    void printToAll(String chatContent) throws RemoteException;
+   void setWbController(ClientServer wbController) throws RemoteException;
 
 }
