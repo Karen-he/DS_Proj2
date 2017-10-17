@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
-   <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0">
+   <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0" visible="true">
       <center>
           <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" visible="true" BorderPane.alignment="CENTER">
               <children>
@@ -32,7 +32,7 @@
                           <Font name="Chalkboard Bold" size="24.0" />
                       </font>
                   </Button>
-                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" style="-fx-background-color: transparent;" >
+                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" style="-fx-background-color: transparent;">
                       <font>
                           <Font size="17.0" />
                       </font>
@@ -74,6 +74,8 @@
          </AnchorPane>
       </top>
    </BorderPane>
+
+
     <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="false">
         <right>
 
@@ -123,9 +125,12 @@
                         <items>
                             <HBox prefHeight="30.0" prefWidth="450.0" spacing="5.0">
                                 <children>
-                                    <ColorPicker fx:id="colorPicker" prefWidth="50" />
-                                    <Slider fx:id="slider" majorTickUnit="10" max="50" min="1" prefHeight="30.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" />
-                                    <Label fx:id="sliderSize" prefHeight="30" prefWidth="50" text="1.0" />
+                                    <ColorPicker fx:id="colorPicker" prefHeight="41.0" prefWidth="59.0" />
+                                    <Slider fx:id="slider" majorTickUnit="10" max="50" min="1" prefHeight="50.0" prefWidth="170.0" showTickLabels="true" showTickMarks="true" />
+                                    <Label fx:id="sliderSize" alignment="CENTER" prefHeight="40.0" prefWidth="60.0" text="1.0">
+                              <font>
+                                 <Font size="15.0" />
+                              </font></Label>
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="530.0" spacing="5.0">
@@ -137,7 +142,10 @@
                                                     <Image url="@../manager.png" />
                                                 </image>
                                             </ImageView>
-                                            <Label fx:id="managerName" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="100.0" text="" />
+                                            <Label fx:id="managerName" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" text="">
+                                    <font>
+                                       <Font name="Helvetica" size="16.0" />
+                                    </font></Label>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -147,7 +155,10 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />
+                                            <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                    <font>
+                                       <Font name="Helvetica" size="16.0" />
+                                    </font></Button>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -157,7 +168,10 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: transparent;" text="" />
+                                            <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font></Button>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -167,7 +181,10 @@
                                                     <Image url="@../client.png" />
                                                 </image>
                                             </ImageView>
-                                            <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" />
+                                            <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font></Button>
                                         </children>
                                     </HBox>
                                 </children>
