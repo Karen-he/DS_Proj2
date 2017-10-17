@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -33,7 +34,7 @@ public class Main extends Application {
 
             Parent root = (Parent) fLoader.load();
             WBController WBController = fLoader.getController();
-
+        try {
             Registry registry = LocateRegistry.getRegistry(2020);
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
@@ -112,7 +113,11 @@ public class Main extends Application {
             });
             window.setScene(new Scene(root, 1000, 700));
             window.show();
-        
+        }catch(ConnectException e){ // This RemoteException is for the lookup and Register.
+                //e.printStackTrace(); // When the server has not started and a client want to connect,
+                // Here is that place to catch the Exception
+                WBController.errorDialog("Connection Error", "Connection is lost!" );
+        }
 
     }
 
