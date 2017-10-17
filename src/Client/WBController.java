@@ -178,12 +178,12 @@ public class WBController {
         clientCount=clientNum;
     }
 
-//    private void setClient() throws Exception {
-//        ArrayList<ChatClient> chatClients = chatServant.getChatClients();
-//        client1 = chatClients.get(1).getUserName();
-//        client2 = chatClients.get(2).getUserName();
-//        client3 = chatClients.get(3).getUserName();
-//    }
+    private void setClient() throws Exception {
+        ArrayList<ChatClient> chatClients = chatServant.getChatClients();
+        client1 = chatClients.get(1).getUserName();
+        client2 = chatClients.get(2).getUserName();
+        client3 = chatClients.get(3).getUserName();
+    }
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
@@ -660,6 +660,15 @@ public class WBController {
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount);
             if(isApproved){
+                if(clientCount == 2){
+                    client1 = clientName;
+                }
+                if(clientCount == 3){
+                    client2 = clientName;
+                }
+                if(clientCount == 4){
+                    client3 = clientName;
+                }
                 return true;
             }
             else{
@@ -672,21 +681,21 @@ public class WBController {
     public void kickUserOne() throws IOException {
         if (isManager) {
             String clientName = clientOne.getText();
-            kick(clientName, 1);
+            kick(clientName, 2);
         }
     }
 
     public void kickUserTwo() throws IOException {
         if (isManager) {
             String clientName = clientTwo.getText();
-            kick(clientName, 2);
+            kick(clientName, 3);
         }
     }
 
     public void kickUserThree() throws IOException {
         if (isManager) {
             String clientName = clientThree.getText();
-            kick(clientName, 3);
+            kick(clientName, 4);
         }
     }
 
@@ -780,17 +789,17 @@ public class WBController {
                     break;
                 case "Approve":
                     if (clientNum == 2) {
-                        clientOne.setText(userName);
+                        clientOne.setText(client1);
                         isApproved = true;
                         break;
                     }
                     if (clientNum == 3) {
-                        clientTwo.setText(userName);
+                        clientTwo.setText(client2);
                         isApproved = true;
                         break;
                     }
                     if (clientNum == 4) {
-                        clientThree.setText(userName);
+                        clientThree.setText(client3);
                         isApproved = true;
                         break;
                     }
@@ -1039,7 +1048,6 @@ public class WBController {
             passWordInput.clear();
             if (true) {
                 try {
-//                    setClient();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
