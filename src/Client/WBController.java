@@ -1040,6 +1040,7 @@ public class WBController {
     }
 
     public void loginDialog(){
+        System.out.println("laoma shi  shazi");
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Welcome");
         dialog.setHeaderText("LogIn");

@@ -42,7 +42,7 @@
             <!--</Button>-->
         <!--</children>-->
     <!--</Pane>-->
-    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="true">
+    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" >
         <right>
 
 
