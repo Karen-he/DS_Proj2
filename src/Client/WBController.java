@@ -10,6 +10,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -19,10 +21,12 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -1039,7 +1043,6 @@ public class WBController implements ClientServer {
         alert.showAndWait();
     }
 
-<<<<<<< HEAD
     public void loginDialog(){
         System.out.println("laoma shi  shazi");
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -1099,11 +1102,5 @@ public class WBController implements ClientServer {
             }
         });
     }
-
-
-
-=======
->>>>>>> 3706c902b4c863d78c5c4939e2cbe0b9edd96e6e
-
 }
 
