@@ -1082,38 +1082,38 @@ public class WBController {
         });
     }
 
-    public void signUp() throws Exception {
-        String userRegister = nameInput.getText();
-        String passwordRe = passWordInput.getText();
-        gsonServant.registerUser(userRegister, passwordRe);
-        Boolean[] isRegistered = {false};
-        Platform.runLater(() -> {
-            try {
-                //System.out.println(gsonServant.getJsonPack());
-                Thread.sleep(100);
-                isRegistered[0] = gsonServant.validRegister();
-                //System.out.println(gsonServant.getJsonPack());
-                //System.out.println("modify isRegisterd: "+isRegistered[0].toString());
-            }
-            catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        Platform.runLater(() -> {
-            //System.out.println("out of thread ");
-            nameInput.clear();
-            passWordInput.clear();
-            //System.out.println("valid register in WB:"+ isRegistered[0]);
-            if (isRegistered[0]) {
-                inforDialog(userRegister);
-
-            } else {
-                warningDialog(userRegister + " is existed!", "Please change your username to register!");
-            }
-        });
-    }
+//    public void signUp() throws Exception {
+//        String userRegister = nameInput.getText();
+//        String passwordRe = passWordInput.getText();
+//        gsonServant.registerUser(userRegister, passwordRe);
+//        Boolean[] isRegistered = {false};
+//        Platform.runLater(() -> {
+//            try {
+//                //System.out.println(gsonServant.getJsonPack());
+//                Thread.sleep(100);
+//                isRegistered[0] = gsonServant.validRegister();
+//                //System.out.println(gsonServant.getJsonPack());
+//                //System.out.println("modify isRegisterd: "+isRegistered[0].toString());
+//            }
+//            catch (RemoteException e) {
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        Platform.runLater(() -> {
+//            //System.out.println("out of thread ");
+//            nameInput.clear();
+//            passWordInput.clear();
+//            //System.out.println("valid register in WB:"+ isRegistered[0]);
+//            if (isRegistered[0]) {
+//                inforDialog(userRegister);
+//
+//            } else {
+//                warningDialog(userRegister + " is existed!", "Please change your username to register!");
+//            }
+//        });
+//    }
 
 
     private void inforDialog(String name) {

@@ -27,11 +27,11 @@
       <center>
           <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" visible="true" BorderPane.alignment="CENTER">
               <children>
-                  <Button contentDisplay="CENTER" layoutX="82.0" layoutY="266.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">
-                      <font>
-                          <Font name="Chalkboard Bold" size="24.0" />
-                      </font>
-                  </Button>
+                  <!--<Button contentDisplay="CENTER" layoutX="82.0" layoutY="266.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">-->
+                      <!--<font>-->
+                          <!--<Font name="Chalkboard Bold" size="24.0" />-->
+                      <!--</font>-->
+                  <!--</Button>-->
                   <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" promptText="Username" style="-fx-background-color: transparent;">
                       <font>
                           <Font size="26.0" />
