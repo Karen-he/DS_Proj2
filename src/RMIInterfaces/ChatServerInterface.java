@@ -1,6 +1,7 @@
 package RMIInterfaces;
 
 import ChatBox.ChatClient;
+import Client.WBController;
 
 import java.rmi.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public interface ChatServerInterface extends Remote{
    void kickClient(String userName) throws RemoteException;
    HashMap<String, String> getChatRecords() throws RemoteException;
    void clearRecords() throws RemoteException;
-
+   void printToAll(String chatContent) throws RemoteException;
+   void setWbController(ClientServer wbController) throws RemoteException;
 
 }

@@ -1,7 +1,11 @@
 package Server;
 
 import ChatBox.ChatClient;
+import Client.WBController;
+import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
+import RMIInterfaces.ClientServer;
+import RMIInterfaces.ServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,6 +20,9 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private ArrayList<ChatClient> chatClients = new ArrayList<ChatClient>();
 
     private HashMap<String,String> chatRecords = new HashMap();
+
+
+    private ChatServerInterface wbController;
 
     //create a peer list by manager, constructor
 
@@ -52,5 +59,24 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
 
     public void clearRecords() throws RemoteException{
         chatRecords.clear();
+    }
+
+    public void printToAll(String chatContent) throws RemoteException{
+        try
+        {
+            for (int i = 0; i < chatClients.size(); i++) {
+                ChatClientInterface tempClient = (ChatClientInterface) chatClients.get(i);
+                tempClient.retrieveMsg(chatContent);
+            }
+        }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+    public void setWbController(ClientServer wbController) throws RemoteException{
+        for (int i = 0; i<chatClients.size();i++){
+            chatClients.get(i).setWbController(wbController);
+    }
+
     }
 }
