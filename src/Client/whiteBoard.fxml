@@ -4,7 +4,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<Pane fx:id="mainPane"  xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
+<?import javafx.scene.canvas.Canvas?>
+<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
 
     <!--<Pane fx:id="signInPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" visible="false">-->
         <!--<children>-->
@@ -52,6 +53,8 @@
                 <children>
                     <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: gray">
                         <children>
+                            <Canvas fx:id="canvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
+                            <Canvas fx:id="pathCanvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
 
                         </children>
                     </Pane>
@@ -66,8 +69,6 @@
                             <Menu mnemonicParsing="false" text="File">
                                 <items>
                                     <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LoginIn"/>
-                                    <MenuItem fx:id="menuSave" mnemonicParsing="false" onAction="#onSave" text="Save" />
-                                    <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" onAction="#onSaveAs" text="Save as" />
                                     <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
                                 </items>
                             </Menu>
@@ -75,6 +76,8 @@
                                 <items>
                                     <MenuItem fx:id="menuOpen" mnemonicParsing="false" onAction="#onOpen" text="Open" />
                                     <MenuItem fx:id="menuNew" mnemonicParsing="false" onAction="#onNew" text="New" />
+                                    <MenuItem fx:id="menuSave" mnemonicParsing="false" onAction="#onSave" text="Save" />
+                                    <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" onAction="#onSaveAs" text="Save as" />
                                     <MenuItem fx:id="menuClose" onAction="#onClose" text="Close" />
                                 </items>
                             </Menu>
