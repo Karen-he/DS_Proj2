@@ -78,6 +78,8 @@ public class WBController {
 
     private Boolean isManager = false;
 
+    private Boolean isApproved = false;
+
 
     @FXML
     private BorderPane wbPane;
@@ -614,6 +616,10 @@ public class WBController {
     }
 
     public void onExit() throws IOException {
+        infoBox("It will disconnect.", "Do you want to continue this?","exit");
+        if(close == true){
+            Platform.exit();
+        }
 
         if (canvasCount == 1) {
             infoBox("Your changes will be lost if you don't save them.",
@@ -629,6 +635,9 @@ public class WBController {
     public void onClose() throws IOException {
         if (isManager) {
             confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0);
+            if(close == true){
+                Platform.exit();
+            }
         }
     }
 
@@ -643,10 +652,9 @@ public class WBController {
 
     public Boolean approve(String clientName) throws IOException {
         if (isManager) {
-            int currentNum = clientCount;
             confirmBox("Approve", "Approve the " + clientName + "!",
-                    "Do you want to approve the " + clientName + " ?", currentNum+1);
-            if(clientCount - currentNum == 1 ){
+                    "Do you want to approve the " + clientName + " ?", clientCount);
+            if(isApproved){
                 return true;
             }
             else{
@@ -768,17 +776,17 @@ public class WBController {
                 case "Approve":
                     if (clientNum == 2) {
                         clientOne.setText(userName);
-                        clientCount = 2;
+                        isApproved = true;
                         break;
                     }
                     if (clientNum == 3) {
                         clientTwo.setText(userName);
-                        clientCount = 3;
+                        isApproved = true;
                         break;
                     }
                     if (clientNum == 4) {
                         clientThree.setText(userName);
-                        clientCount = 4;
+                        isApproved = true;
                         break;
                     }
                     break;
