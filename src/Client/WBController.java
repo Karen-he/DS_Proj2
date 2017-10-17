@@ -1014,10 +1014,17 @@ public class WBController {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
         gsonServant.checkPassword(user, encrypt);
-        Boolean isSignIn = gsonServant.logginResult();
+        final Boolean[] isSignIn = {true};
+        Platform.runLater(() -> {
+            try {
+                isSignIn[0] = gsonServant.logginResult();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
         nameInput.clear();
         passWordInput.clear();
-        if (isSignIn) {
+        if (isSignIn[0]) {
             clientCount += 1;
             // the number of client
             if (clientCount == 1) {
