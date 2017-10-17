@@ -73,6 +73,27 @@ public class Main extends Application {
             }).start();
 
 
+            Thread printChat = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true){
+                        try {
+                            if (!gsonServant.receiveMessage().isEmpty()){
+                                ArrayList<String> tmp = gsonServant.receiveMessage();
+                                String userName = tmp.get(0);
+                                String fullPrint = tmp.get(1);
+                                if(userName != WBController.getUserName()){
+                                    WBController.appendToMessage(fullPrint);
+                                }
+                            }
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            printChat.start();
 //        new Thread(() -> {
 //            while(true) {
 //                ArrayList<ChatClient> tmpChatList = null;
@@ -89,20 +110,6 @@ public class Main extends Application {
 //        }).start();
 
 
-
-
-//        new Thread(() -> {
-//            while(true) {
-//                try {
-//                    chatServant.printToAll(WBController.getUserName(), WBController.getMessage());
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
-
-//            while(true) {
 //                try {
 //
 //                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
