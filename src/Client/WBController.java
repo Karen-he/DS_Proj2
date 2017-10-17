@@ -56,13 +56,8 @@ public class WBController {
     }
 
 
-    public String getUserName() {
-        return userName;
-    }
-
     private String userName;
 
-//    private String timestamp = "20";
 
     private String client1 = null;
 
@@ -87,8 +82,6 @@ public class WBController {
     @FXML
     private TextField nameInput;
 
-    @FXML
-    private TextField passWordInput;
 
     @FXML
     private Canvas canvas;
@@ -488,7 +481,6 @@ public class WBController {
 
         });
 
-
     }
 
 
@@ -644,17 +636,21 @@ public class WBController {
 
     public Boolean approve(String clientName) throws IOException {
         if (isManager) {
+            clientCount += 1;
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount);
             if (isApproved) {
                 if (clientCount == 2) {
                     client1 = clientName;
+                    isApproved = false;
                 }
                 if (clientCount == 3) {
                     client2 = clientName;
+                    isApproved = false;
                 }
                 if (clientCount == 4) {
                     client3 = clientName;
+                    isApproved = false;
                 }
                 return true;
             } else {
@@ -798,7 +794,11 @@ public class WBController {
 
         }
         if (result.get() == buttonTypeTwo) {
-            confirmAlert.close();
+            switch (command){
+                case "Approve":
+                    confirmAlert.close();
+                    clientCount -= 1;
+            }
         }
     }
 
@@ -1022,45 +1022,77 @@ public class WBController {
 
 
     public void signIn() throws Exception {
-        String user = nameInput.getText();
-        String encrypt = passWordInput.getText();
-        if (true) {
-            // the number of client
-            if (clientCount == 1) {
-                isManager = true;
-                signInPane.setVisible(false);
-                wbPane.setVisible(true);
-                managerName.setText(user);
-                userName = user;
+        try {
+            String user = nameInput.getText();
+            switch (clientCount) {
+                case 1:
+                    signInPane.setVisible(false);
+                    wbPane.setVisible(true);
+                    managerName.setText(user);
+                    userName = user;
+                    break;
 
-                try {
-                    // Used to register the new client
-                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+                case 2:
+                    listenApproval();
+                    approveDialog();
+                    break;
+                case 3:
+                    listenApproval();
+                    approveDialog();
+                    break;
+                case 4:
+                    listenApproval();
+                    approveDialog();
+                    break;
 
-
-                //launch the whiteboard and turn off the signIn UI
-            } else if (clientCount < 4) {
-                isManager = false;
-                userName = user;
-                //launch the whiteboard and turn off the signIn UI
-                // launch the client
-                try {
-                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (clientCount == 4) {
-                warningDialog("Fail to login In", "You can not join in this room!");
             }
-        } else {
-            warningDialog(user + " is not  existed!",
-                    "You should confirm your username or register it!");
+        }catch (ConnectException e){
+            errorDialog("Connection Error", "Connection is lost!");
         }
-}
+    }
+
+    public void listenApproval() throws  ConnectException{
+        boolean run = true;
+        while(run){
+            // call the function from userSys
+            // sign the boolean to the run
+        }
+    }
+
+//        if (clientCount == 1) {
+//            isManager = true;
+//            signInPane.setVisible(false);
+//            wbPane.setVisible(true);
+//            managerName.setText(user);
+//            userName = user;
+//
+//            try {
+//                // Used to register the new client
+//                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//            //launch the whiteboard and turn off the signIn UI
+//        } else if (clientCount < 4) {
+//            isManager = false;
+//            userName = user;
+//            //launch the whiteboard and turn off the signIn UI
+//            // launch the client
+//            try {
+//                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
+//
+//        } else if (clientCount == 4) {
+//            warningDialog("Fail to login In", "You can not join in this room!");
+//        } else {
+//            warningDialog(user + " is not  existed!",
+//                    "You should confirm your username or register it!");
+//        }
+
 
 //    public void signUp() throws Exception {
 //        String userRegister = nameInput.getText();
@@ -1096,17 +1128,17 @@ public class WBController {
 //    }
 
 
-    private void inforDialog(String name) {
+    private void approveDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Registration");
+        alert.setTitle("APPROVE");
         alert.setHeaderText("Successful");
-        alert.setContentText("Congratulation! you can use " + name + " now!");
+        alert.setContentText("Congratulation! you are approved by manager!");
         alert.showAndWait();
     }
 
-    private void warningDialog(String header, String message) {
+    public void warningDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
+        alert.setTitle("WARNING");
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();
@@ -1114,7 +1146,7 @@ public class WBController {
 
     public void errorDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle("ERROR");
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();

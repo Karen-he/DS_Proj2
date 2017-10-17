@@ -1,18 +1,14 @@
 package Server;
 
-import ChatBox.ChatClient;
 import Client.PaintAttribute;
 import RMIInterfaces.ServerInterface;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import javafx.scene.layout.BorderPane;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
@@ -86,7 +82,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(paintPack);
             paintObject = jsonElement.getAsJsonObject();
-            if(paintObject.get("Shape") != null) {
+            if (paintObject.get("Shape") != null) {
                 String shape = paintObject.get("Shape").getAsString();
                 //System.out.println("shape is " + shape);
                 String attribute = paintObject.get("paintAttribute").getAsString();
@@ -114,7 +110,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      *
      * send a command of initilize a new canvas to the server in order to clear the paints database.
      */
-    public synchronized String tellSeverNew(boolean command) throws RemoteException{
+    public synchronized String tellSeverNew(boolean command) throws RemoteException {
         jsonObject.addProperty("Newcanvase", command);
         jsonPack = gson.toJson(jsonObject);
         return jsonPack;
@@ -128,7 +124,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("Newcanvase") != null) {
+            if (jsonObject.get("Newcanvase") != null) {
                 command = jsonObject.get("Newcanvase").getAsBoolean();
             }
             //System.out.println("back to string: "+actual);
@@ -152,7 +148,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         chatObject.addProperty("Timestamp", timestamp);
         chatPack = gson.toJson(chatObject);
 
-        System.out.println(chatPack.toString()+"!!!!!!!");
+        System.out.println(chatPack.toString() + "!!!!!!!");
         return chatPack;
     }
 
@@ -174,7 +170,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             chatObject = jsonElement.getAsJsonObject();
             //unpack json to find username and content
             //retrieve userName
-            if(chatObject.get("Username") != null) {
+            if (chatObject.get("Username") != null) {
                 String user = chatObject.get("Username").getAsString();
                 String msgPrint = chatObject.get("Content").getAsString();
                 String timestamp = chatObject.get("Timestamp").getAsString();
@@ -220,7 +216,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("NoteTyple") != null) {
+            if (jsonObject.get("NoteTyple") != null) {
                 String noteType = jsonObject.get("NoteTyple").getAsString();
                 String userName = jsonObject.get("Username").getAsString();
                 notePrint = userName + " has left room.";
@@ -238,7 +234,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("checkPassword") != null) {
+            if (jsonObject.get("checkPassword") != null) {
                 command = jsonObject.get("checkPassword").getAsString();
             }
             //System.out.println("back to string: "+actual);
@@ -254,7 +250,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      * @return
      * server uses this method to tell the client if this log is valid
      */
-   
+
     public String validLogin(boolean valid) {
         jsonObject.addProperty("validLogin", valid);
         jsonPack = gson.toJson(jsonObject);
@@ -266,22 +262,23 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     //clients use this method to check if the password is valid
     @Override
-    public void checkPassword(String userName, String password)throws RemoteException {
+    public void checkPassword(String userName, String password) throws RemoteException {
         String userNameAndPassword = userName + " " + password;
         jsonObject.addProperty("checkPassword", userNameAndPassword);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
     }
+
     //clients use this method to receive the result of loggin
     @Override
-    public boolean logginResult()throws RemoteException{
+    public boolean logginResult() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("validLogin")!=null){
+            if (jsonObject.get("validLogin") != null) {
                 command = jsonObject.get("validLogin").getAsBoolean();
             }
 
@@ -298,7 +295,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      * @param username
      */
 
-    public void askManager(String username){
+    public void askManager(String username) {
         jsonObject.addProperty("askManager", username);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
@@ -311,7 +308,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      * manager uses this method to send approval
      */
     @Override
-    public void sendApproval(boolean approval)throws RemoteException{
+    public void sendApproval(boolean approval) throws RemoteException {
         jsonObject.addProperty("approvalFromManager", approval);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonpack in servant" + jsonPack);
@@ -322,14 +319,14 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      * @return
      */
 
-    public boolean waitForManager(){
+    public boolean waitForManager() {
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("approvalFromManager") != null) {
+            if (jsonObject.get("approvalFromManager") != null) {
                 command = jsonObject.get("approvalFromManager").getAsBoolean();
             }
             //System.out.println("back to string: "+actual);
@@ -347,14 +344,14 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      */
 
     @Override
-    public String listenForApproval()throws RemoteException{
+    public String listenForApproval() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
         String username = "";
         if (empty == false) {
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("askManager")!=null){
+            if (jsonObject.get("askManager") != null) {
                 username = jsonObject.get("askManager").getAsString();
             }
         }
@@ -375,7 +372,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("registerUser") != null) {
+            if (jsonObject.get("registerUser") != null) {
                 command = jsonObject.get("registerUser").getAsString();
             }
         }
@@ -390,7 +387,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      * client uses this method to register into the system and ckeck this register
      */
     @Override
-    public void registerUser(String userName, String password)throws RemoteException {
+    public void registerUser(String userName, String password) throws RemoteException {
         String userNameAndPassword = userName + " " + password;
         jsonObject.addProperty("registerUser", userNameAndPassword);
         jsonObject.addProperty("checkRegister", userName);
@@ -408,17 +405,18 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         jsonPack = gson.toJson(jsonObject);
         //System.out.println("the jsonpack in servant" + jsonPack);
     }
+
     //clients use this method to receive if this register is valid
     @Override
-    public boolean validRegister()throws RemoteException{
+    public boolean validRegister() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
-        System.out.println("in valid Register:"+jsonPack);
+        System.out.println("in valid Register:" + jsonPack);
         boolean command = false;
         if (empty == false) {
             //System.out.println("in valid Register and jsonpack is not empty:"+jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("checkExist")!=null){
+            if (jsonObject.get("checkExist") != null) {
                 command = jsonObject.get("checkExist").getAsBoolean();
             }
             //System.out.println("back to string: "+actual);
@@ -428,7 +426,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return command;
     }
 
-    public String getJsonPack() throws RemoteException{
+    public String getJsonPack() throws RemoteException {
         String temp = this.jsonPack;
         return temp;
     }

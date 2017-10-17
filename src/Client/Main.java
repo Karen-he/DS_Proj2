@@ -3,6 +3,7 @@ package Client;
 import ChatBox.ChatClient;
 import RMIInterfaces.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,129 +32,126 @@ public class Main extends Application {
 
         Parent root = (Parent) fLoader.load();
         WBController WBController = fLoader.getController();
-        try {
-            Registry registry = LocateRegistry.getRegistry(2020);
-            ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
-            ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
-            int clientCount = chatServant.getChatClients().size();
-            if(clientCount == 0){
-                WBController.setIsManager(true);
-                WBController.setClientCount(1);
-            }else if(clientCount > 0 && clientCount <4){
-                WBController.setIsManager(false);
-                WBController.setClientCount(clientCount+1);
+        Registry registry = LocateRegistry.getRegistry(2020);
+        ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
+        ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
+        int clientCount = chatServant.getChatClients().size();
+        if (clientCount == 0) {
+            WBController.setIsManager(true);
+            WBController.setClientCount(1);
+        } else if (clientCount > 0 && clientCount < 4) {
+            WBController.setIsManager(false);
+            WBController.setClientCount(clientCount + 1);
+        } else if (clientCount > 4) {
+            WBController.warningDialog("Fail to login In", "You can not join in this room!");
+            Platform.exit();
+        }
+
+
+        /***
+         * synchronize paint
+         */
+        Thread paint = new Thread(() -> {
+            String oldTimePaint = "2017";
+            while (true) {
+                try {
+                    sleep(400);
+                    if (!gsonServant.receivePaints().isEmpty()) {
+                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+                        String timeStamp = drawCommand.get(2);
+                        if (!timeStamp.equals(oldTimePaint)) {
+                            String shapeOption = drawCommand.get(0);
+                            String attributeGson = drawCommand.get(1);
+                            PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                            WBController.autoPaint(shapeOption, attributeRec);
+                            oldTimePaint = timeStamp;
+                        }
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        });
 
+        paint.start();
 
-            /***
-             * synchronize paint
-             */
-            Thread paint = new Thread(() -> {
-                String oldTimePaint = "2017";
-                while (true) {
-                    try {
-                        sleep(400);
-                        if (!gsonServant.receivePaints().isEmpty()) {
-                            ArrayList<String> drawCommand = gsonServant.receivePaints();
-                            String timeStamp = drawCommand.get(2);
-                            if (!timeStamp.equals(oldTimePaint)) {
-                                String shapeOption = drawCommand.get(0);
-                                String attributeGson = drawCommand.get(1);
-                                PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                                WBController.autoPaint(shapeOption, attributeRec);
-                                oldTimePaint = timeStamp;
-                            }
-                        }
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+        /***
+         * This thread is to monitor whether there is a new user want to join the whiteboard.
+         */
 
-            paint.start();
-
-            /***
-             * This thread is to monitor whether there is a new user want to join the whiteboard.
-             */
-
-            Thread approval = new Thread(() -> {
-                while (true) {
-                    try {
-                        boolean empty = gsonServant.listenForApproval().isEmpty();
-                        if (!empty) {
-                            WBController.approve(gsonServant.listenForApproval());
-
-                        }
-                    } catch (RemoteException e) {
-                        //WBController.errorDialog("Connection Error", "Connection is lost!");
-                        //e.printStackTrace();
-                    } catch (IOException e) {
+        Thread approval = new Thread(() -> {
+            while (true) {
+                try {
+                    boolean empty = gsonServant.listenForApproval().isEmpty();
+                    if (!empty) {
+                        WBController.approve(gsonServant.listenForApproval());
 
                     }
+                } catch (RemoteException e) {
+                    //WBController.errorDialog("Connection Error", "Connection is lost!");
+                    //e.printStackTrace();
+                } catch (IOException e) {
+
                 }
-            });
+            }
+        });
 
-            approval.start();
+        approval.start();
 
-            /***
-             * Show chatroom Content
-             ***/
+        /***
+         * Show chatroom Content
+         ***/
 
-            Thread printChat = new Thread(() -> {
-                String oriTimestamp ="2017";
-                while (true) {
-                    try {
-                        sleep(500);
+        Thread printChat = new Thread(() -> {
+            String oriTimestamp = "2017";
+            while (true) {
+                try {
+                    sleep(500);
 //                        System.out.println(gsonServant.receiveMessage());
-                        if (!gsonServant.receiveMessage().isEmpty()) {
+                    if (!gsonServant.receiveMessage().isEmpty()) {
 
-                            ArrayList<String> tmp = gsonServant.receiveMessage();
-                            String timestamp = tmp.get(2);
-                            String userName = tmp.get(0);
-                            System.out.println(timestamp);
+                        ArrayList<String> tmp = gsonServant.receiveMessage();
+                        String timestamp = tmp.get(2);
+                        String userName = tmp.get(0);
+                        System.out.println(timestamp);
                         if (!oriTimestamp.equals(timestamp)) {
                             String fullPrint = tmp.get(1);
-                            System.out.println(userName+fullPrint);
+                            System.out.println(userName + fullPrint);
                             WBController.appendToMessage(fullPrint);
-                            oriTimestamp = timestamp ;
+                            oriTimestamp = timestamp;
                         }
-                        }
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
 
-            printChat.start();
+        printChat.start();
 
 
+        // username get from the name after logging in
 
-            // username get from the name after logging in
+        WBController.setServant(gsonServant, chatServant);
 
-            WBController.setServant(gsonServant, chatServant);
+        window = primaryStage;
+        window.setTitle("WhiteBoard");
 
-            window = primaryStage;
-            window.setTitle("WhiteBoard");
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            try {
+                closeAction();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        window.setScene(new Scene(root, 1000, 700));
+        window.show();
 
-            window.setOnCloseRequest(e -> {
-                e.consume();
-                try {
-                    closeAction();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            });
-            window.setScene(new Scene(root, 1000, 700));
-            window.show();
-        }catch(ConnectException e){ // This RemoteException is for the lookup and Register.
-                //e.printStackTrace(); // When the server has not started and a client want to connect,
-                // Here is that place to catch the Exception
-                WBController.errorDialog("Connection Error", "Connection is lost!" );
-        }
 
     }
 
