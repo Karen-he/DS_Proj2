@@ -101,7 +101,7 @@ public class Server {
                             paintsKeeper.clearDatabase(paintsContainer);
                             paintSequence = 0;
                             } else {
-                                // System.out.println("No new canvas is created");
+                                System.out.println("No new canvas is created");
                             }
                     } catch (RemoteException e) {
                         e.printStackTrace();
