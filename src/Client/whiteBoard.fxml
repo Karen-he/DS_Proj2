@@ -22,61 +22,56 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
-   <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0">
-      <center>
-          <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" visible="true" BorderPane.alignment="CENTER">
-              <children>
-                  <Button contentDisplay="CENTER" layoutX="82.0" layoutY="266.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">
-                      <font>
-                          <Font name="Chalkboard Bold" size="24.0" />
-                      </font>
-                  </Button>
-                  <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" promptText="Username" style="-fx-background-color: transparent;">
-                      <font>
-                          <Font size="26.0" />
-                      </font>
-                  </TextField>
-                  <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" promptText="Password" style="-fx-background-color: transparent;">
-                      <font>
-                          <Font size="26.0" />
-                      </font>
-                  </TextField>
-                  <Line endX="200.0" layoutX="262.0" layoutY="94.0" startX="-100.0" />
-                  <Line endX="200.0" layoutX="262.0" layoutY="180.0" startX="-100.0" />
-                  <ImageView fx:id="userPhoto" fitHeight="50.0" fitWidth="50.0" layoutX="58.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="@../user.png" />
-                      </image>
-                  </ImageView>
-                  <ImageView fx:id="passwordPhoto" fitHeight="60.0" fitWidth="60.0" layoutX="53.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="@../password.png" />
-                      </image>
-                  </ImageView>
-                  <Button layoutX="322.0" layoutY="263.0" mnemonicParsing="false" onAction="#signIn" prefHeight="53.0" prefWidth="122.0" style="-fx-background-color: transparent;" text="Sign In">
-                      <font>
-                          <Font name="Chalkboard SE Regular" size="24.0" />
-                      </font>
-                  </Button>
-              </children>
-          </Pane>
-      </center>
-      <top>
-         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-               <ImageView fitHeight="150.0" fitWidth="219.0" layoutX="421.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../logo.png" />
-                  </image>
-               </ImageView>
-            </children>
-         </AnchorPane>
-      </top>
-   </BorderPane>
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
+    <BorderPane fx:id="signInPane" prefWidth="1000.0" visible="true">
+        <center>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" visible="true" BorderPane.alignment="CENTER">
+                <children>
+                    <TextField fx:id="nameInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="45.0" prefHeight="50.0" prefWidth="303.0" promptText="Username" style="-fx-background-color: transparent;">
+                        <font>
+                            <Font size="26.0" />
+                        </font>
+                    </TextField>
+                    <TextField fx:id="passWordInput" alignment="BOTTOM_LEFT" layoutX="159.0" layoutY="130.0" prefHeight="50.0" prefWidth="305.0" promptText="Password" style="-fx-background-color: transparent;">
+                        <font>
+                            <Font size="26.0" />
+                        </font>
+                    </TextField>
+                    <Line endX="200.0" layoutX="262.0" layoutY="94.0" startX="-100.0" />
+                    <Line endX="200.0" layoutX="262.0" layoutY="180.0" startX="-100.0" />
+                    <ImageView fx:id="userPhoto" fitHeight="50.0" fitWidth="50.0" layoutX="58.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../user.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fx:id="passwordPhoto" fitHeight="60.0" fitWidth="60.0" layoutX="53.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../password.png" />
+                        </image>
+                    </ImageView>
+                    <Button layoutX="322.0" layoutY="263.0" mnemonicParsing="false" onAction="#signIn" prefHeight="53.0" prefWidth="122.0" style="-fx-background-color: transparent;" text="Sign In">
+                        <font>
+                            <Font name="Chalkboard SE Regular" size="24.0" />
+                        </font>
+                    </Button>
+                </children>
+            </Pane>
+        </center>
+        <top>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <children>
+                    <ImageView fitHeight="150.0" fitWidth="219.0" layoutX="421.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../logo.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </AnchorPane>
+        </top>
+    </BorderPane>
 
 
-    <BorderPane fx:id="wbPane" prefHeight="700" prefWidth="1000" visible="false">
+    <BorderPane fx:id="wbPane" visible="false">
         <right>
 
 
@@ -128,9 +123,10 @@
                                     <ColorPicker fx:id="colorPicker" prefHeight="41.0" prefWidth="59.0" />
                                     <Slider fx:id="slider" majorTickUnit="10" max="50" min="1" prefHeight="50.0" prefWidth="170.0" showTickLabels="true" showTickMarks="true" />
                                     <Label fx:id="sliderSize" alignment="CENTER" prefHeight="40.0" prefWidth="60.0" text="1.0">
-                              <font>
-                                 <Font size="15.0" />
-                              </font></Label>
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Label>
                                 </children>
                             </HBox>
                             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="530.0" spacing="5.0">
@@ -143,9 +139,10 @@
                                                 </image>
                                             </ImageView>
                                             <Label fx:id="managerName" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="100.0" wrapText="true">
-                                    <font>
-                                       <Font name="Helvetica" size="16.0" />
-                                    </font></Label>
+                                                <font>
+                                                    <Font name="Helvetica" size="16.0" />
+                                                </font>
+                                            </Label>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -156,9 +153,10 @@
                                                 </image>
                                             </ImageView>
                                             <Button fx:id="clientOne" alignment="CENTER_LEFT" onAction="#kickUserOne" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" wrapText="true">
-                                    <font>
-                                       <Font name="Helvetica" size="16.0" />
-                                    </font></Button>
+                                                <font>
+                                                    <Font name="Helvetica" size="16.0" />
+                                                </font>
+                                            </Button>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -169,9 +167,10 @@
                                                 </image>
                                             </ImageView>
                                             <Button fx:id="clientTwo" alignment="CENTER_LEFT" onAction="#kickUserTwo" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" wrapText="true">
-                                    <font>
-                                       <Font size="16.0" />
-                                    </font></Button>
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Button>
                                         </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="140.0">
@@ -182,9 +181,10 @@
                                                 </image>
                                             </ImageView>
                                             <Button fx:id="clientThree" alignment="CENTER_LEFT" onAction="#kickUserThree" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="" underline="true" wrapText="true">
-                                    <font>
-                                       <Font size="16.0" />
-                                    </font></Button>
+                                                <font>
+                                                    <Font size="16.0" />
+                                                </font>
+                                            </Button>
                                         </children>
                                     </HBox>
                                 </children>
@@ -245,13 +245,14 @@
                 <children>
                     <TextArea fx:id="textMessage" editable="false" layoutY="5.0" prefHeight="480.0" prefWidth="215.0" style="-fx-background-color: transparent;" wrapText="true" />
                     <TextArea fx:id="input" editable="true" layoutY="490.0" prefHeight="100.0" prefWidth="215.0" style="-fx-background-color: transparent;" wrapText="true" />
-               <Button fx:id="sendMessage" layoutX="130.0" layoutY="602.0" mnemonicParsing="false" onAction="#send" prefHeight="27.0" prefWidth="85.0" style="-fx-background-color: white;" text="Send">
-                  <font>
-                     <Font size="17.0" />
-                  </font>
-               </Button>
+                    <Button fx:id="sendMessage" layoutX="130.0" layoutY="602.0" mnemonicParsing="false" onAction="#send" prefHeight="27.0" prefWidth="85.0" style="-fx-background-color: white;" text="Send">
+                        <font>
+                            <Font size="17.0" />
+                        </font>
+                    </Button>
                 </children>
             </AnchorPane>
         </right>
     </BorderPane>
-</Pane>
+
+</AnchorPane>
