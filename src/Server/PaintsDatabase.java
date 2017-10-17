@@ -8,13 +8,13 @@ public class PaintsDatabase {
 
     private Hashtable paintsDatabase;
 
-    public PaintsDatabase(Hashtable paintsDatabase){
-        this.paintsDatabase = paintsDatabase;
+    public PaintsDatabase(){
+
+        this.paintsDatabase = new Hashtable();
     }
 
-    public void setPaintsDatabase(Hashtable paintsDatabase, ArrayList<String> paintJason, int i){
+    public void addPaintsDatabase(ArrayList<String> paintJason, int i){
         paintsDatabase.put(i, paintJason);
-        this.paintsDatabase = paintsDatabase;
 
     }
 
