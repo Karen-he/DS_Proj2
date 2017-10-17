@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 
-public class WBController  {
+public class WBController implements ClientServer, Serializable {
 
     protected double startX;
 
@@ -60,6 +60,10 @@ public class WBController  {
 
     private String message;
 
+    public String getUserName() {
+        return userName;
+    }
+
     private String userName;
 
     private String client1 = null;
@@ -77,6 +81,10 @@ public class WBController  {
 
     private Boolean isRegistered = false;
 
+
+    public String getMessage() {
+        return message;
+    }
 
     public void setMessage(String message) {
         System.out.println("SetMessage" + message);
@@ -952,6 +960,7 @@ public class WBController  {
 
     public void send() throws IOException {
         String message = input.getText();
+        setMessage(message);
         input.clear();
         chatServant.printToAll(message);
 //        chatServant.shareMsg(userName,message);
@@ -981,7 +990,7 @@ public class WBController  {
                 managerName.setText(user);
                 userName = user;
 
-                ChatClient chatClient = new ChatClient(user,chatServant,gsonServant);
+                chatServant.addChatClient(user,chatServant,gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -990,7 +999,7 @@ public class WBController  {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                ChatClient chatClient = new ChatClient(user, chatServant,gsonServant);
+                chatServant.addChatClient(user,chatServant,gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");

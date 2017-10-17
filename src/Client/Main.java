@@ -38,10 +38,11 @@ public class Main extends Application {
             ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
             ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
 
+//            chatServant.setWbController(WBController);
             // username get from the name after logging in
 
 
-//            chatServant.setWbController(WBController);
+
 //        new Thread (() -> {
 //            while(true)
 //                try {
@@ -59,8 +60,22 @@ public class Main extends Application {
 //        }).start();
 
 
-//        new Thread(() -> {
-//
+        new Thread(() -> {
+            while(true) {
+                ArrayList<ChatClient> tmpChatList = null;
+                try {
+                    tmpChatList = chatServant.getChatClients();
+                    for (int i = 0; i < tmpChatList.size(); i++) {
+                        ChatClient tempClient = tmpChatList.get(i);
+                        tempClient.retrieveMsg(WBController.getMessage());
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
 //            while(true) {
 //                try {
 //
@@ -85,7 +100,7 @@ public class Main extends Application {
 //
 //                            WBController.appendToMessage(messagePrint);
 //                        }
-//                        chatServant.clearRecords();
+//
 //                    }
 //                } catch (RemoteException e) {
 //                    e.printStackTrace();
