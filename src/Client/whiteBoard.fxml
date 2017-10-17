@@ -25,7 +25,7 @@
 <Pane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.WBController">
    <BorderPane fx:id="signInPane" prefHeight="700.0" prefWidth="1000.0">
       <center>
-      
+
           <Pane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="504.0" visible="true" BorderPane.alignment="CENTER">
               <children>
                   <Button contentDisplay="CENTER" layoutX="90.0" layoutY="199.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent;" text="Sign Up">

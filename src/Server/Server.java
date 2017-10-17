@@ -100,9 +100,9 @@ public class Server {
                             PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                             paintsKeeper.clearDatabase(paintsContainer);
                             paintSequence = 0;
-                            } else {
-                                // System.out.println("No new canvas is created");
-                            }
+                        } else {
+                            // System.out.println("No new canvas is created");
+                        }
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -139,8 +139,13 @@ public class Server {
                         gsonServant.validLogin(validPasswordAndManagerAproved);
                         mainserver.currentUserNum ++;
                     }
+                }
+            }).start();
 
-                    //add new users to the system
+            //add new users to the system
+            new Thread (() -> {
+                while (true){
+                    Set<Integer> userIDs = mainserver.userData.keySet();
                     String userNamePlusPassword = gsonServant.addUser();
                     boolean notAlreadyExist = true;
                     boolean emptyUP = userNamePlusPassword.isEmpty();
@@ -161,83 +166,9 @@ public class Server {
                             gsonServant.serverValidRegister(false);
                         }
                     }
-
-                    //receive from WB
-                    ArrayList<String> whiteboard = null;
-                    try {
-                        whiteboard = gsonServant.receivePaints();
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    String wb0 = whiteboard.get(0);
-                    String wb1 = whiteboard.get(1);
-                    if (wb0.equals("") || wb1.equals("")) {
-                        System.out.println("empty jsonPack");
-                    } else {
-                        System.out.println("the string array received in server: " + wb0
-                                + " ### " + wb1);
-                    }
-                }
-
-            //user system thread
-            //keep listening
-//            String userNameAndPassword = "";
-//            while (run) {
-//                //check password
-//                userNameAndPassword = gsonServant.serverCheckPassword();
-//                String[] split = userNameAndPassword.split(" ");
-//                String userName = split[0];
-//                String password = split[1];
-//                Set<Integer> userIDs = mainserver.userData.keySet();
-//                String actualPassword = "";
-//                for (Integer id : userIDs) {
-//                    if (mainserver.userData.get(id).equals(userName)) {
-//                        actualPassword = mainserver.userPassword.get(id);
-//                    }
-//                }
-//                boolean validPassword = actualPassword.equals(password);
-//                gsonServant.valid(validPassword);
-
-
-
-                    /***
-                    String command = commands.get(i).toString();
-                    if (i.equals("userName")) {
-                        if (keywords.contains("registerUser")) {
-                            User newUser = gson.fromJson(jsonObject.get("registerUser").getAsString(), User.class);
-                            String password = commands.get("password").toString();
-                            mainserver.addInUser(newUser.getUsername(), password);
-                        }
-                        if (keywords.contains("checkPassword")) {
-                            String username = commands.get("checkPassword").toString();
-                            Set<Integer> userIDs = mainserver.userData.keySet();
-                            String actualPassword = "";
-                            String password = commands.get("password").toString();
-                            for (Integer id : userIDs) {
-                                if (mainserver.userData.get(id).equals(username)) {
-                                    actualPassword = mainserver.userPassword.get(id);
-                                }
-                            }
-                            boolean validPassword = actualPassword.equals(password);
-                        }
-                    }***/
-
-                //receive from WB
-                ArrayList<String> whiteboard = null;
-                try {
-                    whiteboard = gsonServant.receivePaints();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-                String wb0 = whiteboard.get(0);
-                String wb1 = whiteboard.get(1);
-                if (wb0.equals("") || wb1.equals("")) {
-                    System.out.println("empty jsonPack");
-                } else {
-                    System.out.println("the string array received in server: " + wb0
-                            + " ### " + wb1);
                 }
             }).start();
+
 
             //The server will continue running as long as there are remote objects exported into
             //the RMI runtime, to remove remote objects from the
