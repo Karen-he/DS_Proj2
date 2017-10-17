@@ -43,21 +43,23 @@ public class Main extends Application {
 
 
 //            chatServant.setWbController(WBController);
-//        new Thread (() -> {
-//            while(true)
-//                try {
-//                    if (gsonServant.receivePaints() != null){
-//                        System.out.println("hihi 我可以画画啦");
-//                        ArrayList<String> drawCommand = gsonServant.receivePaints();
-//                        String shapeOption = drawCommand.get(0);
-//                        String attributeGson = drawCommand.get(1);
-//                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-//                        WBController.autoPaint(shapeOption,attributeRec);
-//                    }
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
-//        }).start();
+        new Thread (() -> {
+            while(true) {
+                try {
+                    if (gsonServant.receivePaints() != null) {
+                        System.out.println("hihi 我可以画画啦");
+                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+                        String shapeOption = drawCommand.get(0);
+                        String attributeGson = drawCommand.get(1);
+                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                        WBController.autoPaint(shapeOption, attributeRec);
+                    }
+                } catch (RemoteException e) {
+                    //WBController.errorDialog("Connection Error", "Connection is lost!");
+                    //e.printStackTrace();
+                }
+            }
+        }).start();
 
 
 //        new Thread(() -> {
