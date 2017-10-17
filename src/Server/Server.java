@@ -83,7 +83,7 @@ public class Server {
                                 PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                                 paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, paintSequence);
                                 paintSequence = paintSequence + 1;
-
+                                //System.out.println(paintsKeeper.getPaintsDatabase().get(0));
                                 String wb0 = whiteboard.get(0);
                                 String wb1 = whiteboard.get(1);
                                 if (wb0.equals("") || wb1.equals("")) {

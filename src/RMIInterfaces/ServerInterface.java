@@ -53,4 +53,8 @@ public interface ServerInterface extends Remote {
     void registerUser(String userName, String password) throws RemoteException;
 
     boolean validRegister() throws RemoteException;
+
+    String sendDatabase(String key, Hashtable database) throws RemoteException;
+
+    ArrayList<String> receiveDatabase() throws RemoteException;
 }

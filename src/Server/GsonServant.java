@@ -110,14 +110,14 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("Shape") != null) {
                 String shape = jsonObject.get("Shape").getAsString();
-                System.out.println("shape is " + shape);
+                //System.out.println("shape is " + shape);
                 String attribute = jsonObject.get("paintAttribute").getAsString();
                 String timeStamp = jsonObject.get("timeStamp").getAsString();
-                System.out.println("paintAttribute: " + attribute);
+                //System.out.println("paintAttribute: " + attribute);
                 whiteBoard.add(0, shape);
                 whiteBoard.add(1, attribute);
                 whiteBoard.add(2, timeStamp);
-                System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+                //System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
             }
         }
         return whiteBoard;
@@ -362,6 +362,31 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             //System.out.println("the number of command: "+j);
         }
         return command;
+    }
+
+    public String sendDatabase(String key, Hashtable database) throws RemoteException{
+        jsonObject.addProperty("PaintDatabase", key);
+        String data = gson.toJson(database);
+        jsonObject.addProperty("Database", data);
+        jsonPack = gson.toJson(jsonObject);
+        return jsonPack;
+    }
+
+    public ArrayList<String> receiveDatabase() throws RemoteException{
+        boolean empty = jsonPack.isEmpty();
+        ArrayList<String> databaseJson = new ArrayList<>();
+        if(empty == false){
+            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+            jsonObject = jsonElement.getAsJsonObject();
+            if (jsonObject.get("PaintDatabase") != null) {
+                String database = jsonObject.get("Database").getAsString();
+                databaseJson.add(0,database);
+            }
+            else{
+               return databaseJson;
+            }
+        }
+        return databaseJson;
     }
 
 }
