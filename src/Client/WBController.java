@@ -2,15 +2,12 @@ package Client;
 
 import ChatBox.ChatClient;
 import RMIInterfaces.ChatServerInterface;
-import RMIInterfaces.ClientServer;
 import RMIInterfaces.ServerInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -18,26 +15,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -88,9 +80,6 @@ public class WBController {
 
     @FXML
     private BorderPane wbPane;
-
-    @FXML
-    private Pane mainPane;
 
     @FXML
     private BorderPane signInPane;
@@ -170,12 +159,12 @@ public class WBController {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    public void setIsManager(Boolean manager){
+    public void setIsManager(Boolean manager) {
         isManager = manager;
     }
 
-    public void setClientCount(int clientNum){
-        clientCount=clientNum;
+    public void setClientCount(int clientNum) {
+        clientCount = clientNum;
     }
 
     private void setClient() throws Exception {
@@ -621,8 +610,8 @@ public class WBController {
     }
 
     public void onExit() throws IOException {
-        infoBox("It will disconnect.", "Do you want to continue this?","exit");
-        if(close == true){
+        infoBox("It will disconnect.", "Do you want to continue this?", "exit");
+        if (close == true) {
             Platform.exit();
         }
 
@@ -640,7 +629,7 @@ public class WBController {
     public void onClose() throws IOException {
         if (isManager) {
             confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0);
-            if(close == true){
+            if (close == true) {
                 Platform.exit();
             }
         }
@@ -653,25 +642,22 @@ public class WBController {
     }
 
 
-
-
     public Boolean approve(String clientName) throws IOException {
         if (isManager) {
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount);
-            if(isApproved){
-                if(clientCount == 2){
+            if (isApproved) {
+                if (clientCount == 2) {
                     client1 = clientName;
                 }
-                if(clientCount == 3){
+                if (clientCount == 3) {
                     client2 = clientName;
                 }
-                if(clientCount == 4){
+                if (clientCount == 4) {
                     client3 = clientName;
                 }
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
@@ -1012,6 +998,7 @@ public class WBController {
         return newColor;
     }
 
+    // Used to implement the chatBox.
     public void send() throws IOException {
         String message = input.getText();
         input.clear();
@@ -1019,7 +1006,7 @@ public class WBController {
         String fullMessgae = userName + ": " + message;
         System.out.println("hou get here 1");
         String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
-        gsonServant.sendMessage(userName,fullMessgae, timestamp);
+        gsonServant.sendMessage(userName, fullMessgae, timestamp);
     }
 
 
@@ -1031,62 +1018,43 @@ public class WBController {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-        gsonServant.checkPassword(user, encrypt);
-        Boolean[] isSignIn = {false};
-        Platform.runLater(() -> {
-            try {
-                Thread.sleep(100);
-                isSignIn[0] = gsonServant.logginResult();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        Platform.runLater(() -> {
-            nameInput.clear();
-            passWordInput.clear();
-            if (true) {
+        if (true) {
+            // the number of client
+            if (clientCount == 1) {
+                isManager = true;
+                signInPane.setVisible(false);
+                wbPane.setVisible(true);
+                managerName.setText(user);
+                userName = user;
+
                 try {
-                } catch (Exception e) {
+                    // Used to register the new client
+                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                } catch (RemoteException e) {
                     e.printStackTrace();
                 }
-                // the number of client
-                if (clientCount == 1) {
-                    isManager = true;
-                    signInPane.setVisible(false);
-                    wbPane.setVisible(true);
-                    managerName.setText(user);
-                    userName = user;
-
-                    try {
-                        ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
 
 
-                    //launch the whiteboard and turn off the signIn UI
-                } else if (clientCount < 4) {
-                    isManager = false;
-                    userName = user;
-                    //launch the whiteboard and turn off the signIn UI
-                    // launch the client
-                    try {
-                        ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-
-                } else if (clientCount == 4) {
-                    warningDialog("Fail to login In", "You can not join in this room!");
+                //launch the whiteboard and turn off the signIn UI
+            } else if (clientCount < 4) {
+                isManager = false;
+                userName = user;
+                //launch the whiteboard and turn off the signIn UI
+                // launch the client
+                try {
+                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } else {
-                warningDialog(user + " is not  existed!",
-                        "You should confirm your username or register it!");
+
+            } else if (clientCount == 4) {
+                warningDialog("Fail to login In", "You can not join in this room!");
             }
-        });
-    }
+        } else {
+            warningDialog(user + " is not  existed!",
+                    "You should confirm your username or register it!");
+        }
+}
 
 //    public void signUp() throws Exception {
 //        String userRegister = nameInput.getText();
@@ -1135,7 +1103,6 @@ public class WBController {
         alert.setTitle("Warning");
         alert.setHeaderText(header);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
 
@@ -1144,7 +1111,6 @@ public class WBController {
         alert.setTitle("Error");
         alert.setHeaderText(header);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
 
