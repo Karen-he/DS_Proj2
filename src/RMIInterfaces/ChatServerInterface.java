@@ -12,9 +12,9 @@ public interface ChatServerInterface extends Remote{
    void shareMsg(String userName, String chatContent) throws RemoteException;
    ArrayList<ChatClient> getChatClients() throws RemoteException;
    void kickClient(String userName) throws RemoteException;
-   HashMap<String, String> getChatRecords() throws RemoteException;
+//   HashMap<String, String> getChatRecords() throws RemoteException;
 
-   void clearRecords() throws RemoteException;
+//   void clearRecords() throws RemoteException;
    void printToAll(String userName, String chatContent) throws RemoteException;
 
 }

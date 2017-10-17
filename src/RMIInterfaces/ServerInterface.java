@@ -13,9 +13,9 @@ public interface ServerInterface extends Remote {
     Hashtable receiveGson() throws RemoteException;
 
     //Serve for chatbox
-    String sendMessage(String userName, String chatContent) throws RemoteException;
+    String sendMessage(String userName, String fullPrint) throws RemoteException;
 
-    String receiveMessage() throws RemoteException;
+    ArrayList<String> receiveMessage() throws RemoteException;
 
 //    String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException;
 //    ArrayList receiveClientList() throws RemoteException;

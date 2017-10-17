@@ -55,7 +55,7 @@ public class WBController implements ClientServer, Serializable {
         this.file = file;
     }
 
-    private String message;
+//    private String message;
 
     public String getUserName() {
         return userName;
@@ -80,15 +80,15 @@ public class WBController implements ClientServer, Serializable {
 
     private Boolean isRegistered = false;
 
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        System.out.println("SetMessage" + message);
-        this.message = message;
-    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        System.out.println("SetMessage" + message);
+//        this.message = message;
+//    }
 
 
     @FXML
@@ -985,17 +985,24 @@ public class WBController implements ClientServer, Serializable {
 
     public void send() throws IOException {
         String message = input.getText();
-        setMessage(message);
+//        System.out.println(message);
+//        chatServant.printToAll(userName, message);
+//        setMessage(message);
         input.clear();
-        appendToMessage(chatClient.getChatContent());
+//        System.out.println(userName+chatClient.getChatContent());
+
+        String fullMessgae = userName + ": " + message;
+        appendToMessage(userName + ": " + message);
+        gsonServant.sendMessage(userName, fullMessgae);
+
     }
 
 
     //print to GUI chat room
-    public void setText(String msgPrint) throws IOException {
-        message = msgPrint;
-
-    }
+//    public void setText(String msgPrint) throws IOException {
+//        message = msgPrint;
+//
+//    }
 
     public void appendToMessage(String message) {
         textMessage.appendText(message + "\n");

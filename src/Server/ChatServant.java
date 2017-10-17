@@ -3,6 +3,7 @@ package Server;
 import ChatBox.ChatClient;
 import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
+import RMIInterfaces.ServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +20,6 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private HashMap<String,String> chatRecords = new HashMap();
 
 
-    private ClientServer wbController;
 
     //create a peer list by manager, constructor
 
@@ -27,12 +27,10 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         this.chatClients = new ArrayList<ChatClient>();
     }
 
-    public void addChatClient(String userName, ChatServerInterface chatServant, ServerInterface gsonServant) throws RemoteException{
-        ChatClient client = new ChatClient( userName, chatServant, gsonServant);
-    }
 
     public synchronized void registerChatClient(ChatClient chatClient)
             throws RemoteException {
+
         //add peer to chat arrayList
         this.chatClients.add(chatClient);
     }
@@ -41,6 +39,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     public synchronized void shareMsg(String userName, String msgPrint) throws RemoteException {
         chatRecords.put(userName, msgPrint);
     }
+
     public ArrayList<ChatClient> getChatClients() throws RemoteException{
         return chatClients;
     }
@@ -54,26 +53,26 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         }
     }
 
-    public HashMap<String, String> getChatRecords() throws RemoteException {
-        return chatRecords;
-    }
+//    public HashMap<String, String> getChatRecords() throws RemoteException {
+//        return chatRecords;
+//    }
 
-    public void clearRecords() throws RemoteException{
-        chatRecords.clear();
-    }
+//    public void clearRecords() throws RemoteException{
+//        chatRecords.clear();
+//    }
 
     public void printToAll(String userName, String chatContent) throws RemoteException{
-        try
-        {
-            for (int i = 0; i < chatClients.size(); i++) {
-
-
-                ChatClientInterface tempClient =  chatClients.get(i);
-                tempClient.retrieveMsg(userName + ": " + chatContent);
-
-            }
-        }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+        new Thread (() -> {
+            try
+            {
+                for (int i = 0; i < chatClients.size(); i++) {
+                    ChatClient tempClient =  chatClients.get(i);
+                    tempClient.setChatContent(userName + ": " + chatContent);
+//                    tempClient.retrieveMsg(userName + ": " + chatContent);
+                }
+            }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }).start();
+    }
 }

@@ -25,7 +25,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
 
     private ClientServer wbController;
 
-    private String chatContent;
+    private String chatContent = null;
 
 
     // chat register with userName and server
@@ -41,6 +41,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
     }
 
     public String getChatContent() {
+        System.out.println("wori!!!"+chatContent);
         return chatContent;
     }
 
@@ -52,6 +53,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
     public void retrieveMsg(String msgPrint) throws RemoteException {
         System.out.println("msgPrint:" +msgPrint);
         setChatContent("msgPrint: " + msgPrint);
+        //call controller function
     }
 
 

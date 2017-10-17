@@ -36,30 +36,30 @@ public class Main extends Application {
 
 
 //            chatServant.setWbController(WBController);
-        new Thread (() -> {
-            while(true) {
-                try {
-                    if (gsonServant.receivePaints() != null) {
-                        System.out.println("hihi 我可以画画啦");
-                        ArrayList<String> drawCommand = gsonServant.receivePaints();
-                        String shapeOption = drawCommand.get(0);
-                        String attributeGson = drawCommand.get(1);
-                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                        WBController.autoPaint(shapeOption, attributeRec);
-                    }
-                } catch (RemoteException e) {
-                    //WBController.errorDialog("Connection Error", "Connection is lost!");
-                    //e.printStackTrace();
-                }
-            }
-        }).start();
+//        new Thread (() -> {
+//            while(true) {
+//                try {
+//                    if (gsonServant.receivePaints() != null) {
+//                        System.out.println("hihi 我可以画画啦");
+//                        ArrayList<String> drawCommand = gsonServant.receivePaints();
+//                        String shapeOption = drawCommand.get(0);
+//                        String attributeGson = drawCommand.get(1);
+//                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+//                        WBController.autoPaint(shapeOption, attributeRec);
+//                    }
+//                } catch (RemoteException e) {
+//                    //WBController.errorDialog("Connection Error", "Connection is lost!");
+//                    //e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
         // This thread is to monitor whether there is a new user want to join the whiteboard.
             new Thread (() -> {
                 while(true) {
                     try {
                         if (gsonServant.listenForApproval() != null) {
-                            WBController.approve(gsonServant.listenForApproval(), 3);
+//                            WBController.approve(gsonServant.listenForApproval(), 3);
 
                         }
                     } catch (RemoteException e) {
@@ -89,16 +89,16 @@ public class Main extends Application {
 
 
 
-
-        new Thread(() -> {
-            while(true) {
-                try {
-                    chatServant.printToAll(WBController.getUserName(), WBController.getMessage());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//
+//        new Thread(() -> {
+//            while(true) {
+//                try {
+//                    chatServant.printToAll(WBController.getUserName(), WBController.getMessage());
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
 
 //            while(true) {
