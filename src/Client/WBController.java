@@ -69,7 +69,7 @@ public class WBController {
 
     private String client3 = null;
 
-    private int clientCount = 0;
+    private int clientCount;
 
 
     private Boolean isManager = false;
@@ -165,7 +165,10 @@ public class WBController {
     }
 
     public void setClientCount(int clientNum) {
+        System.out.println("setClientCount clientNum: "+clientNum);
+        System.out.println("set client count before set: "+clientCount);
         clientCount = clientNum;
+        System.out.println("set client count after set: "+clientCount);
     }
 
     private void setClient() throws Exception {
@@ -210,11 +213,9 @@ public class WBController {
     }
 
     public void initialize() {
-
         colorPicker.setValue(Color.BLACK);
         setImage();
         sketch();
-
     }
 
     // It can change the size of font, which can be displayed while moving the slider.
@@ -1048,9 +1049,11 @@ public class WBController {
 
     public void signIn() throws Exception {
         try {
+            System.out.println("in sign in");
             String user = nameInput.getText();
             switch (clientCount) {
                 case 1:
+                    System.out.println("in case 1:"+clientCount);
                     signInPane.setVisible(false);
                     wbPane.setVisible(true);
                     managerName.setText(user);
@@ -1058,6 +1061,7 @@ public class WBController {
                     break;
 
                 case 2:
+                    System.out.println("in case 2"+clientCount);
                     listenApproval(user);
                     approveDialog();
                     break;

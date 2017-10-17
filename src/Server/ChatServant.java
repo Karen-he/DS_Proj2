@@ -38,6 +38,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
 
 
     public ArrayList<ChatClient> getChatClients() throws RemoteException{
+        System.out.println("get chatClients: "+chatClients);
         return chatClients;
     }
 
