@@ -24,7 +24,7 @@ public interface ServerInterface extends Remote {
 //    ArrayList receiveClientList() throws RemoteException;
 
     //Serve for drawing
-    String sendPaints(String line, PaintAttribute attribute) throws RemoteException;
+    String sendPaints(String line, PaintAttribute attribute, String timeStamp) throws RemoteException;
 
     ArrayList<String> receivePaints() throws RemoteException;
 

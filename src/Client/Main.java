@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static java.lang.Thread.sleep;
+
 public class Main extends Application {
 
     private static String ip = "localhost";
@@ -44,19 +46,27 @@ public class Main extends Application {
 
 //            chatServant.setWbController(WBController);
         new Thread (() -> {
+            String oldPaintTime = "2017";
             while(true) {
                 try {
-                    if (gsonServant.receivePaints() != null) {
+                    sleep(500);
+                    if (!gsonServant.receivePaints().isEmpty()) {
                         System.out.println("hihi 我可以画画啦");
                         ArrayList<String> drawCommand = gsonServant.receivePaints();
-                        String shapeOption = drawCommand.get(0);
-                        String attributeGson = drawCommand.get(1);
-                        PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                        WBController.autoPaint(shapeOption, attributeRec);
+                        String timeStamp = drawCommand.get(2);
+                        if (!timeStamp.equals(oldPaintTime)) {
+                            String shapeOption = drawCommand.get(0);
+                            String attributeGson = drawCommand.get(1);
+                            PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                            WBController.autoPaint(shapeOption, attributeRec);
+                            oldPaintTime = timeStamp;
+                        }
                     }
                 } catch (RemoteException e) {
                     //WBController.errorDialog("Connection Error", "Connection is lost!");
                     //e.printStackTrace();
+                } catch(InterruptedException e){
+
                 }
             }
         }).start();

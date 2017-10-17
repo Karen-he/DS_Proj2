@@ -65,11 +65,12 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return commands;
     }
 
-    public String sendPaints(String keyShape, PaintAttribute paint) throws RemoteException {
+    public String sendPaints(String keyShape, PaintAttribute paint, String timeStamp) throws RemoteException {
         jsonObject.addProperty("Shape", keyShape);
         String sendpaints = gson.toJson(paint);
         System.out.println("sendpaints in servant: " + sendpaints);
         jsonObject.addProperty("paintAttribute", sendpaints);
+        jsonObject.addProperty("timeStamp", timeStamp);
         jsonPack = gson.toJson(jsonObject);
         System.out.println("the jsonPack in servant" + jsonPack);
         return jsonPack;
@@ -103,18 +104,21 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
     public ArrayList<String> receivePaints() throws RemoteException {
         boolean empty = jsonPack.isEmpty();
-        ArrayList<String> whiteBoard = null;
+        ArrayList<String> whiteBoard = new ArrayList<>();
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            String shape = jsonObject.get("Shape").getAsString();
-            System.out.println("shape is " + shape);
-            String attribute = jsonObject.get("paintAttribute").getAsString();
-            System.out.println("paintAttribute: " + attribute);
-
-            whiteBoard.add(0, shape);
-            whiteBoard.add(1, attribute);
-            System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+            if(jsonObject.get("Shape") != null) {
+                String shape = jsonObject.get("Shape").getAsString();
+                System.out.println("shape is " + shape);
+                String attribute = jsonObject.get("paintAttribute").getAsString();
+                String timeStamp = jsonObject.get("timeStamp").getAsString();
+                System.out.println("paintAttribute: " + attribute);
+                whiteBoard.add(0, shape);
+                whiteBoard.add(1, attribute);
+                whiteBoard.add(2, timeStamp);
+                System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+            }
         }
         return whiteBoard;
 

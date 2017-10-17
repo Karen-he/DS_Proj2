@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Set;
+import static java.lang.Thread.sleep;
 
 public class Server {
     private Hashtable<Integer, String> userPassword;
@@ -68,24 +69,34 @@ public class Server {
 
             boolean run = true;
             new Thread (() -> {
+                String oldPaintTime = "2017";
                 while (run) {
                     try {
-                        if (gsonServant.receivePaints() != null) {
-                            Hashtable paintsContainer = new Hashtable();
-                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
+                        sleep(500);
+                        if (!gsonServant.receivePaints().isEmpty()) {
+
                             ArrayList<String> whiteboard = gsonServant.receivePaints();
-                            paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, paintSequence);
-                            paintSequence = paintSequence + 1;
-                            String wb0 = whiteboard.get(0);
-                            String wb1 = whiteboard.get(1);
-                            if (wb0.equals("") || wb1.equals("")) {
-                                System.out.println("empty jsonPack");
-                            } else {
-                                System.out.println("the string array received in server: " + wb0
-                                        + " ### " + wb1);
+                            String timeStamp = whiteboard.get(2);
+                            if (!timeStamp.equals(oldPaintTime)) {
+
+                                Hashtable paintsContainer = new Hashtable();
+                                PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
+                                paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, paintSequence);
+                                paintSequence = paintSequence + 1;
+
+                                String wb0 = whiteboard.get(0);
+                                String wb1 = whiteboard.get(1);
+                                if (wb0.equals("") || wb1.equals("")) {
+                                    System.out.println("empty jsonPack");
+                                } else {
+                                    System.out.println("the string array received in server: " + wb0
+                                            + " ### " + wb1);
+                                }
                             }
                         }
                     } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e){
                         e.printStackTrace();
                     }
                 }

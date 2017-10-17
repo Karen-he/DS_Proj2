@@ -36,6 +36,7 @@ import java.io.Serializable;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -784,7 +785,8 @@ public class WBController {
 
     private void jsonSendPaints(String shapeKey, PaintAttribute attribute) {
         try {
-            String output = gsonServant.sendPaints(shapeKey, attribute);
+            String timeStamp = (new Timestamp(System.currentTimeMillis())).toString();
+            String output = gsonServant.sendPaints(shapeKey, attribute, timeStamp);
             // String output = sendPoints(shapeKey, list);
             System.out.println("output = " + output);
 
