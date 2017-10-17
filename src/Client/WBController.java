@@ -163,13 +163,20 @@ public class WBController {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    private void setClient() throws Exception {
-        ArrayList<ChatClient> chatClients = chatServant.getChatClients();
-        client1 = chatClients.get(1).getUserName();
-        client2 = chatClients.get(2).getUserName();
-        client3 = chatClients.get(3).getUserName();
-        clientCount = chatClients.size();
+    public void setIsManager(Boolean manager){
+        isManager = manager;
     }
+
+    public void setClientCount(int clientNum){
+        clientCount=clientNum;
+    }
+
+//    private void setClient() throws Exception {
+//        ArrayList<ChatClient> chatClients = chatServant.getChatClients();
+//        client1 = chatClients.get(1).getUserName();
+//        client2 = chatClients.get(2).getUserName();
+//        client3 = chatClients.get(3).getUserName();
+//    }
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
@@ -1017,7 +1024,11 @@ public class WBController {
             nameInput.clear();
             passWordInput.clear();
             if (isSignIn[0]) {
-                clientCount += 1;
+                try {
+//                    setClient();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 // the number of client
                 if (clientCount == 1) {
                     isManager = true;
