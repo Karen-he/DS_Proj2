@@ -94,6 +94,9 @@ public class WBController  {
     private Pane mainPane;
 
     @FXML
+    private BorderPane signInPane;
+
+    @FXML
     private TextField nameInput;
 
     @FXML
@@ -1015,8 +1018,8 @@ public class WBController  {
             // the number of client
             if (clientCount == 1) {
                 isManager = true;
-//                signInPane.setVisible(false);
-//                wbPane.setVisible(true);
+                signInPane.setVisible(false);
+                wbPane.setVisible(true);
                 managerName.setText(user);
                 userName = user;
 
