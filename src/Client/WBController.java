@@ -83,14 +83,7 @@ public class WBController  {
         this.message = message;
     }
 
-    @FXML
-    private TextField nameInput;
 
-    @FXML
-    private TextField passWordInput;
-
-    @FXML
-    private Pane signInPane;
 
     @FXML
     private BorderPane wbPane;
@@ -213,9 +206,9 @@ public class WBController  {
 
     public void initialize() {
 
-//        colorPicker.setValue(Color.BLACK);
-//        setImage();
-//        sketch();
+        colorPicker.setValue(Color.BLACK);
+        setImage();
+        sketch();
 
     }
 
@@ -237,253 +230,267 @@ public class WBController  {
 
     // when pressed the mouse, it starts to paint.
     public void sketch() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
-            g.beginPath();
-            g.lineTo(e.getX(), e.getY());
-            pointList.add(getPoint(e.getX(), e.getY()));
-            g.setStroke(colorPicker.getValue());
-            g.stroke();
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
+                g.beginPath();
+                g.lineTo(e.getX(), e.getY());
+                pointList.add(getPoint(e.getX(), e.getY()));
+                g.setStroke(colorPicker.getValue());
+                g.stroke();
 
-        });
-        pathCanvas.setOnMouseDragged(e -> {
+            });
+            pathCanvas.setOnMouseDragged(e -> {
 
-            g.lineTo(e.getX(), e.getY());
-            pointList.add(getPoint(e.getX(), e.getY()));
-            g.stroke();
+                g.lineTo(e.getX(), e.getY());
+                pointList.add(getPoint(e.getX(), e.getY()));
+                g.stroke();
 
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            jsonSendPaints("sketch", addPaintAttri(pointList, "null"));
-            pointList.clear();
-            g.closePath();
-        });
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                jsonSendPaints("sketch", addPaintAttri(pointList, "null"));
+                pointList.clear();
+                g.closePath();
+            });
+        }
 
     }
 
     public void erase() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        ArrayList<Point> pointList = new ArrayList<>();
-        pathCanvas.setOnMousePressed(e -> {
-            g.beginPath();
-            double size = slider.getValue();
-            double x = e.getX() - size / 2;
-            double y = e.getY() - size / 2;
-            pointList.add(getPoint(e.getX(), e.getY()));
-            g.clearRect(x, y, size, size);
-        });
-        pathCanvas.setOnMouseDragged(e -> {
-            double size = slider.getValue();
-            double x = e.getX() - size / 2;
-            double y = e.getY() - size / 2;
-            pointList.add(getPoint(e.getX(), e.getY()));
-            g.clearRect(x, y, size, size);
-            g.closePath();
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            jsonSendPaints("erase", addPaintAttri(pointList, "null"));
-            pointList.clear();
-        });
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            ArrayList<Point> pointList = new ArrayList<>();
+            pathCanvas.setOnMousePressed(e -> {
+                g.beginPath();
+                double size = slider.getValue();
+                double x = e.getX() - size / 2;
+                double y = e.getY() - size / 2;
+                pointList.add(getPoint(e.getX(), e.getY()));
+                g.clearRect(x, y, size, size);
+            });
+            pathCanvas.setOnMouseDragged(e -> {
+                double size = slider.getValue();
+                double x = e.getX() - size / 2;
+                double y = e.getY() - size / 2;
+                pointList.add(getPoint(e.getX(), e.getY()));
+                g.clearRect(x, y, size, size);
+                g.closePath();
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                jsonSendPaints("erase", addPaintAttri(pointList, "null"));
+                pointList.clear();
+            });
+        }
     }
 
 
     public void lineDraw() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        GraphicsContext newG = pathCanvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            GraphicsContext newG = pathCanvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
 
-            g.beginPath();
-            g.setStroke(colorPicker.getValue());
-            newG.setStroke(colorPicker.getValue());
-            startX = e.getX();
-            startY = e.getY();
+                g.beginPath();
+                g.setStroke(colorPicker.getValue());
+                newG.setStroke(colorPicker.getValue());
+                startX = e.getX();
+                startY = e.getY();
 
-        });
-        pathCanvas.setOnMouseDragged(e -> {
-            endX = e.getX();
-            endY = e.getY();
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            newG.strokeLine(startX, startY, endX, endY);
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            endX = e.getX();
-            endY = e.getY();
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            g.strokeLine(startX, startY, endX, endY);
-            pointList.add(getPoint(startX, startY));
-            pointList.add(getPoint(endX, endY));
-            jsonSendPaints("line", addPaintAttri(pointList, "null"));
-            pointList.clear();
-            g.closePath();
+            });
+            pathCanvas.setOnMouseDragged(e -> {
+                endX = e.getX();
+                endY = e.getY();
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                newG.strokeLine(startX, startY, endX, endY);
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                endX = e.getX();
+                endY = e.getY();
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                g.strokeLine(startX, startY, endX, endY);
+                pointList.add(getPoint(startX, startY));
+                pointList.add(getPoint(endX, endY));
+                jsonSendPaints("line", addPaintAttri(pointList, "null"));
+                pointList.clear();
+                g.closePath();
 
-        });
+            });
+        }
     }
 
     public void cirDraw() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        GraphicsContext newG = pathCanvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
-            g.beginPath();
-            g.setStroke(colorPicker.getValue());
-            newG.setStroke(colorPicker.getValue());
-            startX = e.getX();
-            startY = e.getY();
-        });
-        pathCanvas.setOnMouseDragged(e -> {
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            newG.strokeOval(x, y, height, height);
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            GraphicsContext newG = pathCanvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
+                g.beginPath();
+                g.setStroke(colorPicker.getValue());
+                newG.setStroke(colorPicker.getValue());
+                startX = e.getX();
+                startY = e.getY();
+            });
+            pathCanvas.setOnMouseDragged(e -> {
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                newG.strokeOval(x, y, height, height);
 
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            g.strokeOval(x, y, height, height);
-            pointList.add(getPoint(startX, startY));
-            pointList.add(getPoint(endX, endY));
-            jsonSendPaints("cir", addPaintAttri(pointList, "null"));
-            pointList.clear();
-            g.closePath();
-        });
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                g.strokeOval(x, y, height, height);
+                pointList.add(getPoint(startX, startY));
+                pointList.add(getPoint(endX, endY));
+                jsonSendPaints("cir", addPaintAttri(pointList, "null"));
+                pointList.clear();
+                g.closePath();
+            });
+        }
     }
 
     public void rectDraw() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        GraphicsContext newG = pathCanvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
-            g.beginPath();
-            g.setStroke(colorPicker.getValue());
-            newG.setStroke(colorPicker.getValue());
-            startX = e.getX();
-            startY = e.getY();
-        });
-        pathCanvas.setOnMouseDragged(e -> {
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double width = Math.abs(startX - endX);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            newG.strokeRect(x, y, width, height);
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            GraphicsContext newG = pathCanvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
+                g.beginPath();
+                g.setStroke(colorPicker.getValue());
+                newG.setStroke(colorPicker.getValue());
+                startX = e.getX();
+                startY = e.getY();
+            });
+            pathCanvas.setOnMouseDragged(e -> {
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double width = Math.abs(startX - endX);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                newG.strokeRect(x, y, width, height);
 
 
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double width = Math.abs(startX - endX);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            g.strokeRect(x, y, width, height);
-            pointList.add(getPoint(startX, startY));
-            pointList.add(getPoint(endX, endY));
-            jsonSendPaints("rect", addPaintAttri(pointList, "null"));
-            pointList.clear();
-            g.closePath();
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double width = Math.abs(startX - endX);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                g.strokeRect(x, y, width, height);
+                pointList.add(getPoint(startX, startY));
+                pointList.add(getPoint(endX, endY));
+                jsonSendPaints("rect", addPaintAttri(pointList, "null"));
+                pointList.clear();
+                g.closePath();
 
-        });
+            });
+        }
     }
 
     public void ovalDraw() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        GraphicsContext newG = pathCanvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
-            g.beginPath();
-            g.setStroke(colorPicker.getValue());
-            newG.setStroke(colorPicker.getValue());
-            startX = e.getX();
-            startY = e.getY();
-        });
-        pathCanvas.setOnMouseDragged(e -> {
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double width = Math.abs(startX - endX);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            newG.strokeOval(x, y, width, height);
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            GraphicsContext newG = pathCanvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
+                g.beginPath();
+                g.setStroke(colorPicker.getValue());
+                newG.setStroke(colorPicker.getValue());
+                startX = e.getX();
+                startY = e.getY();
+            });
+            pathCanvas.setOnMouseDragged(e -> {
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double width = Math.abs(startX - endX);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                newG.strokeOval(x, y, width, height);
 
 
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
-            endX = e.getX();
-            endY = e.getY();
-            double x = Math.min(startX, endX);
-            double y = Math.min(startY, endY);
-            double width = Math.abs(startX - endX);
-            double height = Math.abs(startY - endY);
-            newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
-            g.strokeOval(x, y, width, height);
-            pointList.add(getPoint(startX, startY));
-            pointList.add(getPoint(endX, endY));
-            jsonSendPaints("oval", addPaintAttri(pointList, "null"));
-            pointList.clear();
-            g.closePath();
-        });
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
+                endX = e.getX();
+                endY = e.getY();
+                double x = Math.min(startX, endX);
+                double y = Math.min(startY, endY);
+                double width = Math.abs(startX - endX);
+                double height = Math.abs(startY - endY);
+                newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
+                g.strokeOval(x, y, width, height);
+                pointList.add(getPoint(startX, startY));
+                pointList.add(getPoint(endX, endY));
+                jsonSendPaints("oval", addPaintAttri(pointList, "null"));
+                pointList.clear();
+                g.closePath();
+            });
+        }
     }
 
     public void textInput() {
-        setFont();
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        pathCanvas.setOnMousePressed(e -> {
-            startX = e.getX();
-            startY = e.getY();
-            Font font = new Font(slider.getValue());
-            TextField textField = new TextField();
-            textField.setLayoutX(startX);
-            textField.setLayoutY(startY);
-            textField.setMinWidth(100);
-            textField.setMinHeight(50);
-            textField.setFont(font);
-            textField.setStyle("-fx-background-color: transparent");
-            canvasPane.getChildren().add(textField);
-            textField.requestFocus();
-            textField.setOnKeyPressed(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    g.setFont(font);
-                    g.setFill(colorPicker.getValue());
-                    String text = textField.getText();
-                    pointList.add(getPoint(startX, startY));
-                    jsonSendPaints("text", addPaintAttri(pointList, text));
-                    pointList.clear();
-                    canvasPane.getChildren().remove(textField);
+        if(userName != null) {
+            setFont();
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            pathCanvas.setOnMousePressed(e -> {
+                startX = e.getX();
+                startY = e.getY();
+                Font font = new Font(slider.getValue());
+                TextField textField = new TextField();
+                textField.setLayoutX(startX);
+                textField.setLayoutY(startY);
+                textField.setMinWidth(100);
+                textField.setMinHeight(50);
+                textField.setFont(font);
+                textField.setStyle("-fx-background-color: transparent");
+                canvasPane.getChildren().add(textField);
+                textField.requestFocus();
+                textField.setOnKeyPressed(keyEvent -> {
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        g.setFont(font);
+                        g.setFill(colorPicker.getValue());
+                        String text = textField.getText();
+                        pointList.add(getPoint(startX, startY));
+                        jsonSendPaints("text", addPaintAttri(pointList, text));
+                        pointList.clear();
+                        canvasPane.getChildren().remove(textField);
 
-                    g.fillText(text, startX - 5, startY + 25);
-                }
+                        g.fillText(text, startX - 5, startY + 25);
+                    }
+                });
             });
-        });
 
-        pathCanvas.setOnMouseDragged(e -> {
+            pathCanvas.setOnMouseDragged(e -> {
 
-        });
-        pathCanvas.setOnMouseReleased(e -> {
-            canvasCount = 1;
+            });
+            pathCanvas.setOnMouseReleased(e -> {
+                canvasCount = 1;
 
-        });
+            });
+        }
 
     }
 
@@ -529,26 +536,30 @@ public class WBController  {
     }
 
     public void onSave() throws IOException {
-        if (file != null) {
-            save();
-        } else {
-            onSaveAs();
+        if(isManager) {
+            if (file != null) {
+                save();
+            } else {
+                onSaveAs();
+            }
         }
     }
 
     public void onSaveAs() throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save As");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
-        File tempFile = fileChooser.showSaveDialog(null);
-        if (tempFile == null) {
+        if(isManager) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save As");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
+            File tempFile = fileChooser.showSaveDialog(null);
+            if (tempFile == null) {
 
-        } else {
-            setFile(tempFile);
-        }
-        if (file != null) {
-            save();
+            } else {
+                setFile(tempFile);
+            }
+            if (file != null) {
+                save();
+            }
         }
     }
 
@@ -974,7 +985,7 @@ public class WBController  {
 //        Boolean isSignIn = gsonServant.logginResult();
         if (true) {
             // the number of client
-            if (clientCount == 0) {
+            if (clientCount == 1) {
                 isManager = true;
 //                signInPane.setVisible(false);
 //                wbPane.setVisible(true);
@@ -996,8 +1007,8 @@ public class WBController  {
                 warningDialog("Fail to login In", "You can not join in this room!");
             }
         } else {
-            warningDialog(user + " is not existed!",
-                    "You should confirm your username or register for " + user + " !");
+            warningDialog(user + " is existed!",
+                    "You should confirm your username !");
         }
     }
 

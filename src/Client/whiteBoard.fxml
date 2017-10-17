@@ -68,7 +68,7 @@
                         <menus>
                             <Menu mnemonicParsing="false" text="File">
                                 <items>
-                                    <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LoginIn"/>
+                                    <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LogIn"/>
                                     <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
                                 </items>
                             </Menu>
