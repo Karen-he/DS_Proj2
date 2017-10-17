@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
@@ -21,11 +22,13 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     //private int i;
     //private int j;
     private JsonObject jsonObject = new JsonObject();
+    private JsonObject chatObject = new JsonObject();
     private String jsonPack;
-//    private String chatPack;
+    private String chatPack;
 
     public GsonServant() throws RemoteException {
         jsonPack = "";
+        chatPack = "";
     }
 
     @Override
@@ -134,11 +137,15 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
 
-    public synchronized String sendMessage(String userName, String chatContent) throws RemoteException {
-        jsonObject.addProperty("Username", userName);
-        jsonObject.addProperty("Content", chatContent);
-        jsonPack = gson.toJson(jsonObject);
-        return jsonPack;
+    public String sendMessage(String userName, String chatContent, String timestamp) throws RemoteException {
+        System.out.println("hou get here 2");
+        chatObject.addProperty("Username", userName);
+        chatObject.addProperty("Content", chatContent);
+        chatObject.addProperty("Timestamp", timestamp);
+        chatPack = gson.toJson(chatObject);
+
+        System.out.println(chatPack.toString()+"!!!!!!!");
+        return chatPack;
     }
 
     /***
@@ -152,19 +159,21 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
 
 
     public ArrayList<String> receiveMessage() throws RemoteException {
-        boolean empty = jsonPack.isEmpty();
+        boolean empty = chatPack.isEmpty();
         ArrayList<String> tmp = new ArrayList<String>();
         if (empty == false) {
-            JsonElement jsonElement = new JsonParser().parse(jsonPack);
-            jsonObject = jsonElement.getAsJsonObject();
+            JsonElement jsonElement = new JsonParser().parse(chatPack);
+            chatObject = jsonElement.getAsJsonObject();
             //unpack json to find username and content
             //retrieve userName
-            if(jsonObject.get("Username") != null) {
-                String user = jsonObject.get("Username").getAsString();
-                String msgPrint = jsonObject.get("Content").getAsString();
+            if(chatObject.get("Username") != null) {
+                String user = chatObject.get("Username").getAsString();
+                String msgPrint = chatObject.get("Content").getAsString();
+                String timestamp = chatObject.get("Timestamp").getAsString();
 
                 tmp.add(0, user);
                 tmp.add(1, msgPrint);
+                tmp.add(2, timestamp);
             }
         }
         return tmp;

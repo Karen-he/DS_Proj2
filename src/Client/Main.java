@@ -14,6 +14,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class Main extends Application {
 
     private static String ip = "localhost";
@@ -93,17 +95,27 @@ public class Main extends Application {
              ***/
 
             Thread printChat = new Thread(() -> {
+                String oriTimestamp ="2017";
                 while (true) {
                     try {
+                        sleep(500);
+//                        System.out.println(gsonServant.receiveMessage());
                         if (!gsonServant.receiveMessage().isEmpty()) {
+
                             ArrayList<String> tmp = gsonServant.receiveMessage();
+                            String timestamp = tmp.get(2);
                             String userName = tmp.get(0);
+                            System.out.println(timestamp);
+                        if (!oriTimestamp.equals(timestamp)) {
                             String fullPrint = tmp.get(1);
-                            if (userName != WBController.getUserName()) {
-                                WBController.appendToMessage(fullPrint);
-                            }
+                            System.out.println(userName+fullPrint);
+                            WBController.appendToMessage(fullPrint);
+                            oriTimestamp = timestamp ;
+                        }
                         }
                     } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
