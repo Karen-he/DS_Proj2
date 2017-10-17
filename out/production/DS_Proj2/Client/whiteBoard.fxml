@@ -72,7 +72,7 @@
         <center>
             <Pane fx:id="newPane" style="-fx-background-color: gray">
                 <children>
-                    <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: gray">
+                    <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: white">
                         <children>
                             <Canvas fx:id="canvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
                             <Canvas fx:id="pathCanvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
@@ -87,7 +87,7 @@
                 <children>
                     <MenuBar prefHeight="70">
                         <menus>
-                            <Menu mnemonicParsing="false" text="File">
+                            <Menu mnemonicParsing="false" text="Client">
                                 <items>
                                     <!--<MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#loginDialog" text="LogIn"/>-->
                                     <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />

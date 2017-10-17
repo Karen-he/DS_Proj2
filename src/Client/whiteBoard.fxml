@@ -72,7 +72,7 @@
         <center>
             <Pane fx:id="newPane" style="-fx-background-color: gray">
                 <children>
-                    <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: gray">
+                    <Pane fx:id="canvasPane" layoutX="5" layoutY="5" style="-fx-background-color: white">
                         <children>
                             <Canvas fx:id="canvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
                             <Canvas fx:id="pathCanvas" height="500" style="-fx-background-color: white" width="600" BorderPane.alignment="CENTER_RIGHT" />
