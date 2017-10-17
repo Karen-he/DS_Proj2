@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.ConnectException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -489,18 +490,22 @@ public class WBController  {
 
 
     private void newFile() throws IOException {
-        gsonServant.tellSeverNew(true);
-        canvasPane.getChildren().remove(canvas);
-        canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-        pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-        canvas.setStyle("-fx-background-color: white");
-        pathCanvas.setStyle("-fx-background-color: white");
-        canvasPane.getChildren().add(canvas);
-        canvasPane.getChildren().add(pathCanvas);
-        slider.setValue(1);
-        colorPicker.setValue(Color.BLACK);
-        setFile(null);
-        canvasCount = 0;
+        try {
+            gsonServant.tellSeverNew(true);
+            canvasPane.getChildren().remove(canvas);
+            canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            canvas.setStyle("-fx-background-color: white");
+            pathCanvas.setStyle("-fx-background-color: white");
+            canvasPane.getChildren().add(canvas);
+            canvasPane.getChildren().add(pathCanvas);
+            slider.setValue(1);
+            colorPicker.setValue(Color.BLACK);
+            setFile(null);
+            canvasCount = 0;
+        }catch(ConnectException e){
+            errorDialog("Connection Error", "Connection is lost!");
+        }
 
     }
 
