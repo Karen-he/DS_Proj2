@@ -53,13 +53,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         }
     }
 
-//    public HashMap<String, String> getChatRecords() throws RemoteException {
-//        return chatRecords;
-//    }
 
-//    public void clearRecords() throws RemoteException{
-//        chatRecords.clear();
-//    }
 
     public void printToAll(String userName, String chatContent) throws RemoteException{
         new Thread (() -> {
