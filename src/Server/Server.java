@@ -66,53 +66,30 @@ public class Server {
             Gson gson = new Gson();
             JsonObject jsonObject = new JsonObject();
 
-            boolean run = true;
-            new Thread (() -> {
-                while (run) {
-                    try {
-                        if (!gsonServant.receivePaints().isEmpty()) {
-                            Hashtable paintsContainer = new Hashtable();
-                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
-                            ArrayList<String> whiteboard = gsonServant.receivePaints();
-                            paintsKeeper.setPaintsDatabase(paintsContainer, whiteboard, paintSequence);
-                            paintSequence = paintSequence + 1;
-                            String wb0 = whiteboard.get(0);
-                            String wb1 = whiteboard.get(1);
-                            if (wb0.equals("") || wb1.equals("")) {
-                                System.out.println("empty jsonPack");
-                            } else {
-                                System.out.println("the string array received in server: " + wb0
-                                        + " ### " + wb1);
-                            }
-                        }
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
 
-            // The thread for monitoring whether a new canvas is created.
-            new Thread (() -> {
-                while (run) {
-                    try {
-                        if (gsonServant.serverCheckNew()) {
-                            Hashtable paintsContainer = new Hashtable();
-                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
-                            paintsKeeper.clearDatabase(paintsContainer);
-                            paintSequence = 0;
-                        } else {
-                            // System.out.println("No new canvas is created");
-                        }
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+
+//            // The thread for monitoring whether a new canvas is created.
+//            new Thread (() -> {
+//                while (true) {
+//                    try {
+//                        if (gsonServant.serverCheckNew()) {
+//                            Hashtable paintsContainer = new Hashtable();
+//                            PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
+//                            paintsKeeper.clearDatabase(paintsContainer);
+//                            paintSequence = 0;
+//                        } else {
+//                            // System.out.println("No new canvas is created");
+//                        }
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
 
             //user system thread
             //keep listening
             new Thread (() -> {
-                while (run) {
+                while (true) {
                     //log in: chaeck password and ask manager to approve
                     String userNameAndPassword = gsonServant.serverCheckPassword();
                     Set<Integer> userIDs = mainserver.userData.keySet();

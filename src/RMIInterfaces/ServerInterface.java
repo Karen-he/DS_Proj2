@@ -19,7 +19,7 @@ public interface ServerInterface extends Remote {
     ArrayList<String> receiveMessage() throws RemoteException;
 
     //Serve for drawing
-    String sendPaints(String line, PaintAttribute attribute) throws RemoteException;
+    String sendPaints(String line, PaintAttribute attribute, String timestamp) throws RemoteException;
 
     ArrayList<String> receivePaints() throws RemoteException;
 

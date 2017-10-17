@@ -19,16 +19,21 @@ import java.util.Set;
 
 public class GsonServant extends UnicastRemoteObject implements ServerInterface {
     private Gson gson = new Gson();
-    //private int i;
-    //private int j;
+
     private JsonObject jsonObject = new JsonObject();
     private JsonObject chatObject = new JsonObject();
+    private JsonObject paintObject = new JsonObject();
     private String jsonPack;
     private String chatPack;
+    private String paintPack;
+    private static int paintSequence = 0;
+    private PaintsDatabase paintsKeeper;
 
     public GsonServant() throws RemoteException {
         jsonPack = "";
         chatPack = "";
+        paintPack = "";
+        this.paintsKeeper = new PaintsDatabase();
     }
 
     @Override
@@ -64,33 +69,36 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 
 
-    public String sendPaints(String keyShape, PaintAttribute paint) throws RemoteException {
-        jsonObject.addProperty("Shape", keyShape);
+    public String sendPaints(String keyShape, PaintAttribute paint, String timeStamp) throws RemoteException {
+        paintObject.addProperty("Shape", keyShape);
         String sendpaints = gson.toJson(paint);
         System.out.println("sendpaints in servant: " + sendpaints);
-        jsonObject.addProperty("paintAttribute", sendpaints);
-        jsonPack = gson.toJson(jsonObject);
-        System.out.println("the jsonPack in servant" + jsonPack);
-        return jsonPack;
+        paintObject.addProperty("paintAttribute", sendpaints);
+        paintObject.addProperty("timeStamp", timeStamp);
+        paintPack = gson.toJson(paintObject);
+        System.out.println("the jsonPack in servant" + paintPack);
+        return paintPack;
     }
 
-
     public ArrayList<String> receivePaints() throws RemoteException {
-        boolean empty = jsonPack.isEmpty();
-        //System.out.println("isEmpty = " + empty);
+        boolean empty = paintPack.isEmpty();
         ArrayList<String> whiteBoard = new ArrayList<>();
         if (empty == false) {
-            JsonElement jsonElement = new JsonParser().parse(jsonPack);
-            jsonObject = jsonElement.getAsJsonObject();
-            if(jsonObject.get("Shape")!=null){
-                String shape = jsonObject.get("Shape").getAsString();
-                System.out.println("shape is " + shape);
-                String attribute = jsonObject.get("paintAttribute").getAsString();
-                System.out.println("paintAttribute: " + attribute);
-
+            JsonElement jsonElement = new JsonParser().parse(paintPack);
+            paintObject = jsonElement.getAsJsonObject();
+            if(paintObject.get("Shape") != null) {
+                String shape = paintObject.get("Shape").getAsString();
+                //System.out.println("shape is " + shape);
+                String attribute = paintObject.get("paintAttribute").getAsString();
+                String timeStamp = paintObject.get("timeStamp").getAsString();
+                //System.out.println("paintAttribute: " + attribute);
                 whiteBoard.add(0, shape);
                 whiteBoard.add(1, attribute);
-                System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+                whiteBoard.add(2, timeStamp);
+
+                paintsKeeper.addPaintsDatabase(whiteBoard, paintSequence);
+                paintSequence++;
+                //System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
             }
         }
         return whiteBoard;

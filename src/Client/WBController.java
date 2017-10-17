@@ -819,7 +819,8 @@ public class WBController {
 
     private void jsonSendPaints(String shapeKey, PaintAttribute attribute) {
         try {
-            String output = gsonServant.sendPaints(shapeKey, attribute);
+            String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
+            String output = gsonServant.sendPaints(shapeKey, attribute, timestamp);
             // String output = sendPoints(shapeKey, list);
             System.out.println("output = " + output);
 

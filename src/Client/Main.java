@@ -49,19 +49,25 @@ public class Main extends Application {
              * synchronize paint
              */
             Thread paint = new Thread(() -> {
+                String oldTimePaint = "2017";
                 while (true) {
                     try {
+                        sleep(400);
                         if (!gsonServant.receivePaints().isEmpty()) {
-                            System.out.println("hihi 我可以画画啦");
                             ArrayList<String> drawCommand = gsonServant.receivePaints();
-                            String shapeOption = drawCommand.get(0);
-                            String attributeGson = drawCommand.get(1);
-                            PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
-                            WBController.autoPaint(shapeOption, attributeRec);
+                            String timeStamp = drawCommand.get(2);
+                            if (!timeStamp.equals(oldTimePaint)) {
+                                String shapeOption = drawCommand.get(0);
+                                String attributeGson = drawCommand.get(1);
+                                PaintAttribute attributeRec = gsonServant.getAttribute(attributeGson);
+                                WBController.autoPaint(shapeOption, attributeRec);
+                                oldTimePaint = timeStamp;
+                            }
                         }
                     } catch (RemoteException e) {
-                        //WBController.errorDialog("Connection Error", "Connection is lost!");
-                        //e.printStackTrace();
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             });
