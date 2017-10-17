@@ -15,10 +15,7 @@ public interface ServerInterface extends Remote {
     //Serve for chatbox
     String sendMessage(String userName, String chatContent) throws RemoteException;
 
-    String receiveMessage() throws RemoteException;
-
-//    String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException;
-//    ArrayList receiveClientList() throws RemoteException;
+    ArrayList<String> receiveMessage() throws RemoteException;
 
     //Serve for drawing
     String sendPaints(String line, PaintAttribute attribute) throws RemoteException;
@@ -50,7 +47,6 @@ public interface ServerInterface extends Remote {
     void registerUser(String userName, String password) throws RemoteException;
 
     boolean validRegister() throws RemoteException;
-
 
     String getJsonPack() throws RemoteException;
 
