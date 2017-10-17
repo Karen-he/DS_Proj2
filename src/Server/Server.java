@@ -118,26 +118,29 @@ public class Server {
                     Set<Integer> userIDs = mainserver.userData.keySet();
                     boolean empty = userNameAndPassword.isEmpty();
                     if(empty!=true){
-                        String[] split = userNameAndPassword.split(" ");
-                        String userName = split[0];
-                        String password = split[1];
-                        String actualPassword = "";
-                        for (Integer id : userIDs) {
-                            if (mainserver.userData.get(id).equals(userName)) {
-                                actualPassword = mainserver.userPassword.get(id);
+                        if(!userNameAndPassword.isEmpty()) {
+                            String[] split = userNameAndPassword.split(" ");
+                            String userName = split[0];
+                            String password = split[1];
+
+                            String actualPassword = "";
+                            for (Integer id : userIDs) {
+                                if (mainserver.userData.get(id).equals(userName)) {
+                                    actualPassword = mainserver.userPassword.get(id);
+                                }
                             }
+                            boolean validPassword = actualPassword.equals(password);
+                            boolean managerApproved = false;
+                            if (mainserver.currentUserNum != 0) {
+                                gsonServant.askManager(userName);
+                                managerApproved = gsonServant.waitForManager();
+                            } else {
+                                managerApproved = true;
+                            }
+                            boolean validPasswordAndManagerAproved = validPassword && managerApproved;
+                            gsonServant.validLogin(validPasswordAndManagerAproved);
+                            mainserver.currentUserNum++;
                         }
-                        boolean validPassword = actualPassword.equals(password);
-                        boolean managerApproved = false;
-                        if(mainserver.currentUserNum!=0){
-                            gsonServant.askManager(userName);
-                            managerApproved = gsonServant.waitForManager();
-                        }else{
-                            managerApproved = true;
-                        }
-                        boolean validPasswordAndManagerAproved = validPassword && managerApproved;
-                        gsonServant.validLogin(validPasswordAndManagerAproved);
-                        mainserver.currentUserNum ++;
                     }
                 }
             }).start();
