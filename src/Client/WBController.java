@@ -1,15 +1,15 @@
 package Client;
 
 import ChatBox.ChatClient;
+import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
+import RMIInterfaces.ClientServer;
 import RMIInterfaces.ServerInterface;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -19,24 +19,23 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.util.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
-public class WBController {
+public class WBController implements ClientServer {
 
     protected double startX;
 
@@ -94,7 +93,7 @@ public class WBController {
     private BorderPane wbPane;
 
     @FXML
-    private Pane mainPane;
+    private AnchorPane mainPane;
 
     @FXML
     private Canvas canvas;
@@ -211,9 +210,9 @@ public class WBController {
 
     public void initialize() {
 
-//        colorPicker.setValue(Color.BLACK);
-//        setImage();
-//        sketch();
+        colorPicker.setValue(Color.BLACK);
+        setImage();
+        sketch();
 
     }
 
@@ -491,8 +490,6 @@ public class WBController {
         canvasPane.getChildren().remove(canvas);
         canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
         pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-        canvas.setStyle("-fx-background-color: white");
-        pathCanvas.setStyle("-fx-background-color: white");
         canvasPane.getChildren().add(canvas);
         canvasPane.getChildren().add(pathCanvas);
         slider.setValue(1);
@@ -952,7 +949,7 @@ public class WBController {
         String message = input.getText();
         input.clear();
         appendToMessage(message);
-//        chatServant.shareMsg(userName,message);
+        chatServant.shareMsg(userName,message);
     }
 
 
@@ -962,12 +959,11 @@ public class WBController {
 
     }
 
-    public void appendToMessage(String message){
+    public void appendToMessage(String message) throws RemoteException{
         textMessage.appendText(message+"\n");
     }
 
 
-<<<<<<< HEAD
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
@@ -1001,53 +997,21 @@ public class WBController {
 //            warningDialog(user + " is not existed!",
 //                    "You should confirm your username or register for " + user + " !");
 //        }
-=======
-    public void signIn(String user, String encrypt) throws Exception {
-//        gsonServant.checkPassword(user, encrypt);
-//        Boolean isSignIn = gsonServant.logginResult();
-        if (true) {
-            // the number of client
-            if (clientCount == 0) {
-                isManager = true;
-//                signInPane.setVisible(false);
-//                wbPane.setVisible(true);
-                managerName.setText(user);
-                userName = user;
-
-                ChatClient chatClient = new ChatClient(user,chatServant,gsonServant);
-
-
-                //launch the whiteboard and turn off the signIn UI
-            } else if (clientCount < 4) {
-                isManager = false;
-                userName = user;
-                //launch the whiteboard and turn off the signIn UI
-                // launch the client
-                ChatClient chatClient = new ChatClient(user, chatServant,gsonServant);
-
-            } else if (clientCount == 4) {
-                warningDialog("Fail to login In", "You can not join in this room!");
-            }
-        } else {
-            warningDialog(user + " is not existed!",
-                    "You should confirm your username or register for " + user + " !");
-        }
->>>>>>> c7eb30a3b6eabf5249d4ef7af97df69aef0c5077
     }
 
-//    public void signUp() throws Exception {
-//        String userRegister = nameInput.getText();
-//        String passwordRe = passWordInput.getText();
-//        gsonServant.registerUser(userRegister, passwordRe);
-//        Boolean isRegistered =gsonServant.validRegister();
-//        if (isRegistered) {
-//            warningDialog(userRegister + " is existed!", "Please change your username to register!");
-//
-//        } else {
-//            inforDialog(userRegister);
-//        }
-//
-//    }
+    public void signUp() throws Exception {
+        String userRegister = nameInput.getText();
+        String passwordRe = passWordInput.getText();
+        gsonServant.registerUser(userRegister, passwordRe);
+        Boolean isRegistered =gsonServant.validRegister();
+        if (isRegistered) {
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+
+        } else {
+            inforDialog(userRegister);
+        }
+
+    }
 
     private void inforDialog(String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1074,67 +1038,6 @@ public class WBController {
 
         alert.showAndWait();
     }
-
-    public void loginDialog(){
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Welcome");
-        dialog.setHeaderText("LogIn");
-
-        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
-        imageLogin.setFitHeight(40);
-        imageLogin.setFitWidth(40);
-        dialog.setGraphic(imageLogin);
-
-        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField nameInput = new TextField();
-        nameInput.setPromptText("Username");
-        PasswordField passwordInput = new PasswordField();
-        passwordInput.setPromptText("Password");
-
-        grid.add(new Label("Username:"), 0, 0);
-        grid.add(nameInput, 1, 0);
-        grid.add(new Label("Password:"), 0, 1);
-        grid.add(passwordInput, 1, 1);
-
-
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
-
-        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
-
-        dialog.getDialogPane().setContent(grid);
-
-        Platform.runLater(() -> nameInput.requestFocus());
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == loginButtonType) {
-                return new Pair<>(nameInput.getText(), passwordInput.getText());
-            }
-            return null;
-        });
-
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-
-        result.ifPresent(usernamePassword -> {
-            try {
-                signIn(usernamePassword.getKey(),usernamePassword.getValue());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
 
 
 }

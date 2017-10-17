@@ -3,7 +3,6 @@ package Client;
 import ChatBox.ChatClient;
 import RMIInterfaces.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,41 +60,41 @@ public class Main extends Application {
 
 
 
-        new Thread(() -> {
-
-            while(true) {
-                try {
-
-                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
+//        new Thread(() -> {
+//
+//            while(true) {
+//                try {
+//
+//                    HashMap<String, String> chatRecords = chatServant.getChatRecords();
 //                    System.out.println("hihihi");
-
-                    if (chatRecords != null) {
-
+//
+//                    if (chatRecords != null) {
+//
 //                        System.out.println("byebyebye");
-
+//
 //                        System.out.println(chatRecords);
-
-                        Iterator it = chatRecords.entrySet().iterator();
-
-                        while (it.hasNext()) {
-
-                            HashMap.Entry pair = (HashMap.Entry) it.next();
-
+//
+//                        Iterator it = chatRecords.entrySet().iterator();
+//
+//                        while (it.hasNext()) {
+//
+//                            HashMap.Entry pair = (HashMap.Entry) it.next();
+//
 //                            System.out.println("进入chatClient的list打印啦");
-
-                            String messagePrint = pair.getKey() + ": " + pair.getValue();
-
-                            WBController.appendToMessage(messagePrint);
-                        }
-                        chatServant.clearRecords();
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//
+//                            String messagePrint = pair.getKey() + ": " + pair.getValue();
+//
+//                            WBController.appendToMessage(messagePrint);
+//                        }
+//                        chatServant.clearRecords();
+//                    }
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
         // username get from the name after logging in
 
@@ -123,18 +122,17 @@ public class Main extends Application {
 
 
 
-
-
-
     private void closeAction() throws IOException{
         WBController wbController = new WBController();
         wbController.infoBox("Your changes will be lost if you don't save them.",
                  "Do you want to save the changes?","exit");
         if(wbController.close == true) {
-            Platform.exit();
+            window.close();
         }
 
     }
+
+
 
 
 }
