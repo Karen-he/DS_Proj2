@@ -22,16 +22,12 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private HashMap<String,String> chatRecords = new HashMap();
 
 
-    private ClientServer wbController;
+    private ChatServerInterface wbController;
 
     //create a peer list by manager, constructor
 
     public ChatServant() throws RemoteException {
         this.chatClients = new ArrayList<ChatClient>();
-    }
-
-    public void addChatClient(String userName, ChatServerInterface chatServant, ServerInterface gsonServant) throws RemoteException{
-        ChatClient client = new ChatClient( userName, chatServant, gsonServant);
     }
 
     public synchronized void registerChatClient(ChatClient chatClient)
@@ -71,6 +67,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
             for (int i = 0; i < chatClients.size(); i++) {
                 ChatClientInterface tempClient =  chatClients.get(i);
                 tempClient.retrieveMsg(userName + ": " + chatContent);
+
             }
         }catch (Exception e){
                 e.printStackTrace();

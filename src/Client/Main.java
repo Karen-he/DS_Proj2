@@ -60,6 +60,40 @@ public class Main extends Application {
             }
         }).start();
 
+        // This thread is to monitor whether there is a new user want to join the whiteboard.
+            new Thread (() -> {
+                while(true) {
+                    try {
+                        if (gsonServant.listenForApproval() != null) {
+                            WBController.approve(gsonServant.listenForApproval(), 3);
+
+                        }
+                    } catch (RemoteException e) {
+                        //WBController.errorDialog("Connection Error", "Connection is lost!");
+                        //e.printStackTrace();
+                    } catch (IOException e) {
+
+                    }
+                }
+            }).start();
+
+
+        new Thread(() -> {
+            while(true) {
+                ArrayList<ChatClient> tmpChatList = null;
+                try {
+                    tmpChatList = chatServant.getChatClients();
+                    for (int i = 0; i < tmpChatList.size(); i++) {
+                        ChatClient tempClient = tmpChatList.get(i);
+                        tempClient.retrieveMsg(WBController.getMessage());
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
 
 
         new Thread(() -> {
