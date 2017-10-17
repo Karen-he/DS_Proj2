@@ -1014,10 +1014,11 @@ public class WBController {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
         gsonServant.checkPassword(user, encrypt);
-        Boolean[] isSignIn = {true};
+        Boolean[] isSignIn = {false};
         Platform.runLater(() -> {
             try {
                 isSignIn[0] = gsonServant.logginResult();
+                System.out.println("modify isSignIn:"+isSignIn);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
