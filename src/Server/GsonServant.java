@@ -108,14 +108,16 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         if (empty == false) {
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            String shape = jsonObject.get("Shape").getAsString();
-            System.out.println("shape is " + shape);
-            String attribute = jsonObject.get("paintAttribute").getAsString();
-            System.out.println("paintAttribute: " + attribute);
+            if(jsonObject.get("Shape")!=null){
+                String shape = jsonObject.get("Shape").getAsString();
+                System.out.println("shape is " + shape);
+                String attribute = jsonObject.get("paintAttribute").getAsString();
+                System.out.println("paintAttribute: " + attribute);
 
-            whiteBoard.add(0, shape);
-            whiteBoard.add(1, attribute);
-            System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+                whiteBoard.add(0, shape);
+                whiteBoard.add(1, attribute);
+                System.out.println("the string array is " + whiteBoard.get(0) + " ### " + whiteBoard.get(1));
+            }
         }
         return whiteBoard;
 
@@ -303,7 +305,9 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
-            username = jsonObject.get("askManager").getAsString();
+            if(jsonObject.get("askManager")!=null){
+                username = jsonObject.get("askManager").getAsString();
+            }
             //System.out.println("back to string: "+actual);
             //j++;
             //System.out.println("the number of command: "+j);
