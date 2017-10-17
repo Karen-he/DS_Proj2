@@ -93,6 +93,12 @@ public class WBController  {
     private Pane mainPane;
 
     @FXML
+    private TextField nameInput;
+
+    @FXML
+    private TextField passWordInput;
+
+    @FXML
     private Canvas canvas;
 
     @FXML
@@ -985,10 +991,12 @@ public class WBController  {
     }
 
 
-    public void signIn(String user, String encrypt) throws Exception {
-//        gsonServant.checkPassword(user, encrypt);
-//        Boolean isSignIn = gsonServant.logginResult();
-        if (true) {
+    public void signIn() throws Exception {
+        String user = nameInput.getText();
+        String encrypt = passWordInput.getText();
+        gsonServant.checkPassword(user, encrypt);
+        Boolean isSignIn = gsonServant.logginResult();
+        if (isSignIn) {
             // the number of client
             if (clientCount == 1) {
                 isManager = true;
@@ -1017,19 +1025,19 @@ public class WBController  {
         }
     }
 
-//    public void signUp() throws Exception {
-//        String userRegister = nameInput.getText();
-//        String passwordRe = passWordInput.getText();
-//        gsonServant.registerUser(userRegister, passwordRe);
-//        Boolean isRegistered =gsonServant.validRegister();
-//        if (isRegistered) {
-//            warningDialog(userRegister + " is existed!", "Please change your username to register!");
-//
-//        } else {
-//            inforDialog(userRegister);
-//        }
-//
-//    }
+    public void signUp() throws Exception {
+        String userRegister = nameInput.getText();
+        String passwordRe = passWordInput.getText();
+        gsonServant.registerUser(userRegister, passwordRe);
+        Boolean isRegistered =gsonServant.validRegister();
+        if (isRegistered) {
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+
+        } else {
+            inforDialog(userRegister);
+        }
+
+    }
 
     private void inforDialog(String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1057,67 +1065,67 @@ public class WBController  {
         alert.showAndWait();
     }
 
-    public void loginDialog(){
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Welcome");
-        dialog.setHeaderText("LogIn");
-
-        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
-        imageLogin.setFitHeight(40);
-        imageLogin.setFitWidth(40);
-        dialog.setGraphic(imageLogin);
-
-        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField nameInput = new TextField();
-        nameInput.setPromptText("Username");
-        PasswordField passwordInput = new PasswordField();
-        passwordInput.setPromptText("Password");
-
-        grid.add(new Label("Username:"), 0, 0);
-        grid.add(nameInput, 1, 0);
-        grid.add(new Label("Password:"), 0, 1);
-        grid.add(passwordInput, 1, 1);
-
-
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
-
-        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
-
-        dialog.getDialogPane().setContent(grid);
-
-        Platform.runLater(() -> nameInput.requestFocus());
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == loginButtonType) {
-                return new Pair<>(nameInput.getText(), passwordInput.getText());
-            }
-            return null;
-        });
-
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-
-        result.ifPresent(usernamePassword -> {
-            try {
-                signIn(usernamePassword.getKey(),usernamePassword.getValue());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+//    public void loginDialog(){
+//        Dialog<Pair<String, String>> dialog = new Dialog<>();
+//        dialog.setTitle("Welcome");
+//        dialog.setHeaderText("LogIn");
+//
+//        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
+//        imageLogin.setFitHeight(40);
+//        imageLogin.setFitWidth(40);
+//        dialog.setGraphic(imageLogin);
+//
+//        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+//        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//
+//
+//        GridPane grid = new GridPane();
+//        grid.setHgap(10);
+//        grid.setVgap(10);
+//        grid.setPadding(new Insets(20, 150, 10, 10));
+//
+//        TextField nameInput = new TextField();
+//        nameInput.setPromptText("Username");
+//        PasswordField passwordInput = new PasswordField();
+//        passwordInput.setPromptText("Password");
+//
+//        grid.add(new Label("Username:"), 0, 0);
+//        grid.add(nameInput, 1, 0);
+//        grid.add(new Label("Password:"), 0, 1);
+//        grid.add(passwordInput, 1, 1);
+//
+//
+//        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+//        loginButton.setDisable(true);
+//
+//        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+//            loginButton.setDisable(newValue.trim().isEmpty());
+//        });
+//
+//        dialog.getDialogPane().setContent(grid);
+//
+//        Platform.runLater(() -> nameInput.requestFocus());
+//
+//        dialog.setResultConverter(dialogButton -> {
+//            if (dialogButton == loginButtonType) {
+//                return new Pair<>(nameInput.getText(), passwordInput.getText());
+//            }
+//            return null;
+//        });
+//
+//        Optional<Pair<String, String>> result = dialog.showAndWait();
+//
+//        result.ifPresent(usernamePassword -> {
+//            try {
+//                signIn(usernamePassword.getKey(),usernamePassword.getValue());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
 
 
 
-}
+
 
