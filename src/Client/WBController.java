@@ -1039,6 +1039,71 @@ public class WBController implements ClientServer {
         alert.showAndWait();
     }
 
+<<<<<<< HEAD
+    public void loginDialog(){
+        System.out.println("laoma shi  shazi");
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Welcome");
+        dialog.setHeaderText("LogIn");
+
+        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
+        imageLogin.setFitHeight(40);
+        imageLogin.setFitWidth(40);
+        dialog.setGraphic(imageLogin);
+
+        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nameInput = new TextField();
+        nameInput.setPromptText("Username");
+        PasswordField passwordInput = new PasswordField();
+        passwordInput.setPromptText("Password");
+
+        grid.add(new Label("Username:"), 0, 0);
+        grid.add(nameInput, 1, 0);
+        grid.add(new Label("Password:"), 0, 1);
+        grid.add(passwordInput, 1, 1);
+
+
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+
+        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+
+        Platform.runLater(() -> nameInput.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(nameInput.getText(), passwordInput.getText());
+            }
+            return null;
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+        result.ifPresent(usernamePassword -> {
+            try {
+                signIn(usernamePassword.getKey(),usernamePassword.getValue());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+
+=======
+>>>>>>> 3706c902b4c863d78c5c4939e2cbe0b9edd96e6e
 
 }
 
