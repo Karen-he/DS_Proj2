@@ -1,6 +1,7 @@
 package Server;
 
 
+import RMIInterfaces.UserSysInterface;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -51,11 +52,13 @@ public class Server {
             //is done automatically when the object is initialized.
             GsonServant gsonServant = new GsonServant();
             ChatServant chatServant = new ChatServant();
+            UserSysInterface userSysServant = new UserSysServant();
 
             //Publish the remote object's stub in the registry under the name "Compute"
             Registry registry = LocateRegistry.createRegistry(2020);
             registry.bind("Gson", gsonServant);
             registry.bind("Chatbox", chatServant);
+            registry.bind("UserSys", userSysServant);
 
             System.out.println("ServerInterface ready");
 
