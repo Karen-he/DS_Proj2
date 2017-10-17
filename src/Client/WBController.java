@@ -1018,7 +1018,7 @@ public class WBController {
         Platform.runLater(() -> {
             try {
                 isSignIn[0] = gsonServant.logginResult();
-                System.out.println("modify isSignIn:"+isSignIn);
+                System.out.println("modify isSignIn:"+isSignIn[0].toString());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -1059,7 +1059,7 @@ public class WBController {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
         gsonServant.registerUser(userRegister, passwordRe);
-        Boolean[] isRegistered = {true};
+        Boolean[] isRegistered = {false};
         Platform.runLater(() -> {
             try {
                 //System.out.println(gsonServant.getJsonPack());
