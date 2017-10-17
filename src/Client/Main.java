@@ -39,7 +39,7 @@ public class Main extends Application {
         new Thread (() -> {
             while(true) {
                 try {
-                    if (gsonServant.receivePaints() != null) {
+                    if (!gsonServant.receivePaints().isEmpty()) {
                         System.out.println("hihi 我可以画画啦");
                         ArrayList<String> drawCommand = gsonServant.receivePaints();
                         String shapeOption = drawCommand.get(0);

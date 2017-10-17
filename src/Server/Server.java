@@ -70,7 +70,7 @@ public class Server {
             new Thread (() -> {
                 while (run) {
                     try {
-                        if (gsonServant.receivePaints() != null) {
+                        if (!gsonServant.receivePaints().isEmpty()) {
                             Hashtable paintsContainer = new Hashtable();
                             PaintsDatabase paintsKeeper = new PaintsDatabase(paintsContainer);
                             ArrayList<String> whiteboard = gsonServant.receivePaints();
