@@ -20,17 +20,10 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     private HashMap<String,String> chatRecords = new HashMap();
 
 
-    //private ClientServer wbController;
-
-    //create a peer list by manager, constructor
-
     public ChatServant() throws RemoteException {
         this.chatClients = new ArrayList<ChatClient>();
     }
 
-    public void addChatClient(String userName, ChatServerInterface chatServant, ServerInterface gsonServant) throws RemoteException{
-        ChatClient client = new ChatClient( userName, chatServant, gsonServant);
-    }
 
     public synchronized void registerChatClient(ChatClient chatClient)
             throws RemoteException {
@@ -42,11 +35,13 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     public synchronized void shareMsg(String userName, String msgPrint) throws RemoteException {
         chatRecords.put(userName, msgPrint);
     }
+
+
     public ArrayList<ChatClient> getChatClients() throws RemoteException{
         return chatClients;
     }
 
-    
+
     public void kickClient(String userName) throws RemoteException {
         for (int i = 0; i < chatClients.size(); i++){
             if (chatClients.get(i).getUserName().equals(userName)) {
@@ -55,26 +50,26 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         }
     }
 
+
     public HashMap<String, String> getChatRecords() throws RemoteException {
         return chatRecords;
     }
+
 
     public void clearRecords() throws RemoteException{
         chatRecords.clear();
     }
 
+
     public void printToAll(String userName, String chatContent) throws RemoteException{
         try
         {
             for (int i = 0; i < chatClients.size(); i++) {
-
-
                 ChatClientInterface tempClient =  chatClients.get(i);
                 tempClient.retrieveMsg(userName + ": " + chatContent);
-
             }
         }catch (Exception e){
                 e.printStackTrace();
-            }
         }
+    }
 }
