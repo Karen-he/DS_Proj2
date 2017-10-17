@@ -967,36 +967,36 @@ public class WBController implements ClientServer {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-//        gsonServant.checkPassword(user, encrypt);
-//        Boolean isSignIn = gsonServant.logginResult();
-//        if (isSignIn) {
-//            // the number of client
-//            if (clientCount == 1) {
-//                isManager = true;
-//                signInPane.setVisible(false);
-//                wbPane.setVisible(true);
-//                isManager = true;
-//                managerName.setText(user);
-//                userName = user;
-//
-//                ChatClient chatClient = new ChatClient(user,chatServant,gsonServant);
-//
-//
-//                //launch the whiteboard and turn off the signIn UI
-//            } else if (clientCount < 4) {
-//                isManager = false;
-//                userName = user;
-//                //launch the whiteboard and turn off the signIn UI
-//                // launch the client
-//                ChatClient chatClient = new ChatClient(user, chatServant,gsonServant);
-//
-//            } else if (clientCount == 4) {
-//                warningDialog("Fail to login In", "You can not join in this room!");
-//            }
-//        } else {
-//            warningDialog(user + " is not existed!",
-//                    "You should confirm your username or register for " + user + " !");
-//        }
+        gsonServant.checkPassword(user, encrypt);
+        Boolean isSignIn = gsonServant.logginResult();
+        if (isSignIn) {
+            // the number of client
+            if (clientCount == 1) {
+                isManager = true;
+                signInPane.setVisible(false);
+                wbPane.setVisible(true);
+                isManager = true;
+                managerName.setText(user);
+                userName = user;
+
+                ChatClient chatClient = new ChatClient(user,chatServant,gsonServant);
+
+
+                //launch the whiteboard and turn off the signIn UI
+            } else if (clientCount < 4) {
+                isManager = false;
+                userName = user;
+                //launch the whiteboard and turn off the signIn UI
+                // launch the client
+                ChatClient chatClient = new ChatClient(user, chatServant,gsonServant);
+
+            } else if (clientCount == 4) {
+                warningDialog("Fail to login In", "You can not join in this room!");
+            }
+        } else {
+            warningDialog(user + " is not existed!",
+                    "You should confirm your username or register for " + user + " !");
+        }
     }
 
     public void signUp() throws Exception {
