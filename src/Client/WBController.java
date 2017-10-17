@@ -639,11 +639,21 @@ public class WBController {
     }
 
 
-    private void approve(String userName, int clientNum) throws IOException {
+
+
+    public Boolean approve(String clientName) throws IOException {
         if (isManager) {
-            confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?", clientNum);
+            int currentNum = clientCount;
+            confirmBox("Approve", "Approve the " + clientName + "!",
+                    "Do you want to approve the " + clientName + " ?", currentNum+1);
+            if(clientCount - currentNum == 1 ){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
+        return false;
     }
 
     public void kickUserOne() throws IOException {
@@ -756,16 +766,19 @@ public class WBController {
                     }
                     break;
                 case "Approve":
-                    if (clientNum == 1) {
-                        clientOne.setText(userName);
-                        break;
-                    }
                     if (clientNum == 2) {
-                        clientTwo.setText(userName);
+                        clientOne.setText(userName);
+                        clientCount = 2;
                         break;
                     }
                     if (clientNum == 3) {
+                        clientTwo.setText(userName);
+                        clientCount = 3;
+                        break;
+                    }
+                    if (clientNum == 4) {
                         clientThree.setText(userName);
+                        clientCount = 4;
                         break;
                     }
                     break;
