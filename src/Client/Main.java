@@ -105,7 +105,7 @@ public class Main extends Application {
 
 
 
-            
+
 //        new Thread(() -> {
 //            while(true) {
 //                ArrayList<ChatClient> tmpChatList = null;
@@ -183,8 +183,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
     private void closeAction() throws IOException {
         WBController wbController = new WBController();
