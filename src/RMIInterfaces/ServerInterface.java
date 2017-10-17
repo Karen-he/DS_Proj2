@@ -54,5 +54,8 @@ public interface ServerInterface extends Remote {
 
     boolean validRegister() throws RemoteException;
 
+<<<<<<< HEAD
     String getJsonPack() throws RemoteException;
+=======
+>>>>>>> 39cf79aa30500fc31b5de9ba0eb8e0d80dce2c1b
 }

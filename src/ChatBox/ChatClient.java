@@ -54,7 +54,7 @@ public class ChatClient implements ChatClientInterface, Serializable  {
 
     //print chatContent on own board
     public void retrieveMsg(String msgPrint) throws RemoteException {
-        wbController.appendToMessage(msgPrint);
+        System.out.println("msgPrint:" +msgPrint);
     }
 
 

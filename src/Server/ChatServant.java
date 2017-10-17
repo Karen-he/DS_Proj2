@@ -65,22 +65,21 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
         chatRecords.clear();
     }
 
-    public void printToAll(String chatContent) throws RemoteException{
+    public void printToAll(String userName, String chatContent) throws RemoteException{
         try
         {
             for (int i = 0; i < chatClients.size(); i++) {
+<<<<<<< HEAD
                 ChatClient tempClient =  chatClients.get(i);
                 tempClient.retrieveMsg(chatContent);
+=======
+                ChatClientInterface tempClient =  chatClients.get(i);
+                tempClient.retrieveMsg(userName + ": " + chatContent);
+
+>>>>>>> 39cf79aa30500fc31b5de9ba0eb8e0d80dce2c1b
             }
         }catch (Exception e){
                 e.printStackTrace();
             }
         }
-
-    public void setWbController(ClientServer wbController) throws RemoteException{
-        for (int i = 0; i<chatClients.size();i++){
-            chatClients.get(i).setWbController(wbController);
-    }
-
-    }
 }
