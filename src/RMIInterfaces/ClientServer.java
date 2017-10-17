@@ -4,6 +4,6 @@ import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ClientServer extends Remote{
-    void appendToMessage(String message) throws RemoteException;
+public interface ClientServer {
+    void appendToMessage(String message);
 }

@@ -53,4 +53,5 @@ public interface ServerInterface extends Remote {
     void registerUser(String userName, String password) throws RemoteException;
 
     boolean validRegister() throws RemoteException;
+
 }

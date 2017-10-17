@@ -33,12 +33,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.rmi.ConnectException;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Optional;
 
-
 public class WBController implements ClientServer, Serializable {
+
 
     protected double startX;
 
@@ -91,20 +93,21 @@ public class WBController implements ClientServer, Serializable {
         this.message = message;
     }
 
-    @FXML
-    private TextField nameInput;
-
-    @FXML
-    private TextField passWordInput;
-
-    @FXML
-    private Pane signInPane;
 
     @FXML
     private BorderPane wbPane;
 
     @FXML
     private Pane mainPane;
+
+    @FXML
+    private BorderPane signInPane;
+
+    @FXML
+    private TextField nameInput;
+
+    @FXML
+    private TextField passWordInput;
 
     @FXML
     private Canvas canvas;
@@ -175,15 +178,13 @@ public class WBController implements ClientServer, Serializable {
 
     private final ToggleGroup group = new ToggleGroup();
 
-    private void setClient() throws Exception{
+    private void setClient() throws Exception {
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
         client1 = chatClients.get(1).getUserName();
         client2 = chatClients.get(2).getUserName();
         client3 = chatClients.get(3).getUserName();
         clientCount = chatClients.size();
     }
-
-
 
 
     // Initialize the canvas to make sure the default color of colorPicker is black.
@@ -221,9 +222,9 @@ public class WBController implements ClientServer, Serializable {
 
     public void initialize() {
 
-//        colorPicker.setValue(Color.BLACK);
-//        setImage();
-//        sketch();
+        colorPicker.setValue(Color.BLACK);
+        setImage();
+        sketch();
 
     }
 
@@ -269,6 +270,7 @@ public class WBController implements ClientServer, Serializable {
             g.closePath();
         });
 
+
     }
 
     public void erase() {
@@ -296,6 +298,7 @@ public class WBController implements ClientServer, Serializable {
             jsonSendPaints("erase", addPaintAttri(pointList, "null"));
             pointList.clear();
         });
+
     }
 
 
@@ -304,7 +307,6 @@ public class WBController implements ClientServer, Serializable {
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
         pathCanvas.setOnMousePressed(e -> {
-
             g.beginPath();
             g.setStroke(colorPicker.getValue());
             newG.setStroke(colorPicker.getValue());
@@ -331,9 +333,11 @@ public class WBController implements ClientServer, Serializable {
             g.closePath();
 
         });
+
     }
 
     public void cirDraw() {
+
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
@@ -369,6 +373,7 @@ public class WBController implements ClientServer, Serializable {
             pointList.clear();
             g.closePath();
         });
+
     }
 
     public void rectDraw() {
@@ -411,6 +416,7 @@ public class WBController implements ClientServer, Serializable {
             g.closePath();
 
         });
+
     }
 
     public void ovalDraw() {
@@ -452,6 +458,7 @@ public class WBController implements ClientServer, Serializable {
             pointList.clear();
             g.closePath();
         });
+
     }
 
     public void textInput() {
@@ -493,25 +500,29 @@ public class WBController implements ClientServer, Serializable {
 
         });
 
+
     }
 
 
     private void newFile() throws IOException {
-        gsonServant.tellSeverNew(true);
-        canvasPane.getChildren().remove(canvas);
-        canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-        pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-        canvas.setStyle("-fx-background-color: white");
-        pathCanvas.setStyle("-fx-background-color: white");
-        canvasPane.getChildren().add(canvas);
-        canvasPane.getChildren().add(pathCanvas);
-        slider.setValue(1);
-        colorPicker.setValue(Color.BLACK);
-        setFile(null);
-        canvasCount = 0;
+        try {
+            gsonServant.tellSeverNew(true);
+            canvasPane.getChildren().remove(canvas);
+            canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            canvas.setStyle("-fx-background-color: white");
+            pathCanvas.setStyle("-fx-background-color: white");
+            canvasPane.getChildren().add(canvas);
+            canvasPane.getChildren().add(pathCanvas);
+            slider.setValue(1);
+            colorPicker.setValue(Color.BLACK);
+            setFile(null);
+            canvasCount = 0;
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
+        }
 
     }
-
 
 
     public void onNew() throws IOException {
@@ -527,40 +538,52 @@ public class WBController implements ClientServer, Serializable {
     }
 
     private void save() throws IOException {
-        int width = (int) canvasPane.getWidth();
-        int height = (int) canvasPane.getHeight();
-        WritableImage writableImage = new WritableImage(width, height);
-        canvas.snapshot(null, writableImage);
-        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-        ImageIO.write(renderedImage, "png", file);
-        canvasCount = 0;
+        try {
+            int width = (int) canvasPane.getWidth();
+            int height = (int) canvasPane.getHeight();
+            WritableImage writableImage = new WritableImage(width, height);
+            canvas.snapshot(null, writableImage);
+            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+            ImageIO.write(renderedImage, "png", file);
+            canvasCount = 0;
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
+        }
     }
 
     public void onSave() throws IOException {
-        if (file != null) {
-            save();
-        } else {
-            onSaveAs();
+        if (isManager) {
+            if (file != null) {
+                save();
+            } else {
+                onSaveAs();
+            }
         }
     }
 
     public void onSaveAs() throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save As");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
-        File tempFile = fileChooser.showSaveDialog(null);
-        if (tempFile == null) {
+        try {
+            if (isManager) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save As");
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
+                File tempFile = fileChooser.showSaveDialog(null);
+                if (tempFile == null) {
 
-        } else {
-            setFile(tempFile);
-        }
-        if (file != null) {
-            save();
+                } else {
+                    setFile(tempFile);
+                }
+                if (file != null) {
+                    save();
+                }
+            }
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
         }
     }
 
-    private void open() throws IOException {
+    private void open() throws IOException, ConnectException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
         fileChooser.getExtensionFilters().add(
@@ -588,7 +611,11 @@ public class WBController implements ClientServer, Serializable {
                 infoBox("Your changes will be lost if you don't save them.",
                         "Do you want to save the changes?", "open");
             } else {
-                open();
+                try {
+                    open();
+                } catch (ConnectException e) {
+                    errorDialog("Connection Error", "Connection is lost!");
+                }
             }
         }
 
@@ -609,7 +636,7 @@ public class WBController implements ClientServer, Serializable {
 
     public void onClose() throws IOException {
         if (isManager) {
-            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections",0);
+            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0);
         }
     }
 
@@ -620,32 +647,31 @@ public class WBController implements ClientServer, Serializable {
     }
 
 
-
-    private void approve(String userName ,int clientNum) throws IOException {
-        if(isManager) {
+    private void approve(String userName, int clientNum) throws IOException {
+        if (isManager) {
             confirmBox("Approve", "Approve the " + userName + "!",
-                    "Do you want to approve the " + userName + " ?",clientNum);
+                    "Do you want to approve the " + userName + " ?", clientNum);
         }
     }
 
     public void kickUserOne() throws IOException {
         if (isManager) {
             String clientName = clientOne.getText();
-            kick(clientName,1);
+            kick(clientName, 1);
         }
     }
 
     public void kickUserTwo() throws IOException {
         if (isManager) {
             String clientName = clientTwo.getText();
-            kick(clientName,2);
+            kick(clientName, 2);
         }
     }
 
     public void kickUserThree() throws IOException {
         if (isManager) {
             String clientName = clientThree.getText();
-            kick(clientName,3);
+            kick(clientName, 3);
         }
     }
 
@@ -724,15 +750,15 @@ public class WBController implements ClientServer, Serializable {
         if (result.get() == buttonTypeOne) {
             switch (command) {
                 case "Kick":
-                    if (clientNum==2) {
+                    if (clientNum == 2) {
                         clientOne.setText(null);
                         break;
                     }
-                    if (clientNum==3) {
+                    if (clientNum == 3) {
                         clientTwo.setText(null);
                         break;
                     }
-                    if (clientNum==4) {
+                    if (clientNum == 4) {
                         clientThree.setText(null);
                         break;
                     }
@@ -770,7 +796,9 @@ public class WBController implements ClientServer, Serializable {
             // String output = sendPoints(shapeKey, list);
             System.out.println("output = " + output);
 
-        } catch (Exception e) {
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
@@ -785,7 +813,7 @@ public class WBController implements ClientServer, Serializable {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant,ChatServerInterface chatServant) {
+    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant) {
         this.gsonServant = gsonServant;
         this.chatServant = chatServant;
     }
@@ -962,8 +990,6 @@ public class WBController implements ClientServer, Serializable {
         String message = input.getText();
         setMessage(message);
         input.clear();
-        chatServant.printToAll(message);
-//        chatServant.shareMsg(userName,message);
     }
 
 
@@ -973,24 +999,27 @@ public class WBController implements ClientServer, Serializable {
 
     }
 
-    public void appendToMessage(String message){
-        textMessage.appendText(message+"\n");
+    public void appendToMessage(String message) {
+        textMessage.appendText(message + "\n");
     }
 
 
-    public void signIn(String user, String encrypt) throws Exception {
+    public void signIn() throws Exception {
+        String user = nameInput.getText();
+        String encrypt = passWordInput.getText();
 //        gsonServant.checkPassword(user, encrypt);
 //        Boolean isSignIn = gsonServant.logginResult();
         if (true) {
             // the number of client
             if (clientCount == 0) {
                 isManager = true;
-//                signInPane.setVisible(false);
-//                wbPane.setVisible(true);
+                signInPane.setVisible(false);
+                wbPane.setVisible(true);
                 managerName.setText(user);
                 userName = user;
 
-                chatServant.addChatClient(user,chatServant,gsonServant);
+
+                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
 
 
                 //launch the whiteboard and turn off the signIn UI
@@ -999,30 +1028,31 @@ public class WBController implements ClientServer, Serializable {
                 userName = user;
                 //launch the whiteboard and turn off the signIn UI
                 // launch the client
-                chatServant.addChatClient(user,chatServant,gsonServant);
+
+                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
 
             } else if (clientCount == 4) {
                 warningDialog("Fail to login In", "You can not join in this room!");
             }
         } else {
-            warningDialog(user + " is not existed!",
-                    "You should confirm your username or register for " + user + " !");
+            warningDialog(user + " is not  existed!",
+                    "You should confirm your username or register it!");
         }
     }
 
-//    public void signUp() throws Exception {
-//        String userRegister = nameInput.getText();
-//        String passwordRe = passWordInput.getText();
-//        gsonServant.registerUser(userRegister, passwordRe);
-//        Boolean isRegistered =gsonServant.validRegister();
-//        if (isRegistered) {
-//            warningDialog(userRegister + " is existed!", "Please change your username to register!");
-//
-//        } else {
-//            inforDialog(userRegister);
-//        }
-//
-//    }
+    public void signUp() throws Exception {
+        String userRegister = nameInput.getText();
+        String passwordRe = passWordInput.getText();
+        gsonServant.registerUser(userRegister, passwordRe);
+        Boolean isRegistered = gsonServant.validRegister();
+        if (isRegistered) {
+            warningDialog(userRegister + " is existed!", "Please change your username to register!");
+
+        } else {
+            inforDialog(userRegister);
+        }
+
+    }
 
     private void inforDialog(String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1050,67 +1080,67 @@ public class WBController implements ClientServer, Serializable {
         alert.showAndWait();
     }
 
-    public void loginDialog(){
-        Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Welcome");
-        dialog.setHeaderText("LogIn");
-
-        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
-        imageLogin.setFitHeight(40);
-        imageLogin.setFitWidth(40);
-        dialog.setGraphic(imageLogin);
-
-        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField nameInput = new TextField();
-        nameInput.setPromptText("Username");
-        PasswordField passwordInput = new PasswordField();
-        passwordInput.setPromptText("Password");
-
-        grid.add(new Label("Username:"), 0, 0);
-        grid.add(nameInput, 1, 0);
-        grid.add(new Label("Password:"), 0, 1);
-        grid.add(passwordInput, 1, 1);
-
-
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
-
-        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
-
-        dialog.getDialogPane().setContent(grid);
-
-        Platform.runLater(() -> nameInput.requestFocus());
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == loginButtonType) {
-                return new Pair<>(nameInput.getText(), passwordInput.getText());
-            }
-            return null;
-        });
-
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-
-        result.ifPresent(usernamePassword -> {
-            try {
-                signIn(usernamePassword.getKey(),usernamePassword.getValue());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-
-
+//    public void loginDialog(){
+//        Dialog<Pair<String, String>> dialog = new Dialog<>();
+//        dialog.setTitle("Welcome");
+//        dialog.setHeaderText("LogIn");
+//
+//        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
+//        imageLogin.setFitHeight(40);
+//        imageLogin.setFitWidth(40);
+//        dialog.setGraphic(imageLogin);
+//
+//        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+//        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//
+//
+//        GridPane grid = new GridPane();
+//        grid.setHgap(10);
+//        grid.setVgap(10);
+//        grid.setPadding(new Insets(20, 150, 10, 10));
+//
+//        TextField nameInput = new TextField();
+//        nameInput.setPromptText("Username");
+//        PasswordField passwordInput = new PasswordField();
+//        passwordInput.setPromptText("Password");
+//
+//        grid.add(new Label("Username:"), 0, 0);
+//        grid.add(nameInput, 1, 0);
+//        grid.add(new Label("Password:"), 0, 1);
+//        grid.add(passwordInput, 1, 1);
+//
+//
+//        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+//        loginButton.setDisable(true);
+//
+//        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+//            loginButton.setDisable(newValue.trim().isEmpty());
+//        });
+//
+//        dialog.getDialogPane().setContent(grid);
+//
+//        Platform.runLater(() -> nameInput.requestFocus());
+//
+//        dialog.setResultConverter(dialogButton -> {
+//            if (dialogButton == loginButtonType) {
+//                return new Pair<>(nameInput.getText(), passwordInput.getText());
+//            }
+//            return null;
+//        });
+//
+//        Optional<Pair<String, String>> result = dialog.showAndWait();
+//
+//        result.ifPresent(usernamePassword -> {
+//            try {
+//                signIn(usernamePassword.getKey(),usernamePassword.getValue());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
 }
+
+
+
+
+
 
