@@ -94,6 +94,24 @@ public class Main extends Application {
         }).start();
 
 
+
+
+        new Thread(() -> {
+            while(true) {
+                ArrayList<ChatClient> tmpChatList = null;
+                try {
+                    tmpChatList = chatServant.getChatClients();
+                    for (int i = 0; i < tmpChatList.size(); i++) {
+                        ChatClient tempClient = tmpChatList.get(i);
+                        tempClient.retrieveMsg(WBController.getMessage());
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
 //            while(true) {
 //                try {
 //
