@@ -998,10 +998,17 @@ public class WBController {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
         gsonServant.checkPassword(user, encrypt);
-        Boolean isSignIn = gsonServant.logginResult();
+        Boolean[] isSignIn = {false};
+        Platform.runLater(() -> {
+            try {
+                isSignIn[0] = gsonServant.logginResult();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
         nameInput.clear();
         passWordInput.clear();
-        if (isSignIn) {
+        if (isSignIn[0]) {
             clientCount += 1;
             // the number of client
             if (clientCount == 1) {
@@ -1035,7 +1042,7 @@ public class WBController {
         String userRegister = nameInput.getText();
         String passwordRe = passWordInput.getText();
         gsonServant.registerUser(userRegister, passwordRe);
-        final Boolean[] isRegistered = {true};
+        Boolean[] isRegistered = {false};
         Platform.runLater(() -> {
             try {
                 //System.out.println(gsonServant.getJsonPack());
