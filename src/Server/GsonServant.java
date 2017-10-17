@@ -49,7 +49,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         Hashtable commands = new Hashtable();
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             Set<String> keywords = jsonObject.keySet();
@@ -114,7 +114,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("Newcanvase") != null) {
@@ -309,7 +309,7 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         boolean empty = jsonPack.isEmpty();
         boolean command = false;
         if (empty == false) {
-            System.out.println(jsonPack);
+            //System.out.println(jsonPack);
             JsonElement jsonElement = new JsonParser().parse(jsonPack);
             jsonObject = jsonElement.getAsJsonObject();
             if(jsonObject.get("approvalFromManager") != null) {
