@@ -1012,10 +1012,6 @@ public class WBController implements ClientServer, Serializable {
     public void signIn() throws Exception {
         String user = nameInput.getText();
         String encrypt = passWordInput.getText();
-
-//        gsonServant.checkPassword(user, encrypt);
-//        Boolean isSignIn = gsonServant.logginResult();
-        if (true) {
         gsonServant.checkPassword(user, encrypt);
         Boolean[] isSignIn = {false};
         Platform.runLater(() -> {
@@ -1058,7 +1054,6 @@ public class WBController implements ClientServer, Serializable {
             warningDialog(user + " is not  existed!",
                     "You should confirm your username or register it!");
         }
-    }
     }
 
     public void signUp() throws Exception {
