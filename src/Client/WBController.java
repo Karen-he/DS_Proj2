@@ -580,9 +580,7 @@ public class WBController {
     public void onClose() throws Exception {
         if (isManager) {
             confirmBox("CloseManager", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
-            if (close == true) {
-                Platform.exit();
-            }
+
         }else{
             confirmBox("CloseClient", "It will disconnect.", "Do you want to continue this?", clientCount, "");
             if (close == true) {
@@ -1008,7 +1006,10 @@ public class WBController {
                 break;
             case "exit":
                 if (result.get() == buttonTypeOne) {
-                    close = true;
+                    kickAllUser();
+                    Platform.exit();
+                    break;
+
                 } else if (result.get() == buttonTypeTwo) {
                     alert.close();
                     close = false;
@@ -1098,8 +1099,10 @@ public class WBController {
                     if (canvasCount == 1) {
                         infoBox("Your changes will be lost if you don't save them.",
                                 "Do you want to save the changes?", "exit");
-                    }else{
+                    } else {
+                        kickAllUser();
                         Platform.exit();
+                        break;
                     }
                     break;
                 case "CloseClient":
@@ -1148,6 +1151,19 @@ public class WBController {
                     }
             }
         }
+    }
+    private void kickAllUser() throws Exception{
+        if(clientCount ==4){
+            kickUserOne();
+            kickUserTwo();
+            kickUserThree();
+        }else if(clientCount ==3){
+            kickUserOne();
+            kickUserTwo();
+        }else if(clientCount ==2){
+            kickUserOne();
+        }
+        Platform.exit();
     }
     
 }
