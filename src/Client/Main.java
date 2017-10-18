@@ -13,15 +13,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-
 import static java.lang.Thread.sleep;
 
 public class Main extends Application {
@@ -98,7 +94,7 @@ public class Main extends Application {
                     if(!jsonObject.get("isEmpty").isJsonNull()){
                         boolean empty = jsonObject.get("isEmpty").getAsBoolean();
                         if (empty == false){
-                            Platform.runLater(new Runnable() {
+                            Platform.runLater(new Runnable(){
                                 public void run() {
                                     try {
                                         String userName = jsonObject.get("userName").getAsString();
@@ -110,7 +106,6 @@ public class Main extends Application {
                             });
                         }
                     }
-
                 }
                 catch (RemoteException e) {
                     //WBController.errorDialog("Connection Error", "Connection is lost!");
@@ -123,6 +118,32 @@ public class Main extends Application {
             }
         });
         approval.start();
+
+        Thread kick = new Thread(() -> {
+            while (!WBController.getManager()){
+                try {
+                    sleep(9000);
+                    if(userSysServant.checkKick(WBController.getUserName())){
+                        Platform.runLater(new Runnable(){
+                            public void run() {
+                                try {
+                                    WBController.onExit();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        kick.start();
 
 //        CountDownLatch latch = new CountDownLatch(1);
 //        Platform.runLater(new Runnable() {

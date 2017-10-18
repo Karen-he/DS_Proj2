@@ -631,9 +631,16 @@ public class WBController {
         }
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     private void kick(String userName, int clientNum) throws IOException {
         confirmBox("Kick", "Kick the " + userName + "!",
+
                 "Do you want to kick the " + userName + " ?", clientNum, userName);
+        chatServant.kickClient(userName);
+        userSysServant.kick(userName);
     }
 
 

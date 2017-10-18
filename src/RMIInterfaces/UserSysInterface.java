@@ -10,5 +10,6 @@ public interface UserSysInterface extends Remote {
     void addApprove(String userName, boolean approve) throws RemoteException;
     void sendRequest(String userName) throws RemoteException;
     String checkApproval(String userName) throws RemoteException;
-
+    boolean checkKick(String userName) throws RemoteException;
+    void kick(String username)throws RemoteException;
 }
