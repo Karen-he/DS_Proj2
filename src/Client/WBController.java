@@ -580,6 +580,8 @@ public class WBController {
     public void onExit() throws Exception {
         confirmBox("CloseClient","It will disconnect.", "Do you want to continue this?", clientCount,"");
         if (close == true) {
+            String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+            gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
             Platform.exit();
         }
     }
@@ -589,8 +591,6 @@ public class WBController {
         if (isManager) {
             confirmBox("CloseManager", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
             if (close == true) {
-                String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
-                gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
                 Platform.exit();
             }
         }
@@ -1076,6 +1076,8 @@ public class WBController {
                         clientOne.setText(client1);
                         clientCount = 2;
                         userSysServant.addApprove(client1, true);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification", client1 + " joined room.", tmpStamp);
                         break;
                     }
                     if (clientNum == 2) {
@@ -1083,6 +1085,8 @@ public class WBController {
                         clientTwo.setText(client2);
                         clientCount = 3;
                         userSysServant.addApprove(client2, true);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification", client2 + " joined room.", tmpStamp);
                         break;
                     }
                     if (clientNum == 3) {
@@ -1090,6 +1094,8 @@ public class WBController {
                         clientThree.setText(client3);
                         clientCount = 4;
                         userSysServant.addApprove(client3, true);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification", client3 + " joined room.", tmpStamp);
                         break;
                     }
                     break;
