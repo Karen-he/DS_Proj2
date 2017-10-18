@@ -951,17 +951,17 @@ public class WBController {
 
     private void autoSketch(PaintAttribute attribute) {
         GraphicsContext g = canvas.getGraphicsContext2D();
-        g.beginPath();
         Color newColor = assembleColor(attribute);
         g.setStroke(newColor);
         g.setLineWidth(attribute.getLineWidth());
         ArrayList<Point> nodeList = attribute.getPointList();
+        g.beginPath();
         for (int i = 0; i < nodeList.size(); i++) {
             g.lineTo(nodeList.get(i).getPointX(), nodeList.get(i).getPointY());
+            g.stroke();
         }
-        g.stroke();
-        canvasCount = 1;
         g.closePath();
+        canvasCount = 1;
     }
 
     private void autoErase(PaintAttribute attribute) {
