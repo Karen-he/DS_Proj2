@@ -9,12 +9,15 @@ public class PaintAttribute implements Serializable {
     private double lineWidth;
     private double[] color;
     private String text;
+    private String imageString;
 
-    public PaintAttribute(ArrayList<Point> pointList, double lineWidth, double[] color, String text){
+    public PaintAttribute(ArrayList<Point> pointList, double lineWidth,
+                          double[] color, String text, String imageString){
         this.pointList = pointList;
         this.lineWidth = lineWidth;
         this.color = color;
         this.text = text;
+        this.imageString = imageString;
     }
 
     public void setPointList(ArrayList<Point> pointList){
@@ -31,6 +34,8 @@ public class PaintAttribute implements Serializable {
 
     public void setText(String text) {this.text = text;}
 
+    public void setImageString(String imageString) {this.imageString = imageString;}
+
     public ArrayList<Point> getPointList(){
         return pointList;
     }
@@ -44,4 +49,6 @@ public class PaintAttribute implements Serializable {
     }
 
     public String getText(){return text;}
+
+    public String getImageString(){return imageString;}
 }

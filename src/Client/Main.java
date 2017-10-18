@@ -147,33 +147,42 @@ public class Main extends Application {
             }
         });
         kick.start();
+        /***
+         * The thread for monitoring whether a new canvas is created.
+         */
 
-//        CountDownLatch latch = new CountDownLatch(1);
-//        Platform.runLater(new Runnable() {
-//            public void run() {
-//                System.out.println("get manager: "+WBController.getManager());
-//                while (WBController.getManager()) {
-//                    try {
-//                        sleep(1000);
-//                        if (userSysServant.listenRequestList() == false){
-//                            WBController.approve(WBController.getUserName());
-//
-//                        }
-//
-//                    }
-//                    catch (RemoteException e) {
-//                        //WBController.errorDialog("Connection Error", "Connection is lost!");
-//                        //e.printStackTrace();
-//                    } catch (IOException e) {
-//
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//            }
-//        });
-        //latch.await();
+        new Thread (() -> {
+            String oldTimeCanvas = "2017";
+            while (true)
+                try {
+                    sleep(500);
+                    if(!gsonServant.checkNewCanvas().isEmpty()) {
+                        ArrayList<String> canvasCommand = gsonServant.checkNewCanvas();
+                        String command = canvasCommand.get(0);
+                        String timeStamp = canvasCommand.get(1);
+                        if (!timeStamp.equals(oldTimeCanvas)) {
+                            if(command.equals("TRUE")) {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            WBController.autoNew();
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                oldTimeCanvas = timeStamp;
+                            }
+                        }
+                    }
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+        }).start();
 
         /***
          * Show chatroom Content
