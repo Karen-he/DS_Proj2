@@ -27,6 +27,7 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
             approve = "Y";
         }
         approveResult.put(userName,approve);
+        approvalRequistList.remove(userName);
     }
 
     public void sendRequest(String userName) throws RemoteException{
