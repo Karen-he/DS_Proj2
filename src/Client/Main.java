@@ -99,7 +99,7 @@ public class Main extends Application {
                                     try {
                                         String userName = jsonObject.get("userName").getAsString();
                                         WBController.approve(userName);
-                                    } catch (IOException e) {
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                 }
