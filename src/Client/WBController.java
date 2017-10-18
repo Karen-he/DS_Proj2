@@ -829,22 +829,29 @@ public class WBController {
                     }
                     break;
                 case "Approve":
+
                     if (clientNum == 2) {
                         client1 = clientName;
                         clientOne.setText(client1);
                         userSysServant.addApprove(client1, true);
+                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification",client1+" joined room.",tmp);
                         break;
                     }
                     if (clientNum == 3) {
                         client2 = clientName;
                         clientTwo.setText(client2);
                         userSysServant.addApprove(client2, true);
+                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification",client2+" joined room.",tmp);
                         break;
                     }
                     if (clientNum == 4) {
                         client3 = clientName;
                         clientThree.setText(client3);
                         userSysServant.addApprove(client3, true);
+                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Notification",client3+" joined room.",tmp);
                         break;
                     }
                     break;
