@@ -25,29 +25,9 @@ public interface ServerInterface extends Remote {
 
     PaintAttribute getAttribute(String attribute) throws RemoteException;
 
-    //Serve for note broadcasting
-//    String sendNote(String noteType, String userName) throws RemoteException;
-//
-//    String receiveNote() throws RemoteException;
-
     String tellSeverNew(boolean command) throws RemoteException;
 
     boolean serverCheckNew() throws RemoteException;
-
-    //log in
-    void checkPassword(String userName, String password) throws RemoteException;
-
-    boolean logginResult() throws RemoteException;
-
-    //manager
-    void sendApproval(boolean approval) throws RemoteException;
-
-    String listenForApproval() throws RemoteException;
-
-    //sign up
-    void registerUser(String userName, String password) throws RemoteException;
-
-    boolean validRegister() throws RemoteException;
 
     String getJsonPack() throws RemoteException;
 
