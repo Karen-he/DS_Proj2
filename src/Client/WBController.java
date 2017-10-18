@@ -60,11 +60,6 @@ public class WBController {
 
     private String userName;
 
-    private String clientName;
-
-    public String getClientName() {
-        return clientName;
-    }
 
     private String client1 = null;
 
@@ -644,6 +639,7 @@ public class WBController {
     public void approve(String clientName) throws IOException {
         if (isManager) {
             clientCount += 1;
+            System.out.println("last bug!!!!!!!!!!!"+clientCount);
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount, clientName);
 
@@ -1085,7 +1081,6 @@ public class WBController {
     public void signIn() throws Exception {
        String user = nameInput.getText();
         try {
-            this.clientName = nameInput.getText();
             switch (clientCount) {
                 case 1:
                     signInPane.setVisible(false);

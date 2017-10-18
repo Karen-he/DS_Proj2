@@ -91,7 +91,6 @@ public class Main extends Application {
         Thread approval = new Thread(() -> {
             while (WBController.getManager()) {
                 try {
-
                     sleep(9000);
                     String jsonPack = userSysServant.listenRequestList();
                     JsonElement jsonElement = new JsonParser().parse(jsonPack);
