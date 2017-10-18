@@ -643,33 +643,15 @@ public class WBController {
     }
 
 
-    public Boolean approve(String clientName) throws IOException {
+    public void approve(String clientName) throws IOException {
         if (isManager) {
+            System.out.println("approve?");
             clientCount += 1;
-            String header = "Approve the " + clientName + "!";
-            String command = "Approve";
-            String content = "Do you want to approve the " + clientName + " ?";
-            confirmBox(command, header, content, clientCount);
-            if (isApproved) {
-                if (clientCount == 2) {
-                    client1 = clientName;
-                    isApproved = false;
-                }
-                if (clientCount == 3) {
-                    client2 = clientName;
-                    isApproved = false;
-                }
-                if (clientCount == 4) {
-                    client3 = clientName;
-                    isApproved = false;
-                }
-                return true;
-            } else {
-                return false;
-            }
+            approvalBox(clientName, "Approve the " + clientName + "!",
+                    "Do you want to approve the " + clientName + " ?", clientCount);
         }
-        return false;
     }
+
 
     public void kickUserOne() throws IOException {
         if (isManager) {
@@ -751,6 +733,50 @@ public class WBController {
 
     }
 
+    private void approvalBox(String clientName,String header, String content, int clientNum) throws IOException {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("APPROVE?");
+        confirmAlert.setHeaderText(header);
+        confirmAlert.setContentText(content);
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeTwo = new ButtonType("No");
+        confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        System.out.println("number"+clientNum);
+        if (result.get() == buttonTypeOne) {
+            if (clientNum == 2) {
+                System.out.println("approve first client");
+                client1 = clientName;
+                clientOne.setText(client1);
+                userSysServant.addApprove(client1, true);
+            }
+            if (clientNum == 3) {
+                client2 = clientName;
+                clientTwo.setText(client2);
+                userSysServant.addApprove(client2, true);
+            }
+            if (clientNum == 4) {
+                client3 = clientName;
+                clientThree.setText(client3);
+                userSysServant.addApprove(client3, true);
+            }
+        }
+        if (result.get() == buttonTypeTwo) {
+            confirmAlert.close();
+            if (clientNum == 2) {
+                userSysServant.addApprove(client1, false);
+            }
+            if (clientNum == 3) {
+                userSysServant.addApprove(client2, false);
+            }
+            if (clientNum == 4) {
+                userSysServant.addApprove(client3, false);
+            }
+            clientCount -= 1;
+        }
+    }
+
+
     // this is for manager to control the client
     private void confirmBox(String command, String header, String content, int clientNum) throws IOException {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -780,26 +806,26 @@ public class WBController {
                         break;
                     }
                     break;
-                case "Approve":
-                    if (clientNum == 2) {
-                        clientOne.setText(client1);
-                        isApproved = true;
-                        userSysServant.addApprove(client1,true);
-                        break;
-                    }
-                    if (clientNum == 3) {
-                        clientTwo.setText(client2);
-                        isApproved = true;
-                        userSysServant.addApprove(client2,true);
-                        break;
-                    }
-                    if (clientNum == 4) {
-                        clientThree.setText(client3);
-                        isApproved = true;
-                        userSysServant.addApprove(client3,true);
-                        break;
-                    }
-                    break;
+//                case "Approve":
+//                    if (clientNum == 2) {
+//                        clientOne.setText(client1);
+//                        isApproved = true;
+//                        userSysServant.addApprove(client1,true);
+//                        break;
+//                    }
+//                    if (clientNum == 3) {
+//                        clientTwo.setText(client2);
+//                        isApproved = true;
+//                        userSysServant.addApprove(client2,true);
+//                        break;
+//                    }
+//                    if (clientNum == 4) {
+//                        clientThree.setText(client3);
+//                        isApproved = true;
+//                        userSysServant.addApprove(client3,true);
+//                        break;
+//                    }
+//                    break;
                 case "Close":
                     infoBox("Your changes will be lost if you don't save them.",
                             "Do you want to save the changes?", "exit");
@@ -808,23 +834,23 @@ public class WBController {
 
         }
         if (result.get() == buttonTypeTwo) {
-            switch (command){
-                case "Approve":
-                    confirmAlert.close();
-                    if(clientNum == 2){
-                        userSysServant.addApprove(client1, false);
-                        break;
-                    }
-                    if(clientNum == 3){
-                        userSysServant.addApprove(client2,false);
-                        break;
-                    }
-                    if(clientNum == 4){
-                        userSysServant.addApprove(client3, false);
-                        break;
-                    }
-                    clientCount -= 1;
-            }
+            confirmAlert.close();
+//            switch (command){
+//                case "Approve":
+//                    if(clientNum == 2){
+//                        userSysServant.addApprove(client1, false);
+//                        break;
+//                    }
+//                    if(clientNum == 3){
+//                        userSysServant.addApprove(client2,false);
+//                        break;
+//                    }
+//                    if(clientNum == 4){
+//                        userSysServant.addApprove(client3, false);
+//                        break;
+//                    }
+//                    clientCount -= 1;
+//            }
         }
     }
 
@@ -1064,17 +1090,10 @@ public class WBController {
                     break;
 
                 case 2:
+                case 3:
+                case 4:
                     System.out.println("in case 2"+clientCount);
                     listenApproval(user);
-                    approveDialog();
-                    break;
-                case 3:
-                    listenApproval(user);
-                    approveDialog();
-                    break;
-                case 4:
-                    listenApproval(user);
-                    approveDialog();
                     break;
 
             }
@@ -1097,7 +1116,9 @@ public class WBController {
             signInPane.setVisible(false);
             wbPane.setVisible(true);
             userName = clientName;
+            approveDialog();
             ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
+
         }else{
             warningDialog("DECLINED","Your request has been denied!");
             Platform.exit();

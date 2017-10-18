@@ -47,6 +47,7 @@ public class Main extends Application {
             System.out.println("after set: "+WBController.getManager());
             System.out.println("after set clientcount:"+clientCount);
         } else if (clientCount > 0 && clientCount < 4) {
+
             System.out.println("before set clientcount:"+clientCount);
             WBController.setIsManager(false);
             WBController.setClientCount(clientCount + 1);
@@ -186,7 +187,8 @@ public class Main extends Application {
 
         // username get from the name after logging in
 
-        WBController.setServant(gsonServant, chatServant, userSysServant);
+        WBController.setServant(gsonServant, chatServant,userSysServant);
+
 
         window = primaryStage;
         window.setTitle("WhiteBoard");
