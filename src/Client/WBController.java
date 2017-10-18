@@ -622,6 +622,11 @@ public class WBController {
         }
     }
 
+    public void beKicked() throws IOException{
+        warningDialog("Sorry","You have been kicked off!");
+        Platform.exit();
+    }
+
     public void onClose() throws IOException {
         if (isManager) {
             confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
@@ -800,18 +805,21 @@ public class WBController {
                         chatServant.kickClient(client1);
                         client1 = null;
                         clientOne.setText(client1);
+                        clientCount -= 1;
                         break;
                     }
                     if (clientNum == 3) {
                         chatServant.kickClient(client2);
                         client2 = null;
                         clientTwo.setText(client2);
+                        clientCount -= 1;
                         break;
                     }
                     if (clientNum == 4) {
                         chatServant.kickClient(client3);
                         client3 = null;
                         clientThree.setText(client3);
+                        clientCount -= 1;
                         break;
                     }
                     break;

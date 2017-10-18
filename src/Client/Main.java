@@ -127,7 +127,7 @@ public class Main extends Application {
                         Platform.runLater(new Runnable(){
                             public void run() {
                                 try {
-                                    WBController.onExit();
+                                    WBController.beKicked();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

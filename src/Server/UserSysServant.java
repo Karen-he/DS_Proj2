@@ -48,6 +48,9 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
 
     public String checkApproval(String userName) throws RemoteException{
         String approve = approveResult.get(userName);
+        if(approve!=null){
+            approveResult.remove(userName);
+        }
         return approve;
     }
 
@@ -57,6 +60,9 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
 
     public boolean checkKick(String userName) throws RemoteException{
         boolean inKickList  = kickList.contains(userName);
+        if(inKickList){
+            kickList.remove(userName);
+        }
         return  inKickList;
     }
 
