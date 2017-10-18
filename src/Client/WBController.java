@@ -171,9 +171,10 @@ public class WBController {
 
     private void setClient() throws Exception {
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
-        client1 = chatClients.get(1).getUserName();
-        client2 = chatClients.get(2).getUserName();
-        client3 = chatClients.get(3).getUserName();
+        managerName.setText(chatClients.get(0).getUserName());
+        clientOne.setText(chatClients.get(1).getUserName());
+        clientTwo.setText(chatClients.get(2).getUserName());
+        clientThree.setText(chatClients.get(3).getUserName());
     }
 
 
@@ -1106,7 +1107,7 @@ public class WBController {
         }
     }
 
-    private void listenApproval(String clientName) throws RemoteException {
+    private void listenApproval(String clientName) throws Exception {
         userSysServant.sendRequest(clientName);
         boolean run = true;
         String approval = null;
@@ -1122,6 +1123,7 @@ public class WBController {
             userName = clientName;
             approveDialog();
             ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
+            setClient();
 
         }else{
             warningDialog("DECLINED","Your request has been denied!");
