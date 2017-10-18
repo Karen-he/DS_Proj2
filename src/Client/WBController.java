@@ -484,9 +484,9 @@ public class WBController {
     }
 
 
-    private void newFile() throws IOException {
+    public void newFile() throws IOException {
         try {
-            gsonServant.tellSeverNew(true);
+            gsonServant.tellNewCanvas(true);
             canvasPane.getChildren().remove(canvas);
             canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
             pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
@@ -498,6 +498,7 @@ public class WBController {
             colorPicker.setValue(Color.BLACK);
             setFile(null);
             canvasCount = 0;
+            //gsonServant.tellNewCanvas(false);
         } catch (ConnectException e) {
             errorDialog("Connection Error", "Connection is lost!");
         }

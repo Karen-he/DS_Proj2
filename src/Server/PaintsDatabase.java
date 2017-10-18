@@ -22,7 +22,7 @@ public class PaintsDatabase {
         return this.paintsDatabase;
     }
 
-    public void clearDatabase(Hashtable paintsDatabase){
+    public void clearDatabase(){
         paintsDatabase.clear();
     }
 }

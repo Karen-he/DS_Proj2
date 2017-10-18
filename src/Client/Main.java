@@ -15,6 +15,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import static java.lang.Thread.sleep;
 
@@ -76,6 +77,38 @@ public class Main extends Application {
         });
 
         paint.start();
+
+        /***
+         * The thread for monitoring whether a new canvas is created.
+         */
+
+            new Thread (() -> {
+                    while (true)
+                        try {
+                        sleep(9000);
+                        if(gsonServant.checkNewCanvas()) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        WBController.newFile();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            System.out.println("here 1");
+                            gsonServant.tellNewCanvas(false);
+                        }
+
+                            System.out.println("I really got the command from manager "
+                                    + gsonServant.checkNewCanvas());
+                        } catch (InterruptedException e){
+                            e.printStackTrace();
+                        }catch (RemoteException e) {
+                            e.printStackTrace();
+                }
+            }).start();
 
         /***
          * This thread is to monitor whether there is a new user want to join the whiteboard.
