@@ -303,7 +303,7 @@ public class WBController {
         });
         pathCanvas.setOnMouseReleased(e -> {
             canvasCount = 1;
-            jsonSendPaints("erase", addPaintAttri(pointList, "null","null"));
+            jsonSendPaints("erase", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
         });
 
@@ -337,7 +337,7 @@ public class WBController {
             g.strokeLine(startX, startY, endX, endY);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("line", addPaintAttri(pointList, "null","null"));
+            jsonSendPaints("line", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
             g.closePath();
 
@@ -379,7 +379,7 @@ public class WBController {
             g.strokeOval(x, y, height, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("cir", addPaintAttri(pointList, "null","null"));
+            jsonSendPaints("cir", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
             g.closePath();
         });
@@ -423,7 +423,7 @@ public class WBController {
             g.strokeRect(x, y, width, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("rect", addPaintAttri(pointList, "null","null"));
+            jsonSendPaints("rect", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
             g.closePath();
 
@@ -467,7 +467,7 @@ public class WBController {
             g.strokeOval(x, y, width, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("oval", addPaintAttri(pointList, "null","null"));
+            jsonSendPaints("oval", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
             g.closePath();
         });
@@ -584,7 +584,7 @@ public class WBController {
         if (isManager) {
             confirmBox("CloseManager", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
 
-        }else{
+        } else {
             confirmBox("CloseClient", "It will disconnect.", "Do you want to continue this?", clientCount, "");
             if (close == true) {
                 Platform.exit();
@@ -720,7 +720,6 @@ public class WBController {
             approveDialog();
             ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
             setClient();
-
         } else {
             warningDialog("DECLINED", "Your request has been denied!");
             Platform.exit();
@@ -819,7 +818,7 @@ public class WBController {
             case "image":
                 try {
                     autoOpen(attribute);
-                }catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -946,7 +945,7 @@ public class WBController {
         g.fillText(text, startX - 5, startY + 25);
     }
 
-    public void autoNew() throws IOException{
+    public void autoNew() throws IOException {
         canvasPane.getChildren().remove(canvas);
         canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
         pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
@@ -971,12 +970,12 @@ public class WBController {
             GraphicsContext g = canvas.getGraphicsContext2D();
             g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
             setFont();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String encodeImage(File file){
+    private String encodeImage(File file) {
         String imageString = null;
         try {
             FileInputStream imageFile = new FileInputStream(file);
@@ -984,7 +983,7 @@ public class WBController {
             imageFile.read(byteData);
             imageString = Base64.encodeBase64String(byteData);
             imageFile.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return imageString;
@@ -1157,24 +1156,24 @@ public class WBController {
                     }
                     break;
                 case "CloseClient":
-                    if(clientNum == 2){
+                    if (clientNum == 2) {
                         chatServant.kickClient(client1);
                         String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
+                        gsonServant.sendMessage("Exit", this.userName + " left room.", tmpStamp);
                         Platform.exit();
                         break;
                     }
-                    if(clientNum == 3){
+                    if (clientNum == 3) {
                         chatServant.kickClient(client2);
                         String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Exit", this.userName+" left room.",tmpStamp);
+                        gsonServant.sendMessage("Exit", this.userName + " left room.", tmpStamp);
                         Platform.exit();
                         break;
                     }
-                    if(clientNum == 4){
+                    if (clientNum == 4) {
                         chatServant.kickClient(client3);
                         String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
+                        gsonServant.sendMessage("Exit", this.userName + " left room.", tmpStamp);
                         Platform.exit();
                         break;
                     }
@@ -1203,20 +1202,27 @@ public class WBController {
             }
         }
     }
-    private void kickAllUser() throws Exception{
-        if(clientCount ==4){
-            kickUserOne();
-            kickUserTwo();
-            kickUserThree();
-        }else if(clientCount ==3){
-            kickUserOne();
-            kickUserTwo();
-        }else if(clientCount ==2){
-            kickUserOne();
+
+    private void kickAllUser() throws Exception {
+        if (clientCount == 4) {
+            chatServant.kickClient(client1);
+            userSysServant.kick(client1);
+            chatServant.kickClient(client2);
+            userSysServant.kick(client2);
+            chatServant.kickClient(client3);
+            userSysServant.kick(client3);
+        } else if (clientCount == 3) {
+            chatServant.kickClient(client1);
+            userSysServant.kick(client1);
+            chatServant.kickClient(client2);
+            userSysServant.kick(client2);
+        } else if (clientCount == 2) {
+            chatServant.kickClient(client1);
+            userSysServant.kick(client1);
         }
         Platform.exit();
     }
-    
+
 }
 
 
