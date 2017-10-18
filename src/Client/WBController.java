@@ -644,6 +644,7 @@ public class WBController {
 
     public void approve(String clientName) throws IOException {
         if (isManager) {
+            System.out.println("approve?");
             clientCount += 1;
             approvalBox(clientName, "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount);
@@ -741,8 +742,10 @@ public class WBController {
         ButtonType buttonTypeTwo = new ButtonType("No");
         confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
         Optional<ButtonType> result = confirmAlert.showAndWait();
+        System.out.println("number"+clientNum);
         if (result.get() == buttonTypeOne) {
             if (clientNum == 2) {
+                System.out.println("approve first client");
                 client1 = clientName;
                 clientOne.setText(client1);
                 userSysServant.addApprove(client1, true);

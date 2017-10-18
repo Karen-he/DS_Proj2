@@ -42,6 +42,7 @@ public class Main extends Application {
             WBController.setIsManager(true);
             WBController.setClientCount(1);
         } else if (clientCount > 0 && clientCount < 4) {
+            System.out.println("???");
             WBController.setIsManager(false);
             WBController.setClientCount(clientCount + 1);
         } else if (clientCount > 4) {
