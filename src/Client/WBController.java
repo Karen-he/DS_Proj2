@@ -822,7 +822,6 @@ public class WBController {
                 autoText(attribute);
                 break;
             default:
-                System.out.println("Error shape keyword! Lao Ma Ni Za Hui SHier!!!");
                 break;
         }
     }
@@ -1142,9 +1141,7 @@ public class WBController {
             }
         }
     }
-
-
-
+    
 }
 
 

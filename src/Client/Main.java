@@ -18,23 +18,26 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Thread.sleep;
 
 public class Main extends Application {
 
-    private static String ip = "localhost";
-    private static int port = 3000;
+    private static String ip;
+    private static int port;
     private Stage window;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
+        Parameters args = getParameters();
+        List<String> argurments = args.getRaw();
         FXMLLoader fLoader = new FXMLLoader(getClass().getResource("whiteBoard.fxml"));
 
         Parent root = (Parent) fLoader.load();
         WBController WBController = fLoader.getController();
-        Registry registry = LocateRegistry.getRegistry(2020);
+        Registry registry = LocateRegistry.getRegistry(argurments.get(0),Integer.parseInt(argurments.get(1)));
         ServerInterface gsonServant = (ServerInterface) registry.lookup("Gson");
         ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
         UserSysInterface userSysServant = (UserSysInterface) registry.lookup(("UserSys"));
@@ -202,7 +205,6 @@ public class Main extends Application {
                 }
             }
         });
-
         printChat.start();
 
 
@@ -224,8 +226,7 @@ public class Main extends Application {
 
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) { launch(args);
     }
 
 
