@@ -101,13 +101,13 @@ public class Main extends Application {
                         Platform.runLater(new Runnable() {
                             public void run() {
                                 try {
-                                    WBController.approve(WBController.getUserName());
+                                    WBController.approve(WBController.getClientName());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
-                        WBController.approve(WBController.getUserName());
+//                        WBController.approve(WBController.getUserName());
 
                     }
 

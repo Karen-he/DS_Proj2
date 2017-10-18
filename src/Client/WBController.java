@@ -60,6 +60,12 @@ public class WBController {
         return userName;
     }
 
+    public String getClientName() {
+        return clientName;
+    }
+
+    private String clientName;
+
     private String userName;
 
 
@@ -1078,22 +1084,22 @@ public class WBController {
     public void signIn() throws Exception {
         try {
             System.out.println("in sign in");
-            String user = nameInput.getText();
+            clientName = nameInput.getText();
             switch (clientCount) {
                 case 1:
                     System.out.println("in case 1:"+clientCount);
                     signInPane.setVisible(false);
                     wbPane.setVisible(true);
-                    managerName.setText(user);
-                    userName = user;
-                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    managerName.setText(clientName);
+                    userName = clientName;
+                    ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
                     break;
 
                 case 2:
                 case 3:
                 case 4:
                     System.out.println("in case 2"+clientCount);
-                    listenApproval(user);
+                    listenApproval(clientName);
                     break;
 
             }
