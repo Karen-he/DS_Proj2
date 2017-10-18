@@ -4,7 +4,6 @@ import ChatBox.ChatClient;
 import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ServerInterface;
 import RMIInterfaces.UserSysInterface;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -56,7 +55,6 @@ public class WBController {
     public void setFile(File file) {
         this.file = file;
     }
-
 
 
     private String userName;
@@ -168,9 +166,17 @@ public class WBController {
     private void setClient() throws Exception {
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
         managerName.setText(chatClients.get(0).getUserName());
-        clientOne.setText(chatClients.get(1).getUserName());
-        clientTwo.setText(chatClients.get(2).getUserName());
-        clientThree.setText(chatClients.get(3).getUserName());
+        int clientSize = chatClients.size();
+        if (clientSize == 4) {
+            clientOne.setText(chatClients.get(1).getUserName());
+            clientTwo.setText(chatClients.get(2).getUserName());
+            clientThree.setText(chatClients.get(3).getUserName());
+        } else if (clientSize == 3) {
+            clientOne.setText(chatClients.get(1).getUserName());
+            clientTwo.setText(chatClients.get(2).getUserName());
+        } else if (clientSize == 2) {
+            clientOne.setText(chatClients.get(1).getUserName());
+        }
     }
 
 
@@ -652,7 +658,6 @@ public class WBController {
     public void approve(String clientName) throws IOException {
         if (isManager) {
             clientCount += 1;
-            System.out.println("last bug!!!!!!!!!!!"+clientCount);
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount, clientName);
 
