@@ -576,20 +576,15 @@ public class WBController {
 
     }
 
-    // Action of whiteboard.fxml, to exit the whiteboard and disconnect to the manager.
-    public void onExit() throws Exception {
-        confirmBox("CloseClient","It will disconnect.", "Do you want to continue this?", clientCount,"");
-        if (close == true) {
-            String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
-            gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
-            Platform.exit();
-        }
-    }
-
     // Action of whiteboard.fxml, to close all the whiteboard of clients, all clients will disconnect to the manager.
     public void onClose() throws Exception {
         if (isManager) {
             confirmBox("CloseManager", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
+            if (close == true) {
+                Platform.exit();
+            }
+        }else{
+            confirmBox("CloseClient", "It will disconnect.", "Do you want to continue this?", clientCount, "");
             if (close == true) {
                 Platform.exit();
             }
