@@ -37,41 +37,6 @@ import java.util.Optional;
 
 public class WBController {
 
-
-    protected double startX;
-
-    protected double startY;
-
-    protected double endX;
-
-    protected double endY;
-
-    private int canvasCount = 0;
-
-    public Boolean close = false;
-
-    private File file = null;
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-
-    private String userName;
-
-
-    private String client1 = null;
-
-    private String client2 = null;
-
-    private String client3 = null;
-
-    private int clientCount;
-
-
-    private Boolean isManager = false;
-
-
     @FXML
     private BorderPane wbPane;
 
@@ -80,7 +45,6 @@ public class WBController {
 
     @FXML
     private TextField nameInput;
-
 
     @FXML
     private Canvas canvas;
@@ -142,6 +106,33 @@ public class WBController {
     @FXML
     private Label managerName;
 
+    protected double startX;
+
+    protected double startY;
+
+    protected double endX;
+
+    protected double endY;
+
+    private int canvasCount = 0;
+
+    public Boolean close = false;
+
+    private File file = null;
+
+    private String userName;
+
+    private String client1 = null;
+
+    private String client2 = null;
+
+    private String client3 = null;
+
+    private int clientCount;
+
+    private Boolean isManager = false;
+
+    private final ToggleGroup group = new ToggleGroup();
 
     protected ArrayList<Point> pointList = new ArrayList<Point>();
     Registry registry;
@@ -149,21 +140,37 @@ public class WBController {
     ChatServerInterface chatServant;
     UserSysInterface userSysServant;
 
-    public Boolean getManager() {
-        return isManager;
+    // initialize the default value of controller.
+    public void initialize() throws Exception {
+        colorPicker.setValue(Color.BLACK);
+        setImage();
+        sketch();
     }
 
-    private final ToggleGroup group = new ToggleGroup();
+    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant,
+                           UserSysInterface userSysServant) {
+        this.gsonServant = gsonServant;
+        this.chatServant = chatServant;
+        this.userSysServant = userSysServant;
+    }
 
+    // Set the value of file when new file is created.
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    // Judge whether the user is manager.
     public void setIsManager(Boolean manager) {
         isManager = manager;
     }
 
+    // Count the number of clients for manager
     public void setClientCount(int clientNum) {
         clientCount = clientNum;
     }
 
-    private void setClient() throws Exception {
+    // Update the client list.
+    public void setClient() throws Exception {
         ArrayList<ChatClient> chatClients = chatServant.getChatClients();
         managerName.setText(chatClients.get(0).getUserName());
         int clientSize = chatClients.size();
@@ -179,9 +186,8 @@ public class WBController {
         }
     }
 
-
     // Initialize the canvas to make sure the default color of colorPicker is black.
-    public void setImage() {
+    private void setImage() {
         sketch.setUserData("sketch");
         eraser.setUserData("eraser");
         line.setUserData("line");
@@ -213,14 +219,8 @@ public class WBController {
 
     }
 
-    public void initialize() {
-        colorPicker.setValue(Color.BLACK);
-        setImage();
-        sketch();
-    }
-
     // It can change the size of font, which can be displayed while moving the slider.
-    public void setFont() {
+    private void setFont() throws Exception {
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
         slider.valueProperty().addListener(e -> {
@@ -235,8 +235,22 @@ public class WBController {
         newG.setStroke(color);
     }
 
-    // when pressed the mouse, it starts to paint.
-    public void sketch() {
+    public Boolean getManager() {
+        return isManager;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    private Point getPoint(double x, double y) {
+        Point p = new Point(x, y);
+        p.setPoint(x, y);
+        return p;
+    }
+
+    // Press the mouse, it starts to paint.
+    public void sketch() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         pathCanvas.setOnMousePressed(e -> {
@@ -261,10 +275,10 @@ public class WBController {
             g.closePath();
         });
 
-
     }
 
-    public void erase() {
+    // Press the mouse, it starts to erase.
+    public void erase() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         ArrayList<Point> pointList = new ArrayList<>();
@@ -292,8 +306,9 @@ public class WBController {
 
     }
 
-
-    public void lineDraw() {
+    // Press the mouse to get the starting point, release the mouse to get the final point
+    // Then draw the line.
+    public void lineDraw() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
@@ -327,8 +342,9 @@ public class WBController {
 
     }
 
-    public void cirDraw() {
-
+    // Press the mouse to get the starting point, release the mouse to get the final point
+    // Then draw the circle.
+    public void cirDraw() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
@@ -367,7 +383,9 @@ public class WBController {
 
     }
 
-    public void rectDraw() {
+    // Press the mouse to get the starting point, release the mouse to get the final point
+    // Then draw the rectangular.
+    public void rectDraw() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
@@ -410,7 +428,9 @@ public class WBController {
 
     }
 
-    public void ovalDraw() {
+    // Press the mouse to get the starting point, release the mouse to get the final point
+    // Then draw the oval.
+    public void ovalDraw() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         GraphicsContext newG = pathCanvas.getGraphicsContext2D();
@@ -430,7 +450,6 @@ public class WBController {
             double height = Math.abs(startY - endY);
             newG.clearRect(0, 0, pathCanvas.getWidth(), pathCanvas.getHeight());
             newG.strokeOval(x, y, width, height);
-
 
         });
         pathCanvas.setOnMouseReleased(e -> {
@@ -452,7 +471,9 @@ public class WBController {
 
     }
 
-    public void textInput() {
+    // Press the mouse to get the starting point and input the content into textfield.
+    // After then, it can print the text you input in canvas.
+    public void textInput() throws Exception {
         setFont();
         GraphicsContext g = canvas.getGraphicsContext2D();
         pathCanvas.setOnMousePressed(e -> {
@@ -482,40 +503,17 @@ public class WBController {
                 }
             });
         });
-
         pathCanvas.setOnMouseDragged(e -> {
 
         });
         pathCanvas.setOnMouseReleased(e -> {
             canvasCount = 1;
-
         });
 
     }
 
-
-    private void newFile() throws IOException {
-        try {
-            gsonServant.tellSeverNew(true);
-            canvasPane.getChildren().remove(canvas);
-            canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-            pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-            canvas.setStyle("-fx-background-color: white");
-            pathCanvas.setStyle("-fx-background-color: white");
-            canvasPane.getChildren().add(canvas);
-            canvasPane.getChildren().add(pathCanvas);
-            slider.setValue(1);
-            colorPicker.setValue(Color.BLACK);
-            setFile(null);
-            canvasCount = 0;
-        } catch (ConnectException e) {
-            errorDialog("Connection Error", "Connection is lost!");
-        }
-
-    }
-
-
-    public void onNew() throws IOException {
+    // Action of whiteBoard.fxml, to new the file, only for manager.
+    public void onNew() throws Exception {
         if (isManager) {
             if (canvasCount == 1) {
                 infoBox("Your changes will be lost if you don't save them.",
@@ -527,20 +525,7 @@ public class WBController {
         }
     }
 
-    private void save() throws IOException {
-        try {
-            int width = (int) canvasPane.getWidth();
-            int height = (int) canvasPane.getHeight();
-            WritableImage writableImage = new WritableImage(width, height);
-            canvas.snapshot(null, writableImage);
-            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-            ImageIO.write(renderedImage, "png", file);
-            canvasCount = 0;
-        } catch (ConnectException e) {
-            errorDialog("Connection Error", "Connection is lost!");
-        }
-    }
-
+    // Action of whiteBoard.fxml, to save the file, only for manager.
     public void onSave() throws IOException {
         if (isManager) {
             if (file != null) {
@@ -551,6 +536,7 @@ public class WBController {
         }
     }
 
+    // Action of whiteBoard.fxml, to save as other formats of file, only for manager.
     public void onSaveAs() throws IOException {
         try {
             if (isManager) {
@@ -573,29 +559,8 @@ public class WBController {
         }
     }
 
-    private void open() throws IOException, ConnectException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open File");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
-        File tempFile = fileChooser.showOpenDialog(null);
-        if (tempFile == null) {
-
-        } else {
-            setFile(tempFile);
-        }
-
-        if (file != null) {
-            Image image = new Image(new FileInputStream(file));
-            GraphicsContext g = canvas.getGraphicsContext2D();
-            g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
-            setFont();
-        }
-
-    }
-
-
-    public void onOpen() throws IOException {
+    // Action of whiteboard.fxml, to open the file from the file chooser, only for manager.
+    public void onOpen() throws Exception {
         if (isManager) {
             if (canvasCount == 1) {
                 infoBox("Your changes will be lost if you don't save them.",
@@ -611,31 +576,18 @@ public class WBController {
 
     }
 
-    public void onExit() throws IOException {
-        infoBox("It will disconnect.", "Do you want to continue this?", "exit");
+    // Action of whiteboard.fxml, to exit the whiteboard and disconnect to the manager.
+    public void onExit() throws Exception {
+        confirmBox("CloseClient","It will disconnect.", "Do you want to continue this?", clientCount,"");
         if (close == true) {
             Platform.exit();
         }
-
-        if (canvasCount == 1) {
-            infoBox("Your changes will be lost if you don't save them.",
-                    "Do you want to save the changes?", "exit");
-            if (close == true) {
-                Platform.exit();
-            }
-        } else {
-            Platform.exit();
-        }
     }
 
-    public void beKicked() throws IOException {
-        warningDialog("Sorry", "You have been kicked off!");
-        Platform.exit();
-    }
-
-    public void onClose() throws IOException {
+    // Action of whiteboard.fxml, to close all the whiteboard of clients, all clients will disconnect to the manager.
+    public void onClose() throws Exception {
         if (isManager) {
-            confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
+            confirmBox("CloseManager", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
             if (close == true) {
                 String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
                 gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
@@ -644,44 +596,163 @@ public class WBController {
         }
     }
 
-    public String getUserName() {
-        return userName;
+
+    // Function of creating new life, called by Action "onNew".
+    private void newFile() throws IOException {
+        try {
+            gsonServant.tellSeverNew(true);
+            canvasPane.getChildren().remove(canvas);
+            canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+            canvas.setStyle("-fx-background-color: white");
+            pathCanvas.setStyle("-fx-background-color: white");
+            canvasPane.getChildren().add(canvas);
+            canvasPane.getChildren().add(pathCanvas);
+            slider.setValue(1);
+            colorPicker.setValue(Color.BLACK);
+            setFile(null);
+            canvasCount = 0;
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
+        }
+
     }
 
-    private void kick(String userName, int clientNum) throws IOException {
-        confirmBox("Kick", "Kick the " + userName + "!",
-
-                "Do you want to kick the " + userName + " ?", clientNum, userName);
-        chatServant.kickClient(userName);
-        userSysServant.kick(userName);
-    }
-
-
-    public void approve(String clientName) throws IOException {
-        if (isManager) {
-            clientCount += 1;
-            confirmBox("Approve", "Approve the " + clientName + "!",
-                    "Do you want to approve the " + clientName + " ?", clientCount, clientName);
-
+    // Function of saving file into local, called by "onSave".
+    private void save() throws IOException {
+        try {
+            int width = (int) canvasPane.getWidth();
+            int height = (int) canvasPane.getHeight();
+            WritableImage writableImage = new WritableImage(width, height);
+            canvas.snapshot(null, writableImage);
+            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+            ImageIO.write(renderedImage, "png", file);
+            canvasCount = 0;
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
         }
     }
 
 
-    public void kickUserOne() throws IOException {
+    // Function of opening the file from local file, called by open.
+    private void open() throws Exception {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.bmp", "*.jpg", "*.gif"));
+        File tempFile = fileChooser.showOpenDialog(null);
+        if (tempFile == null) {
+
+        } else {
+            setFile(tempFile);
+        }
+        if (file != null) {
+            Image image = new Image(new FileInputStream(file));
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
+            setFont();
+        }
+
+    }
+
+    // Used to implement the chatBox.
+    public void send() throws IOException {
+        try {
+            String message = input.getText();
+            input.clear();
+            //System.out.println("hou get here 0");
+            String fullMessgae = userName + ": " + message;
+            //System.out.println("hou get here 1");
+            String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
+            gsonServant.sendMessage(userName, fullMessgae, timestamp);
+        } catch (ConnectException e) {
+            errorDialog("Server Error", "Server Disconnected! Please contact manager!");
+        }
+
+    }
+
+    // Put all the message into testArea to show the conversations between clients.
+    public void appendToMessage(String message) {
+        textMessage.appendText(message + "\n");
+    }
+
+    // Action of whiteBoard.fxml, click the button 'Sign In' to access the whiteboard.
+    public void signIn() throws Exception {
+        String user = nameInput.getText();
+        try {
+            switch (clientCount) {
+                case 1:
+                    signInPane.setVisible(false);
+                    wbPane.setVisible(true);
+                    managerName.setText(user);
+                    userName = user;
+                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    break;
+
+                case 2:
+                case 3:
+                case 4:
+                    listenApproval(user);
+                    break;
+
+            }
+        } catch (ConnectException e) {
+            errorDialog("Connection Error", "Connection is lost!");
+        }
+    }
+
+    // Approve the client to access the whiteboard after approvement from manager.
+    public void approve(String clientName) throws Exception {
+        if (isManager) {
+            confirmBox("Approve", "Approve the " + clientName + "!",
+                    "Do you want to approve the " + clientName + " ?", clientCount, clientName);
+        }
+    }
+
+    // Listen whether the client who want to log in is approved by manager.
+    private void listenApproval(String clientName) throws Exception {
+        userSysServant.sendRequest(clientName);
+        boolean run = true;
+        String approval = null;
+        while (run) {
+            approval = userSysServant.checkApproval(clientName);
+            if (approval != null) {
+                run = false;
+            }
+        }
+        if (approval.equals("Y")) {
+            signInPane.setVisible(false);
+            wbPane.setVisible(true);
+            userName = clientName;
+            approveDialog();
+            ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
+            setClient();
+
+        } else {
+            warningDialog("DECLINED", "Your request has been denied!");
+            Platform.exit();
+        }
+
+    }
+
+    // Kick the first client according to click the button which show the name of clientOne, manager only.
+    public void kickUserOne() throws Exception {
         if (isManager) {
             String clientName = clientOne.getText();
             kick(clientName, 2);
         }
     }
 
-    public void kickUserTwo() throws IOException {
+    // Kick the second client according to click the button which show the name of clientTwo, manager only.
+    public void kickUserTwo() throws Exception {
         if (isManager) {
             String clientName = clientTwo.getText();
             kick(clientName, 3);
         }
     }
 
-    public void kickUserThree() throws IOException {
+    // Kick the third client according to click the button which show the name of clientThree, manager only.
+    public void kickUserThree() throws Exception {
         if (isManager) {
             String clientName = clientThree.getText();
             kick(clientName, 4);
@@ -689,203 +760,19 @@ public class WBController {
     }
 
 
-    private Point getPoint(double x, double y) {
-        Point p = new Point(x, y);
-        p.setPoint(x, y);
-        return p;
+    // Kick function called by three button 'kickUserOne', 'kickUserTwo', 'kickUserThree'.
+    private void kick(String userName, int clientNum) throws Exception {
+        confirmBox("Kick", "Kick the " + userName + "!",
+
+                "Do you want to kick the " + userName + " ?", clientNum, userName);
+        chatServant.kickClient(userName);
+        userSysServant.kick(userName);
     }
 
-    public void infoBox(String infoMessage, String headerMessage, String command) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText(headerMessage);
-        alert.setContentText(infoMessage);
-        ButtonType buttonTypeOne = new ButtonType("Don't Save");
-        ButtonType buttonTypeTwo = new ButtonType("Cancel");
-        ButtonType buttonTypeThree = new ButtonType("Save");
-
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
-        Optional<ButtonType> result = alert.showAndWait();
-        switch (command) {
-            case "open":
-                if (result.get() == buttonTypeOne) {
-                    open();
-                } else if (result.get() == buttonTypeTwo) {
-                    alert.close();
-                } else if (result.get() == buttonTypeThree) {
-                    onSave();
-                    open();
-                }
-                break;
-            case "save":
-                if (result.get() == buttonTypeOne) {
-                    newFile();
-                    setFont();
-                } else if (result.get() == buttonTypeTwo) {
-                    alert.close();
-                } else if (result.get() == buttonTypeThree) {
-                    onSave();
-                }
-                break;
-            case "exit":
-                if (result.get() == buttonTypeOne) {
-                    close = true;
-                } else if (result.get() == buttonTypeTwo) {
-                    alert.close();
-                    close = false;
-
-                } else if (result.get() == buttonTypeThree) {
-                    onSave();
-                    if (file != null) {
-                        Platform.exit();
-                        close = true;
-                    } else {
-                        alert.close();
-                    }
-                }
-                break;
-        }
-
-    }
-
-
-//    private void approvalBox(String clientName,String header, String content, int clientNum) throws IOException {
-//        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-//        confirmAlert.setTitle("APPROVE?");
-//        confirmAlert.setHeaderText(header);
-//        confirmAlert.setContentText(content);
-//        ButtonType buttonTypeOne = new ButtonType("Yes");
-//        ButtonType buttonTypeTwo = new ButtonType("No");
-//        confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-//        Optional<ButtonType> result = confirmAlert.showAndWait();
-//        System.out.println("number"+clientNum);
-//        if (result.get() == buttonTypeOne) {
-//            if (clientNum == 2) {
-//                System.out.println("approve first client");
-//                client1 = clientName;
-//                clientOne.setText(client1);
-//                userSysServant.addApprove(client1, true);
-//            }
-//            if (clientNum == 3) {
-//                client2 = clientName;
-//                clientTwo.setText(client2);
-//                userSysServant.addApprove(client2, true);
-//            }
-//            if (clientNum == 4) {
-//                client3 = clientName;
-//                clientThree.setText(client3);
-//                userSysServant.addApprove(client3, true);
-//            }
-//        }
-//        if (result.get() == buttonTypeTwo) {
-//            confirmAlert.close();
-//            if (clientNum == 2) {
-//                userSysServant.addApprove(client1, false);
-//            }
-//            if (clientNum == 3) {
-//                userSysServant.addApprove(client2, false);
-//            }
-//            if (clientNum == 4) {
-//                userSysServant.addApprove(client3, false);
-//            }
-//            clientCount -= 1;
-//        }
-//    }
-
-
-    // this is for manager to control the client
-    private void confirmBox(String command, String header, String content, int clientNum, String clientName) throws IOException {
-        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmAlert.setTitle(command);
-        confirmAlert.setHeaderText(header);
-        confirmAlert.setContentText(content);
-        ButtonType buttonTypeOne = new ButtonType("Yes");
-        ButtonType buttonTypeTwo = new ButtonType("No");
-
-        confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
-
-        Optional<ButtonType> result = confirmAlert.showAndWait();
-        if (result.get() == buttonTypeOne) {
-            switch (command) {
-                case "Kick":
-                    if (clientNum == 2) {
-                        chatServant.kickClient(client1);
-                        client1 = null;
-                        clientOne.setText(client1);
-                        clientCount -= 1;
-                        break;
-                    }
-                    if (clientNum == 3) {
-                        chatServant.kickClient(client2);
-                        client2 = null;
-                        clientTwo.setText(client2);
-                        clientCount -= 1;
-                        break;
-                    }
-                    if (clientNum == 4) {
-                        chatServant.kickClient(client3);
-                        client3 = null;
-                        clientThree.setText(client3);
-                        clientCount -= 1;
-                        break;
-                    }
-                    break;
-                case "Approve":
-
-                    if (clientNum == 2) {
-                        client1 = clientName;
-                        clientOne.setText(client1);
-                        userSysServant.addApprove(client1, true);
-                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Notification",client1+" joined room.",tmp);
-                        break;
-                    }
-                    if (clientNum == 3) {
-                        client2 = clientName;
-                        clientTwo.setText(client2);
-                        userSysServant.addApprove(client2, true);
-                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Notification",client2+" joined room.",tmp);
-                        break;
-                    }
-                    if (clientNum == 4) {
-                        client3 = clientName;
-                        clientThree.setText(client3);
-                        userSysServant.addApprove(client3, true);
-                        String tmp = (new Timestamp(System.currentTimeMillis())).toString();
-                        gsonServant.sendMessage("Notification",client3+" joined room.",tmp);
-                        break;
-                    }
-                    break;
-                case "Close":
-                    infoBox("Your changes will be lost if you don't save them.",
-                            "Do you want to save the changes?", "exit");
-
-            }
-
-        }
-        if (result.get() == buttonTypeTwo) {
-            confirmAlert.close();
-            switch (command) {
-                case "Approve":
-                    if (clientNum == 2) {
-                        client1 = null;
-                        userSysServant.addApprove(clientName, false);
-                        break;
-                    }
-                    if (clientNum == 3) {
-                        client2 = null;
-                        userSysServant.addApprove(clientName, false);
-                        break;
-                    }
-                    if (clientNum == 4) {
-                        client3 = null;
-                        userSysServant.addApprove(clientName, false);
-                        break;
-                    }
-                    clientCount -= 1;
-            }
-        }
+    // If manager kick one of the client, client will be informed you are kicked off.
+    public void beKicked() throws IOException {
+        warningDialog("Sorry", "You have been kicked off!");
+        Platform.exit();
     }
 
 
@@ -913,17 +800,7 @@ public class WBController {
         return paintAttribute;
     }
 
-    public void setServant(ServerInterface gsonServant, ChatServerInterface chatServant,
-                           UserSysInterface userSysServant) {
-        this.gsonServant = gsonServant;
-        this.chatServant = chatServant;
-        this.userSysServant = userSysServant;
-    }
-
-
     public synchronized void autoPaint(String keyword, PaintAttribute attribute) {
-        // convert Json String back to PaintAttribute object.
-        // System.out.println(gson.fromJson(attribute, PaintAttribute.class));
         switch (keyword) {
             case "sketch":
                 autoSketch(attribute);
@@ -1075,146 +952,7 @@ public class WBController {
         return newColor;
     }
 
-    // Used to implement the chatBox.
-    public void send() throws IOException {
-        try {
-            String message = input.getText();
-            input.clear();
-            //System.out.println("hou get here 0");
-            String fullMessgae = userName + ": " + message;
-            //System.out.println("hou get here 1");
-            String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
-            gsonServant.sendMessage(userName, fullMessgae, timestamp);
-        } catch (ConnectException e) {
-            errorDialog("Server Error", "Server Disconnected! Please contact manager!");
-        }
-
-    }
-
-
-    public void appendToMessage(String message) {
-        textMessage.appendText(message + "\n");
-    }
-
-
-    public void signIn() throws Exception {
-        String user = nameInput.getText();
-        try {
-            switch (clientCount) {
-                case 1:
-                    signInPane.setVisible(false);
-                    wbPane.setVisible(true);
-                    managerName.setText(user);
-                    userName = user;
-                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-                    break;
-
-                case 2:
-                case 3:
-                case 4:
-                    listenApproval(user);
-                    break;
-
-            }
-        } catch (ConnectException e) {
-            errorDialog("Connection Error", "Connection is lost!");
-        }
-    }
-
-    private void listenApproval(String clientName) throws Exception {
-        userSysServant.sendRequest(clientName);
-        boolean run = true;
-        String approval = null;
-        while (run) {
-            approval = userSysServant.checkApproval(clientName);
-            if (approval != null) {
-                run = false;
-            }
-        }
-        if (approval.equals("Y")) {
-            signInPane.setVisible(false);
-            wbPane.setVisible(true);
-            userName = clientName;
-            approveDialog();
-            ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
-            setClient();
-
-        } else {
-            warningDialog("DECLINED", "Your request has been denied!");
-            Platform.exit();
-        }
-
-    }
-
-//        if (clientCount == 1) {
-//            isManager = true;
-//            signInPane.setVisible(false);
-//            wbPane.setVisible(true);
-//            managerName.setText(user);
-//            userName = user;
-//
-//            try {
-//                // Used to register the new client
-//                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-//            } catch (RemoteException e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//            //launch the whiteboard and turn off the signIn UI
-//        } else if (clientCount < 4) {
-//            isManager = false;
-//            userName = user;
-//            //launch the whiteboard and turn off the signIn UI
-//            // launch the client
-//            try {
-//                ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
-//            } catch (RemoteException e) {
-//                e.printStackTrace();
-//            }
-//
-//        } else if (clientCount == 4) {
-//            warningDialog("Fail to login In", "You can not join in this room!");
-//        } else {
-//            warningDialog(user + " is not  existed!",
-//                    "You should confirm your username or register it!");
-//        }
-
-
-//    public void signUp() throws Exception {
-//        String userRegister = nameInput.getText();
-//        String passwordRe = passWordInput.getText();
-//        gsonServant.registerUser(userRegister, passwordRe);
-//        Boolean[] isRegistered = {false};
-//        Platform.runLater(() -> {
-//            try {
-//                //System.out.println(gsonServant.getJsonPack());
-//                Thread.sleep(100);
-//                isRegistered[0] = gsonServant.validRegister();
-//                //System.out.println(gsonServant.getJsonPack());
-//                //System.out.println("modify isRegisterd: "+isRegistered[0].toString());
-//            }
-//            catch (RemoteException e) {
-//                e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        Platform.runLater(() -> {
-//            //System.out.println("out of thread ");
-//            nameInput.clear();
-//            passWordInput.clear();
-//            //System.out.println("valid register in WB:"+ isRegistered[0]);
-//            if (isRegistered[0]) {
-//                inforDialog(userRegister);
-//
-//            } else {
-//                warningDialog(userRegister + " is existed!", "Please change your username to register!");
-//            }
-//        });
-//    }
-
-
+    // The dialog for information of approvement.
     private void approveDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("APPROVE");
@@ -1223,6 +961,7 @@ public class WBController {
         alert.showAndWait();
     }
 
+    // The dialog for information of warning.
     public void warningDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("WARNING");
@@ -1231,6 +970,7 @@ public class WBController {
         alert.showAndWait();
     }
 
+    // The dialog to inform the occured error during the connection.
     public void errorDialog(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ERROR");
@@ -1239,63 +979,171 @@ public class WBController {
         alert.showAndWait();
     }
 
-//    public void loginDialog(){
-//        Dialog<Pair<String, String>> dialog = new Dialog<>();
-//        dialog.setTitle("Welcome");
-//        dialog.setHeaderText("LogIn");
-//
-//        ImageView imageLogin = new ImageView(this.getClass().getResource("../user.png").toString());
-//        imageLogin.setFitHeight(40);
-//        imageLogin.setFitWidth(40);
-//        dialog.setGraphic(imageLogin);
-//
-//        ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
-//        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-//
-//
-//        GridPane grid = new GridPane();
-//        grid.setHgap(10);
-//        grid.setVgap(10);
-//        grid.setPadding(new Insets(20, 150, 10, 10));
-//
-//        TextField nameInput = new TextField();
-//        nameInput.setPromptText("Username");
-//        PasswordField passwordInput = new PasswordField();
-//        passwordInput.setPromptText("Password");
-//
-//        grid.add(new Label("Username:"), 0, 0);
-//        grid.add(nameInput, 1, 0);
-//        grid.add(new Label("Password:"), 0, 1);
-//        grid.add(passwordInput, 1, 1);
-//
-//
-//        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-//        loginButton.setDisable(true);
-//
-//        nameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-//            loginButton.setDisable(newValue.trim().isEmpty());
-//        });
-//
-//        dialog.getDialogPane().setContent(grid);
-//
-//        Platform.runLater(() -> nameInput.requestFocus());
-//
-//        dialog.setResultConverter(dialogButton -> {
-//            if (dialogButton == loginButtonType) {
-//                return new Pair<>(nameInput.getText(), passwordInput.getText());
-//            }
-//            return null;
-//        });
-//
-//        Optional<Pair<String, String>> result = dialog.showAndWait();
-//
-//        result.ifPresent(usernamePassword -> {
-//            try {
-//                signIn(usernamePassword.getKey(),usernamePassword.getValue());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
+    // The box which have three options for manager to choose, three cases for this information box,
+    // 'Open' action, 'save' action, 'exit' action.
+    public void infoBox(String infoMessage, String headerMessage, String command) throws Exception {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        ButtonType buttonTypeOne = new ButtonType("Don't Save");
+        ButtonType buttonTypeTwo = new ButtonType("Cancel");
+        ButtonType buttonTypeThree = new ButtonType("Save");
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
+        Optional<ButtonType> result = alert.showAndWait();
+        switch (command) {
+            case "open":
+                if (result.get() == buttonTypeOne) {
+                    open();
+                } else if (result.get() == buttonTypeTwo) {
+                    alert.close();
+                } else if (result.get() == buttonTypeThree) {
+                    onSave();
+                    open();
+                }
+                break;
+            case "save":
+                if (result.get() == buttonTypeOne) {
+                    newFile();
+                    setFont();
+                } else if (result.get() == buttonTypeTwo) {
+                    alert.close();
+                } else if (result.get() == buttonTypeThree) {
+                    onSave();
+                }
+                break;
+            case "exit":
+                if (result.get() == buttonTypeOne) {
+                    close = true;
+                } else if (result.get() == buttonTypeTwo) {
+                    alert.close();
+                    close = false;
+
+                } else if (result.get() == buttonTypeThree) {
+                    onSave();
+                    if (file != null) {
+                        Platform.exit();
+                        close = true;
+                    } else {
+                        alert.close();
+                    }
+                }
+                break;
+        }
+
+    }
+
+
+    // this is for manager to approve or kick the client or close all connection of clients.
+    private void confirmBox(String command, String header, String content, int clientNum, String clientName) throws Exception {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle(command);
+        confirmAlert.setHeaderText(header);
+        confirmAlert.setContentText(content);
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeTwo = new ButtonType("No");
+
+        confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            switch (command) {
+                case "Kick":
+                    if (clientNum == 2) {
+                        chatServant.kickClient(client1);
+                        client1 = null;
+                        clientOne.setText(client1);
+                        clientCount = 1;
+                        break;
+                    }
+                    if (clientNum == 3) {
+                        chatServant.kickClient(client2);
+                        client2 = null;
+                        clientTwo.setText(client2);
+                        clientCount = 2;
+                        break;
+                    }
+                    if (clientNum == 4) {
+                        chatServant.kickClient(client3);
+                        client3 = null;
+                        clientThree.setText(client3);
+                        clientCount = 3;
+                        break;
+                    }
+                    break;
+                case "Approve":
+                    if (clientNum == 1) {
+                        client1 = clientName;
+                        clientOne.setText(client1);
+                        clientCount = 2;
+                        userSysServant.addApprove(client1, true);
+                        break;
+                    }
+                    if (clientNum == 2) {
+                        client2 = clientName;
+                        clientTwo.setText(client2);
+                        clientCount = 3;
+                        userSysServant.addApprove(client2, true);
+                        break;
+                    }
+                    if (clientNum == 3) {
+                        client3 = clientName;
+                        clientThree.setText(client3);
+                        clientCount = 4;
+                        userSysServant.addApprove(client3, true);
+                        break;
+                    }
+                    break;
+                case "CloseManager":
+                    if (canvasCount == 1) {
+                        infoBox("Your changes will be lost if you don't save them.",
+                                "Do you want to save the changes?", "exit");
+                    }else{
+                        Platform.exit();
+                    }
+                    break;
+                case "CloseClient":
+                    if(clientNum == 2){
+                        chatServant.kickClient(client1);
+                        Platform.exit();
+                        break;
+                    }
+                    if(clientNum == 3){
+                        chatServant.kickClient(client2);
+                        Platform.exit();
+                        break;
+                    }
+                    if(clientNum == 4){
+                        chatServant.kickClient(client3);
+                        Platform.exit();
+                        break;
+                    }
+
+            }
+
+        }
+        if (result.get() == buttonTypeTwo) {
+            confirmAlert.close();
+            switch (command) {
+                case "Approve":
+                    if (clientNum == 1) {
+                        client1 = null;
+                        userSysServant.addApprove(clientName, false);
+                        break;
+                    }
+                    if (clientNum == 2) {
+                        client2 = null;
+                        userSysServant.addApprove(clientName, false);
+                        break;
+                    }
+                    if (clientNum == 3) {
+                        client3 = null;
+                        userSysServant.addApprove(clientName, false);
+                        break;
+                    }
+            }
+        }
+    }
+    
 }
 
 
