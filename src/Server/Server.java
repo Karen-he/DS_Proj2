@@ -46,7 +46,7 @@ public class Server {
             UserSysInterface userSysServant = new UserSysServant();
 
             //Publish the remote object's stub in the registry under the name "Compute"
-            Registry registry = LocateRegistry.createRegistry(2020);
+            Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args[0]));
             registry.bind("Gson", gsonServant);
             registry.bind("Chatbox", chatServant);
             registry.bind("UserSys", userSysServant);
