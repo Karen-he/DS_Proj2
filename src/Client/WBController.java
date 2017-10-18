@@ -1058,16 +1058,9 @@ public class WBController {
                     break;
 
                 case 2:
-                    listenApproval(user);
-                    approveDialog();
-                    break;
                 case 3:
-                    listenApproval(user);
-                    approveDialog();
-                    break;
                 case 4:
                     listenApproval(user);
-                    approveDialog();
                     break;
 
             }
@@ -1090,6 +1083,9 @@ public class WBController {
             signInPane.setVisible(false);
             wbPane.setVisible(true);
             userName = clientName;
+            approveDialog();
+            ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
+
         }else{
             warningDialog("DECLINED","Your request has been denied!");
             Platform.exit();

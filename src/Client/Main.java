@@ -139,7 +139,7 @@ public class Main extends Application {
 
         // username get from the name after logging in
 
-        WBController.setServant(gsonServant, chatServant);
+        WBController.setServant(gsonServant, chatServant,userSysServant);
 
         window = primaryStage;
         window.setTitle("WhiteBoard");
