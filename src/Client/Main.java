@@ -194,12 +194,8 @@ public class Main extends Application {
         window.setTitle("WhiteBoard");
 
         window.setOnCloseRequest(e -> {
-            e.consume();
-            try {
-                closeAction();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            Platform.exit();
+
         });
         window.setScene(new Scene(root, 1000, 700));
         window.show();
@@ -211,13 +207,6 @@ public class Main extends Application {
         launch(args);
     }
 
-    private void closeAction() throws IOException {
-        WBController wbController = new WBController();
-        wbController.infoBox("Your changes will be lost if you don't save them.",
-                "Do you want to save the changes?", "exit");
-        if (wbController.close == true) {
-            window.close();
-        }
-    }
+
 
 }

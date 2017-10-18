@@ -4,6 +4,7 @@ import ChatBox.ChatClient;
 import RMIInterfaces.ChatServerInterface;
 import RMIInterfaces.ServerInterface;
 import RMIInterfaces.UserSysInterface;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -726,6 +727,7 @@ public class WBController {
         }
 
     }
+
 
 //    private void approvalBox(String clientName,String header, String content, int clientNum) throws IOException {
 //        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
