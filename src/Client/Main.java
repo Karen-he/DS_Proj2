@@ -91,8 +91,10 @@ public class Main extends Application {
          */
 
         Thread approval = new Thread(() -> {
+            System.out.println("get manager: "+WBController.getManager());
             while (WBController.getManager()) {
                 try {
+                    sleep(1000);
                     if (userSysServant.listenRequestList() == false){
                         WBController.approve(WBController.getUserName());
 
@@ -104,6 +106,8 @@ public class Main extends Application {
                     //e.printStackTrace();
                 } catch (IOException e) {
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });

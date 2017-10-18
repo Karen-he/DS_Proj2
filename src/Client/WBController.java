@@ -646,8 +646,10 @@ public class WBController {
     public Boolean approve(String clientName) throws IOException {
         if (isManager) {
             clientCount += 1;
-            confirmBox("Approve", "Approve the " + clientName + "!",
-                    "Do you want to approve the " + clientName + " ?", clientCount);
+            String header = "Approve the " + clientName + "!";
+            String command = "Approve";
+            String content = "Do you want to approve the " + clientName + " ?";
+            confirmBox(command, header, content, clientCount);
             if (isApproved) {
                 if (clientCount == 2) {
                     client1 = clientName;
@@ -1058,6 +1060,7 @@ public class WBController {
                     wbPane.setVisible(true);
                     managerName.setText(user);
                     userName = user;
+                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
                     break;
 
                 case 2:
@@ -1094,6 +1097,7 @@ public class WBController {
             signInPane.setVisible(false);
             wbPane.setVisible(true);
             userName = clientName;
+            ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
         }else{
             warningDialog("DECLINED","Your request has been denied!");
             Platform.exit();
