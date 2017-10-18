@@ -62,6 +62,11 @@ public class WBController {
 
     private String userName;
 
+    private String clientName;
+
+    public String getClientName() {
+        return clientName;
+    }
 
     private String client1 = null;
 
@@ -165,10 +170,7 @@ public class WBController {
     }
 
     public void setClientCount(int clientNum) {
-        System.out.println("setClientCount clientNum: "+clientNum);
-        System.out.println("set client count before set: "+clientCount);
         clientCount = clientNum;
-        System.out.println("set client count after set: "+clientCount);
     }
 
     private void setClient() throws Exception {
@@ -649,6 +651,7 @@ public class WBController {
             clientCount += 1;
             approvalBox(clientName, "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount);
+            System.out.println("after call approve");
         }
     }
 
@@ -742,7 +745,6 @@ public class WBController {
         ButtonType buttonTypeTwo = new ButtonType("No");
         confirmAlert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
         Optional<ButtonType> result = confirmAlert.showAndWait();
-        System.out.println("number"+clientNum);
         if (result.get() == buttonTypeOne) {
             if (clientNum == 2) {
                 System.out.println("approve first client");
@@ -1058,9 +1060,9 @@ public class WBController {
         try {
             String message = input.getText();
             input.clear();
-            System.out.println("hou get here 0");
+            //System.out.println("hou get here 0");
             String fullMessgae = userName + ": " + message;
-            System.out.println("hou get here 1");
+            //System.out.println("hou get here 1");
             String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
             gsonServant.sendMessage(userName, fullMessgae, timestamp);
         } catch(ConnectException e){
@@ -1077,23 +1079,20 @@ public class WBController {
 
     public void signIn() throws Exception {
         try {
-            System.out.println("in sign in");
-            String user = nameInput.getText();
+            this.clientName = nameInput.getText();
             switch (clientCount) {
                 case 1:
-                    System.out.println("in case 1:"+clientCount);
                     signInPane.setVisible(false);
                     wbPane.setVisible(true);
-                    managerName.setText(user);
-                    userName = user;
-                    ChatClient chatClient = new ChatClient(user, chatServant, gsonServant);
+                    managerName.setText(this.clientName);
+                    userName = this.clientName;
+                    ChatClient chatClient = new ChatClient(this.clientName, chatServant, gsonServant);
                     break;
 
                 case 2:
                 case 3:
                 case 4:
-                    System.out.println("in case 2"+clientCount);
-                    listenApproval(user);
+                    listenApproval(this.clientName);
                     break;
 
             }

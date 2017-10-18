@@ -15,7 +15,6 @@ import java.util.Set;
 
 public class GsonServant extends UnicastRemoteObject implements ServerInterface {
     private Gson gson = new Gson();
-
     private JsonObject jsonObject = new JsonObject();
     private JsonObject chatObject = new JsonObject();
     private JsonObject paintObject = new JsonObject();

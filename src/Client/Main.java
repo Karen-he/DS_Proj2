@@ -3,6 +3,10 @@ package Client;
 import ChatBox.ChatClient;
 import RMIInterfaces.*;
 import Server.UserSysServant;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -39,20 +43,12 @@ public class Main extends Application {
         ChatServerInterface chatServant = (ChatServerInterface) registry.lookup("Chatbox");
         UserSysInterface userSysServant = (UserSysInterface) registry.lookup(("UserSys"));
         int clientCount = chatServant.getChatClients().size();
-        System.out.println("判断之前："+clientCount);
         if (clientCount == 0) {
-            System.out.println("before set clientcount:"+clientCount);
             WBController.setIsManager(true);
             WBController.setClientCount(1);
-            System.out.println("after set: "+WBController.getManager());
-            System.out.println("after set clientcount:"+clientCount);
         } else if (clientCount > 0 && clientCount < 4) {
-
-            System.out.println("before set clientcount:"+clientCount);
             WBController.setIsManager(false);
             WBController.setClientCount(clientCount + 1);
-            System.out.println("after set: "+WBController.getManager());
-            System.out.println("clientcount:"+clientCount);
         } else if (clientCount > 4) {
             WBController.warningDialog("Fail to login In", "You can not join in this room!");
             Platform.exit();
@@ -93,27 +89,32 @@ public class Main extends Application {
          */
 
         Thread approval = new Thread(() -> {
-            System.out.println("get manager: "+WBController.getManager());
             while (WBController.getManager()) {
                 try {
-                    sleep(1000);
-                    if (userSysServant.listenRequestList() == false){
-                        Platform.runLater(new Runnable() {
-                            public void run() {
-                                try {
-                                    WBController.approve(WBController.getUserName());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                    sleep(9000);
+                    String jsonPack = userSysServant.listenRequestList();
+                    JsonElement jsonElement = new JsonParser().parse(jsonPack);
+                    JsonObject jsonObject = jsonElement.getAsJsonObject();
+                    if(!jsonObject.get("isEmpty").isJsonNull()){
+                        boolean empty = jsonObject.get("isEmpty").getAsBoolean();
+                        if (empty == false){
+                            Platform.runLater(new Runnable() {
+                                public void run() {
+                                    try {
+                                        String userName = jsonObject.get("userName").getAsString();
+                                        WBController.approve(userName);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        });
-
+                            });
+                        }
                     }
 
-                    }
+                }
                 catch (RemoteException e) {
                     //WBController.errorDialog("Connection Error", "Connection is lost!");
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -165,10 +166,10 @@ public class Main extends Application {
                         ArrayList<String> tmp = gsonServant.receiveMessage();
                         String timestamp = tmp.get(2);
                         String userName = tmp.get(0);
-                        System.out.println(timestamp);
+                        //System.out.println(timestamp);
                         if (!oriTimestamp.equals(timestamp)) {
                             String fullPrint = tmp.get(1);
-                            System.out.println(userName + fullPrint);
+                            //System.out.println(userName + fullPrint);
                             WBController.appendToMessage(fullPrint);
                             oriTimestamp = timestamp;
                         }
