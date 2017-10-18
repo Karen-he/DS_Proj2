@@ -637,6 +637,8 @@ public class WBController {
         if (isManager) {
             confirmBox("Close", "Close the Whiteboard", "All Clients will lose the connections", 0, "");
             if (close == true) {
+                String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
                 Platform.exit();
             }
         }
