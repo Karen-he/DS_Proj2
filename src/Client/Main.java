@@ -107,7 +107,6 @@ public class Main extends Application {
                                 }
                             }
                         });
-                        WBController.approve(WBController.getUserName());
 
                     }
 
@@ -116,7 +115,7 @@ public class Main extends Application {
                     //WBController.errorDialog("Connection Error", "Connection is lost!");
                     //e.printStackTrace();
                 } catch (IOException e) {
-
+                    e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
