@@ -1105,20 +1105,25 @@ public class WBController {
                 case "CloseClient":
                     if(clientNum == 2){
                         chatServant.kickClient(client1);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
                         Platform.exit();
                         break;
                     }
                     if(clientNum == 3){
                         chatServant.kickClient(client2);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Exit", this.userName+" left room.",tmpStamp);
                         Platform.exit();
                         break;
                     }
                     if(clientNum == 4){
                         chatServant.kickClient(client3);
+                        String tmpStamp = (new Timestamp(System.currentTimeMillis())).toString();
+                        gsonServant.sendMessage("Exit",this.userName +" left room.",tmpStamp);
                         Platform.exit();
                         break;
                     }
-
             }
 
         }
