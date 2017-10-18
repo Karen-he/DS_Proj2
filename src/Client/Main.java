@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import static java.lang.Thread.sleep;
 
@@ -96,6 +97,15 @@ public class Main extends Application {
                 try {
                     sleep(1000);
                     if (userSysServant.listenRequestList() == false){
+                        Platform.runLater(new Runnable() {
+                            public void run() {
+                                try {
+                                    WBController.approve(WBController.getUserName());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                         WBController.approve(WBController.getUserName());
 
                     }
@@ -111,8 +121,34 @@ public class Main extends Application {
                 }
             }
         });
-
         approval.start();
+
+//        CountDownLatch latch = new CountDownLatch(1);
+//        Platform.runLater(new Runnable() {
+//            public void run() {
+//                System.out.println("get manager: "+WBController.getManager());
+//                while (WBController.getManager()) {
+//                    try {
+//                        sleep(1000);
+//                        if (userSysServant.listenRequestList() == false){
+//                            WBController.approve(WBController.getUserName());
+//
+//                        }
+//
+//                    }
+//                    catch (RemoteException e) {
+//                        //WBController.errorDialog("Connection Error", "Connection is lost!");
+//                        //e.printStackTrace();
+//                    } catch (IOException e) {
+//
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//        });
+        //latch.await();
 
         /***
          * Show chatroom Content
