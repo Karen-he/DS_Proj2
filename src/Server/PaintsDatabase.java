@@ -2,7 +2,7 @@ package Server;
 
 
 import java.util.ArrayList;
-        import java.util.Hashtable;
+import java.util.Hashtable;
 
 public class PaintsDatabase {
 
@@ -22,7 +22,7 @@ public class PaintsDatabase {
         return this.paintsDatabase;
     }
 
-    public void clearDatabase(Hashtable paintsDatabase){
+    public void clearDatabase(){
         paintsDatabase.clear();
     }
 }

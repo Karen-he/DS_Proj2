@@ -25,9 +25,9 @@ public interface ServerInterface extends Remote {
 
     PaintAttribute getAttribute(String attribute) throws RemoteException;
 
-    String tellSeverNew(boolean command) throws RemoteException;
+    String tellNewCanvas(boolean command, String timeStamp) throws RemoteException;
 
-    boolean serverCheckNew() throws RemoteException;
+    ArrayList<String > checkNewCanvas() throws RemoteException;
 
     String getJsonPack() throws RemoteException;
 

@@ -21,9 +21,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -270,7 +273,7 @@ public class WBController {
         });
         pathCanvas.setOnMouseReleased(e -> {
             canvasCount = 1;
-            jsonSendPaints("sketch", addPaintAttri(pointList, "null"));
+            jsonSendPaints("sketch", addPaintAttri(pointList, "null", "null"));
             pointList.clear();
             g.closePath();
         });
@@ -300,7 +303,7 @@ public class WBController {
         });
         pathCanvas.setOnMouseReleased(e -> {
             canvasCount = 1;
-            jsonSendPaints("erase", addPaintAttri(pointList, "null"));
+            jsonSendPaints("erase", addPaintAttri(pointList, "null","null"));
             pointList.clear();
         });
 
@@ -334,7 +337,7 @@ public class WBController {
             g.strokeLine(startX, startY, endX, endY);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("line", addPaintAttri(pointList, "null"));
+            jsonSendPaints("line", addPaintAttri(pointList, "null","null"));
             pointList.clear();
             g.closePath();
 
@@ -376,7 +379,7 @@ public class WBController {
             g.strokeOval(x, y, height, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("cir", addPaintAttri(pointList, "null"));
+            jsonSendPaints("cir", addPaintAttri(pointList, "null","null"));
             pointList.clear();
             g.closePath();
         });
@@ -420,7 +423,7 @@ public class WBController {
             g.strokeRect(x, y, width, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("rect", addPaintAttri(pointList, "null"));
+            jsonSendPaints("rect", addPaintAttri(pointList, "null","null"));
             pointList.clear();
             g.closePath();
 
@@ -464,7 +467,7 @@ public class WBController {
             g.strokeOval(x, y, width, height);
             pointList.add(getPoint(startX, startY));
             pointList.add(getPoint(endX, endY));
-            jsonSendPaints("oval", addPaintAttri(pointList, "null"));
+            jsonSendPaints("oval", addPaintAttri(pointList, "null","null"));
             pointList.clear();
             g.closePath();
         });
@@ -495,7 +498,7 @@ public class WBController {
                     g.setFill(colorPicker.getValue());
                     String text = textField.getText();
                     pointList.add(getPoint(startX, startY));
-                    jsonSendPaints("text", addPaintAttri(pointList, text));
+                    jsonSendPaints("text", addPaintAttri(pointList, text, "null"));
                     pointList.clear();
                     canvasPane.getChildren().remove(textField);
 
@@ -595,20 +598,10 @@ public class WBController {
 
 
     // Function of creating new life, called by Action "onNew".
-    private void newFile() throws IOException {
+    public void newFile() throws IOException {
         try {
-            gsonServant.tellSeverNew(true);
-            canvasPane.getChildren().remove(canvas);
-            canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-            pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
-            canvas.setStyle("-fx-background-color: white");
-            pathCanvas.setStyle("-fx-background-color: white");
-            canvasPane.getChildren().add(canvas);
-            canvasPane.getChildren().add(pathCanvas);
-            slider.setValue(1);
-            colorPicker.setValue(Color.BLACK);
-            setFile(null);
-            canvasCount = 0;
+            String timeStamp = (new Timestamp(System.currentTimeMillis())).toString();
+            gsonServant.tellNewCanvas(true, timeStamp);
         } catch (ConnectException e) {
             errorDialog("Connection Error", "Connection is lost!");
         }
@@ -644,10 +637,17 @@ public class WBController {
             setFile(tempFile);
         }
         if (file != null) {
-            Image image = new Image(new FileInputStream(file));
-            GraphicsContext g = canvas.getGraphicsContext2D();
-            g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
-            setFont();
+            try {
+                Image image = new Image(new FileInputStream(file));
+                GraphicsContext g = canvas.getGraphicsContext2D();
+                g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
+                setFont();
+                String imageString = encodeImage(file);
+                //System.out.println("who are you = " + imageString);
+                jsonSendPaints("image", addPaintAttri(pointList, "null", imageString));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -787,13 +787,13 @@ public class WBController {
         }
     }
 
-    private PaintAttribute addPaintAttri(ArrayList<Point> pointList, String text) {
+    private PaintAttribute addPaintAttri(ArrayList<Point> pointList, String text, String imageString) {
         double lineWidth = slider.getValue();
         double colorRed = colorPicker.getValue().getRed();
         double colorGreen = colorPicker.getValue().getGreen();
         double colorBlue = colorPicker.getValue().getBlue();
         double[] color = {colorRed, colorGreen, colorBlue};
-        PaintAttribute paintAttribute = new PaintAttribute(pointList, lineWidth, color, text);
+        PaintAttribute paintAttribute = new PaintAttribute(pointList, lineWidth, color, text, imageString);
         return paintAttribute;
     }
 
@@ -819,6 +819,13 @@ public class WBController {
                 break;
             case "text":
                 autoText(attribute);
+                break;
+            case "image":
+                try {
+                    autoOpen(attribute);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
@@ -941,6 +948,50 @@ public class WBController {
         g.setFill(newColor);
         String text = attribute.getText();
         g.fillText(text, startX - 5, startY + 25);
+    }
+
+    public void autoNew() throws IOException{
+        canvasPane.getChildren().remove(canvas);
+        canvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+        pathCanvas = new Canvas(canvasPane.getWidth(), canvasPane.getHeight());
+        canvas.setStyle("-fx-background-color: white");
+        pathCanvas.setStyle("-fx-background-color: white");
+        canvasPane.getChildren().add(canvas);
+        canvasPane.getChildren().add(pathCanvas);
+        slider.setValue(1);
+        colorPicker.setValue(Color.BLACK);
+        setFile(null);
+        canvasCount = 0;
+    }
+
+    private void autoOpen(PaintAttribute attribute) throws IOException {
+        String imageString = attribute.getImageString();
+        byte[] byteData = Base64.decodeBase64(imageString);
+        try {
+            BufferedImage aweImage = ImageIO.read(new ByteArrayInputStream(byteData));
+            Image image = SwingFXUtils.toFXImage(aweImage, null);
+
+            System.out.println("Did you come here???");
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            g.drawImage(image, 0, 0, canvasPane.getWidth(), canvasPane.getHeight());
+            setFont();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private String encodeImage(File file){
+        String imageString = null;
+        try {
+            FileInputStream imageFile = new FileInputStream(file);
+            byte[] byteData = new byte[(int) file.length()];
+            imageFile.read(byteData);
+            imageString = Base64.encodeBase64String(byteData);
+            imageFile.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return imageString;
     }
 
     private Color assembleColor(PaintAttribute attribute) {

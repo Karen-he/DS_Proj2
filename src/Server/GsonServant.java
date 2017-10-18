@@ -22,9 +22,11 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     private JsonObject jsonObject = new JsonObject();
     private JsonObject chatObject = new JsonObject();
     private JsonObject paintObject = new JsonObject();
+    private JsonObject boardObject = new JsonObject();
     private String jsonPack;
     private String chatPack;
     private String paintPack;
+    private String boardPack;
     private static int paintSequence = 0;
     private PaintsDatabase paintsKeeper;
 
@@ -113,28 +115,31 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      *
      * send a command of initilize a new canvas to the server in order to clear the paints database.
      */
-    public synchronized String tellSeverNew(boolean command) throws RemoteException {
-        jsonObject.addProperty("Newcanvase", command);
-        jsonPack = gson.toJson(jsonObject);
-        return jsonPack;
+    public synchronized String tellNewCanvas(boolean command, String timeStamp) throws RemoteException {
+        String cmd;
+        if (command) {
+            cmd = "TRUE";
+        }else { cmd = "FALSE";}
+        boardObject.addProperty("Newcanvase", cmd);
+        boardObject.addProperty("timeStamp", timeStamp);
+        boardPack = gson.toJson(boardObject);
+        return boardPack;
     }
 
     //Server uses this method to monitor whether a new canvas is crated.
-    public boolean serverCheckNew() throws RemoteException {
-        boolean empty = jsonPack.isEmpty();
-        boolean command = false;
-        if (empty == false) {
-            //System.out.println(jsonPack);
-            JsonElement jsonElement = new JsonParser().parse(jsonPack);
-            jsonObject = jsonElement.getAsJsonObject();
-            if (jsonObject.get("Newcanvase") != null) {
-                command = jsonObject.get("Newcanvase").getAsBoolean();
-            }
-            //System.out.println("back to string: "+actual);
-            //j++;
-            //System.out.println("the number of command: "+j);
+    public ArrayList<String> checkNewCanvas() throws RemoteException {
+        ArrayList<String> tmp = new ArrayList<>();
+        if (boardPack != null) {
+            JsonElement jsonElement = new JsonParser().parse(boardPack);
+            boardObject = jsonElement.getAsJsonObject();
+            String command = boardObject.get("Newcanvase").getAsString();
+            String timestamp = boardObject.get("timeStamp").getAsString();
+            paintsKeeper.clearDatabase();
+            paintSequence = 0;
+            tmp.add(0, command);
+            tmp.add(1,timestamp);
         }
-        return command;
+        return tmp;
     }
 
     public PaintAttribute getAttribute(String attribute) throws RemoteException {
