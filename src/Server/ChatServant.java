@@ -1,9 +1,7 @@
 package Server;
 
 import ChatBox.ChatClient;
-import RMIInterfaces.ChatClientInterface;
 import RMIInterfaces.ChatServerInterface;
-import RMIInterfaces.ServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,7 +15,7 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
 
     private ArrayList<ChatClient> chatClients = new ArrayList<ChatClient>();
 
-    private HashMap<String,String> chatRecords = new HashMap();
+    private HashMap<String, String> chatRecords = new HashMap();
 
 
     public ChatServant() throws RemoteException {
@@ -37,40 +35,17 @@ public class ChatServant extends UnicastRemoteObject implements ChatServerInterf
     }
 
 
-    public ArrayList<ChatClient> getChatClients() throws RemoteException{
-        System.out.println("get chatClients: "+chatClients);
+    public ArrayList<ChatClient> getChatClients() throws RemoteException {
+        System.out.println("get chatClients: " + chatClients);
         return chatClients;
     }
 
 
     public void kickClient(String userName) throws RemoteException {
-        for (int i = 0; i < chatClients.size(); i++){
+        for (int i = 0; i < chatClients.size(); i++) {
             if (chatClients.get(i).getUserName().equals(userName)) {
                 chatClients.remove(i);
             }
-        }
-    }
-
-
-    public HashMap<String, String> getChatRecords() throws RemoteException {
-        return chatRecords;
-    }
-
-
-    public void clearRecords() throws RemoteException{
-        chatRecords.clear();
-    }
-
-
-    public void printToAll(String userName, String chatContent) throws RemoteException{
-        try
-        {
-            for (int i = 0; i < chatClients.size(); i++) {
-                ChatClientInterface tempClient =  chatClients.get(i);
-                tempClient.retrieveMsg(userName + ": " + chatContent);
-            }
-        }catch (Exception e){
-                e.printStackTrace();
         }
     }
 }

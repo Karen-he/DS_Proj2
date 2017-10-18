@@ -628,8 +628,8 @@ public class WBController {
         }
     }
 
-    public void beKicked() throws IOException{
-        warningDialog("Sorry","You have been kicked off!");
+    public void beKicked() throws IOException {
+        warningDialog("Sorry", "You have been kicked off!");
         Platform.exit();
     }
 
@@ -832,19 +832,19 @@ public class WBController {
                     if (clientNum == 2) {
                         client1 = clientName;
                         clientOne.setText(client1);
-                        userSysServant.addApprove(client1,true);
+                        userSysServant.addApprove(client1, true);
                         break;
                     }
                     if (clientNum == 3) {
                         client2 = clientName;
                         clientTwo.setText(client2);
-                        userSysServant.addApprove(client2,true);
+                        userSysServant.addApprove(client2, true);
                         break;
                     }
                     if (clientNum == 4) {
                         client3 = clientName;
                         clientThree.setText(client3);
-                        userSysServant.addApprove(client3,true);
+                        userSysServant.addApprove(client3, true);
                         break;
                     }
                     break;
@@ -857,19 +857,19 @@ public class WBController {
         }
         if (result.get() == buttonTypeTwo) {
             confirmAlert.close();
-            switch (command){
+            switch (command) {
                 case "Approve":
-                    if(clientNum == 2){
+                    if (clientNum == 2) {
                         client1 = null;
                         userSysServant.addApprove(clientName, false);
                         break;
                     }
-                    if(clientNum == 3){
+                    if (clientNum == 3) {
                         client2 = null;
-                        userSysServant.addApprove(clientName,false);
+                        userSysServant.addApprove(clientName, false);
                         break;
                     }
-                    if(clientNum == 4){
+                    if (clientNum == 4) {
                         client3 = null;
                         userSysServant.addApprove(clientName, false);
                         break;
@@ -912,17 +912,6 @@ public class WBController {
     }
 
 
-    private void jsonSendUserData(String userName, String password) {
-        //test userSys
-        /*
-        try{
-            gsonServant.sendGson("username", userName);
-            gsonServant.sendGson("passward", password);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }
-
     public synchronized void autoPaint(String keyword, PaintAttribute attribute) {
         // convert Json String back to PaintAttribute object.
         // System.out.println(gson.fromJson(attribute, PaintAttribute.class));
@@ -949,7 +938,6 @@ public class WBController {
                 autoText(attribute);
                 break;
             default:
-                System.out.println("Error shape keyword! Lao Ma Ni Za Hui SHier!!!");
                 break;
         }
     }
@@ -1088,7 +1076,7 @@ public class WBController {
             //System.out.println("hou get here 1");
             String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
             gsonServant.sendMessage(userName, fullMessgae, timestamp);
-        } catch(ConnectException e){
+        } catch (ConnectException e) {
             errorDialog("Server Error", "Server Disconnected! Please contact manager!");
         }
 
@@ -1101,7 +1089,7 @@ public class WBController {
 
 
     public void signIn() throws Exception {
-       String user = nameInput.getText();
+        String user = nameInput.getText();
         try {
             switch (clientCount) {
                 case 1:
@@ -1119,7 +1107,7 @@ public class WBController {
                     break;
 
             }
-        }catch (ConnectException e){
+        } catch (ConnectException e) {
             errorDialog("Connection Error", "Connection is lost!");
         }
     }
@@ -1128,9 +1116,9 @@ public class WBController {
         userSysServant.sendRequest(clientName);
         boolean run = true;
         String approval = null;
-        while(run){
+        while (run) {
             approval = userSysServant.checkApproval(clientName);
-            if(approval!=null){
+            if (approval != null) {
                 run = false;
             }
         }
@@ -1142,8 +1130,8 @@ public class WBController {
             ChatClient chatClient = new ChatClient(clientName, chatServant, gsonServant);
             setClient();
 
-        }else{
-            warningDialog("DECLINED","Your request has been denied!");
+        } else {
+            warningDialog("DECLINED", "Your request has been denied!");
             Platform.exit();
         }
 

@@ -1,3 +1,8 @@
+/***
+ * GsonServant serves for information transmission between clients
+ */
+
+
 package Server;
 
 import Client.PaintAttribute;
@@ -182,47 +187,47 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
         return tmp;
     }
 
-    /***
-     *
-     * @param noteType
-     * @param userName
-     * @return
-     * @throws RemoteException
-     *
-     * Broadcast the notification of any member left the room
-     * NoteType: 1) whiteBoard disband - userName = manager name
-     *           2) Member left room （kickoff or volunteer)
-     *
-     */
-    public String sendNote(String noteType, String userName) throws RemoteException {
-        jsonObject.addProperty("NoteType", noteType);
-        jsonObject.addProperty("Username", userName);
-        jsonPack = gson.toJson(jsonObject);
-        System.out.println("Notification Send out: " + noteType);
-        return jsonPack;
-    }
-
-    /***
-     *
-     * @return
-     * @throws RemoteException
-     *
-     * show notification info on dialog window
-     */
-    public String receiveNote() throws RemoteException {
-        boolean empty = jsonPack.isEmpty();
-        String notePrint = "";
-        if (empty == false) {
-            JsonElement jsonElement = new JsonParser().parse(jsonPack);
-            jsonObject = jsonElement.getAsJsonObject();
-            if (jsonObject.get("NoteTyple") != null) {
-                String noteType = jsonObject.get("NoteTyple").getAsString();
-                String userName = jsonObject.get("Username").getAsString();
-                notePrint = userName + " has left room.";
-            }
-        }
-        return notePrint;
-    }
+//    /***
+//     *
+//     * @param noteType
+//     * @param userName
+//     * @return
+//     * @throws RemoteException
+//     *
+//     * Broadcast the notification of any member left the room
+//     * NoteType: 1) whiteBoard disband - userName = manager name
+//     *           2) Member left room （kickoff or volunteer)
+//     *
+//     */
+//    public String sendNote(String noteType, String userName) throws RemoteException {
+//        jsonObject.addProperty("NoteType", noteType);
+//        jsonObject.addProperty("Username", userName);
+//        jsonPack = gson.toJson(jsonObject);
+//        System.out.println("Notification Send out: " + noteType);
+//        return jsonPack;
+//    }
+//
+//    /***
+//     *
+//     * @return
+//     * @throws RemoteException
+//     *
+//     * show notification info on dialog window
+//     */
+//    public String receiveNote() throws RemoteException {
+//        boolean empty = jsonPack.isEmpty();
+//        String notePrint = "";
+//        if (empty == false) {
+//            JsonElement jsonElement = new JsonParser().parse(jsonPack);
+//            jsonObject = jsonElement.getAsJsonObject();
+//            if (jsonObject.get("NoteTyple") != null) {
+//                String noteType = jsonObject.get("NoteTyple").getAsString();
+//                String userName = jsonObject.get("Username").getAsString();
+//                notePrint = userName + " has left room.";
+//            }
+//        }
+//        return notePrint;
+//    }
 
     //log in system
     //server uses this method to get the password from client when logging in
@@ -418,9 +423,6 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
             if (jsonObject.get("checkExist") != null) {
                 command = jsonObject.get("checkExist").getAsBoolean();
             }
-            //System.out.println("back to string: "+actual);
-            //j++;
-            //System.out.println("the number of command: "+j);
         }
         return command;
     }
@@ -431,17 +433,3 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
     }
 }
 
-//    public String sendClientList(ArrayList<ChatClient> chatClientList) throws RemoteException{
-//        jsonPack = gson.toJson(chatClientList);
-//        return jsonPack;
-//    }
-//
-//    public ArrayList receiveClientList() throws RemoteException{
-//        boolean empty = jsonPack.isEmpty();
-//        ArrayList<ChatClient> clientArrayList = null;
-//        if(empty == false){
-//            clientArrayList = gson.fromJson(jsonPack, new TypeToken<ArrayList<ChatClient>>(){}.getType());
-//        }
-//        return clientArrayList;
-//    }
-//}

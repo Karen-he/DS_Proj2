@@ -26,9 +26,9 @@ public interface ServerInterface extends Remote {
     PaintAttribute getAttribute(String attribute) throws RemoteException;
 
     //Serve for note broadcasting
-    String sendNote(String noteType, String userName) throws RemoteException;
-
-    String receiveNote() throws RemoteException;
+//    String sendNote(String noteType, String userName) throws RemoteException;
+//
+//    String receiveNote() throws RemoteException;
 
     String tellSeverNew(boolean command) throws RemoteException;
 
