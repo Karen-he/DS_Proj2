@@ -30,9 +30,9 @@ public interface ServerInterface extends Remote {
 
     String receiveNote() throws RemoteException;
 
-    String tellNewCanvas(boolean command) throws RemoteException;
+    String tellNewCanvas(boolean command, String timeStamp) throws RemoteException;
 
-    boolean checkNewCanvas() throws RemoteException;
+    ArrayList<String> checkNewCanvas() throws RemoteException;
 
     //log in
     void checkPassword(String userName, String password) throws RemoteException;

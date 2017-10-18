@@ -2,6 +2,9 @@ package Client;
 
 import ChatBox.ChatClient;
 import RMIInterfaces.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -83,26 +86,31 @@ public class Main extends Application {
          */
 
             new Thread (() -> {
+                String oldTimeCanvas = "2017";
                     while (true)
                         try {
-                        sleep(9000);
-                        if(gsonServant.checkNewCanvas()) {
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        WBController.newFile();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+                            sleep(500);
+                            if(!gsonServant.checkNewCanvas().isEmpty()) {
+                                ArrayList<String> canvasCommand = gsonServant.checkNewCanvas();
+                                String command = canvasCommand.get(0);
+                                String timeStamp = canvasCommand.get(1);
+                                if (!timeStamp.equals(oldTimeCanvas)) {
+                                    if(command.equals("TRUE")) {
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    WBController.autoNew();
+
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                        oldTimeCanvas = timeStamp;
                                     }
                                 }
-                            });
-                            System.out.println("here 1");
-                            gsonServant.tellNewCanvas(false);
-                        }
-
-                            System.out.println("I really got the command from manager "
-                                    + gsonServant.checkNewCanvas());
+                            }
                         } catch (InterruptedException e){
                             e.printStackTrace();
                         }catch (RemoteException e) {

@@ -112,26 +112,31 @@ public class GsonServant extends UnicastRemoteObject implements ServerInterface 
      *
      * send a command of initilize a new canvas to the server in order to clear the paints database.
      */
-    public synchronized String tellNewCanvas(boolean command) throws RemoteException {
-        boardObject.addProperty("Newcanvase", command);
+    public synchronized String tellNewCanvas(boolean command, String timeStamp) throws RemoteException {
+        String cmd;
+        if (command) {
+            cmd = "TRUE";
+        }else { cmd = "FALSE";}
+        boardObject.addProperty("Newcanvase", cmd);
+        boardObject.addProperty("timeStamp", timeStamp);
         boardPack = gson.toJson(boardObject);
         return boardPack;
     }
 
     //Server uses this method to monitor whether a new canvas is crated.
-    public boolean checkNewCanvas() throws RemoteException {
-        boolean command = false;
+    public ArrayList<String> checkNewCanvas() throws RemoteException {
+        ArrayList<String> tmp = new ArrayList<>();
         if (boardPack != null) {
             JsonElement jsonElement = new JsonParser().parse(boardPack);
             boardObject = jsonElement.getAsJsonObject();
-            if (boardObject.get("Newcanvase") != null) {
-                command = boardObject.get("Newcanvase").getAsBoolean();
-                paintsKeeper.clearDatabase();
-                paintSequence = 0;
-                return command;
+            String command = boardObject.get("Newcanvase").getAsString();
+            String timestamp = boardObject.get("timeStamp").getAsString();
+            paintsKeeper.clearDatabase();
+            paintSequence = 0;
+            tmp.add(0, command);
+            tmp.add(1,timestamp);
             }
-        }
-        return command;
+        return tmp;
     }
 
     public PaintAttribute getAttribute(String attribute) throws RemoteException {
