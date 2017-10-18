@@ -60,6 +60,11 @@ public class WBController {
 
     private String userName;
 
+    private String clientName;
+
+    public String getClientName() {
+        return clientName;
+    }
 
     private String client1 = null;
 
@@ -161,10 +166,7 @@ public class WBController {
     }
 
     public void setClientCount(int clientNum) {
-        System.out.println("setClientCount clientNum: "+clientNum);
-        System.out.println("set client count before set: "+clientCount);
         clientCount = clientNum;
-        System.out.println("set client count after set: "+clientCount);
     }
 
     private void setClient() throws Exception {
@@ -643,6 +645,7 @@ public class WBController {
             clientCount += 1;
             confirmBox("Approve", "Approve the " + clientName + "!",
                     "Do you want to approve the " + clientName + " ?", clientCount, clientName);
+
         }
     }
 
@@ -1061,9 +1064,9 @@ public class WBController {
         try {
             String message = input.getText();
             input.clear();
-            System.out.println("hou get here 0");
+            //System.out.println("hou get here 0");
             String fullMessgae = userName + ": " + message;
-            System.out.println("hou get here 1");
+            //System.out.println("hou get here 1");
             String timestamp = (new Timestamp(System.currentTimeMillis())).toString();
             gsonServant.sendMessage(userName, fullMessgae, timestamp);
         } catch(ConnectException e){
@@ -1079,12 +1082,11 @@ public class WBController {
 
 
     public void signIn() throws Exception {
+       String user = nameInput.getText();
         try {
-            System.out.println("in sign in");
-            String user = nameInput.getText();
+            this.clientName = nameInput.getText();
             switch (clientCount) {
                 case 1:
-                    System.out.println("in case 1:"+clientCount);
                     signInPane.setVisible(false);
                     wbPane.setVisible(true);
                     managerName.setText(user);

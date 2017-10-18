@@ -1,6 +1,8 @@
 package Server;
 
 import RMIInterfaces.UserSysInterface;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,9 +18,17 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
         this.approvalRequistList = new ArrayList<>();
     }
 
-    public boolean listenRequestList() throws RemoteException{
+    public String listenRequestList() throws RemoteException{
         boolean empty = approvalRequistList.isEmpty();
-        return empty;
+        JsonObject jsonObject = new JsonObject();
+        Gson gson = new Gson();
+        jsonObject.addProperty("isEmpty",empty);
+        if(!empty){
+            String userName = approvalRequistList.get(0);
+            jsonObject.addProperty("userName",userName);
+        }
+        String jsonPack = gson.toJson(jsonObject);
+        return jsonPack;
     }
 
     public void addApprove(String userName, boolean approval) throws RemoteException{
@@ -26,6 +36,7 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
         if(approval){
             approve = "Y";
         }
+        approvalRequistList.remove(userName);
         approveResult.put(userName,approve);
         approvalRequistList.remove(userName);
     }
