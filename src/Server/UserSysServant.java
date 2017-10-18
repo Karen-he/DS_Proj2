@@ -12,10 +12,12 @@ import java.util.HashMap;
 public class UserSysServant extends UnicastRemoteObject implements UserSysInterface {
     private ArrayList<String> approvalRequistList;
     private HashMap<String,String> approveResult;
+    private ArrayList<String> kickList;
 
     protected UserSysServant() throws RemoteException {
         this.approveResult = new HashMap<>();
         this.approvalRequistList = new ArrayList<>();
+        this.kickList = new ArrayList<>();
     }
 
     public String listenRequestList() throws RemoteException{
@@ -47,6 +49,15 @@ public class UserSysServant extends UnicastRemoteObject implements UserSysInterf
     public String checkApproval(String userName) throws RemoteException{
         String approve = approveResult.get(userName);
         return approve;
+    }
+
+    public void kick(String username)throws RemoteException{
+        kickList.add(username);
+    }
+
+    public boolean checkKick(String userName) throws RemoteException{
+        boolean inKickList  = kickList.contains(userName);
+        return  inKickList;
     }
 
 }

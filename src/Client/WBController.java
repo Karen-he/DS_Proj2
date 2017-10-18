@@ -642,6 +642,7 @@ public class WBController {
         confirmBox("Kick", "Kick the " + userName + "!",
                 "Do you want to kick the " + userName + " ?", clientNum);
         chatServant.kickClient(userName);
+        userSysServant.kick(userName);
     }
 
 
